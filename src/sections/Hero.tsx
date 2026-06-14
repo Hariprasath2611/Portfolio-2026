@@ -95,7 +95,7 @@ export default function Hero({ theme }: HeroProps) {
           <h1 className="text-5xl md:text-7xl font-bold font-orbitron tracking-tight mb-2">
             <span className="text-slate-800 dark:text-white">D </span>
             <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent text-glow-cyan">
-              Hari Prasath
+              Hariprasath
             </span>
           </h1>
 

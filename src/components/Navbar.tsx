@@ -85,7 +85,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         >
           <Terminal className="w-5 h-5 text-cyan-400 group-hover:rotate-12 transition-transform duration-300" />
           <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-            HARI_PRASATH
+            HARIPRASATH_D
           </span>
           <span className="text-cyan-400 animate-pulse">.dev</span>
         </a>
