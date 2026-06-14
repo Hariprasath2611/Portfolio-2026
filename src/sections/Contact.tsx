@@ -25,12 +25,12 @@ export default function Contact() {
   const [copiedType, setCopiedType] = useState<string | null>(null);
 
   const contactDetails = {
-    email: 'hariprasath.dev@outlook.com',
-    phone: '+91 9876543210',
-    whatsapp: 'https://wa.me/919876543210?text=Hi%20Hari,%20I%27d%20love%20to%20discuss%20a%20project!',
+    email: 'hp5173690@gmail.com',
+    phone: '+91 9790851329',
+    whatsapp: 'https://wa.me/919790851329?text=Hi%20Hari,%20I%27d%20love%20to%20discuss%20a%20project!',
     linkedin: 'https://linkedin.com/in/hariprasath2611',
     github: 'https://github.com/Hariprasath2611',
-    instagram: 'https://instagram.com/hari_prasath',
+    instagram: 'https://www.instagram.com/_.dazzling_._master._/?hl=en',
   };
 
   const handleCopy = (text: string, type: string) => {

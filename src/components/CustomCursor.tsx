@@ -14,6 +14,10 @@ export default function CustomCursor() {
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
+  // Smooth springs for the inner dot (defined at top to follow Rules of Hooks)
+  const dotXSpring = useSpring(cursorX, { damping: 50, stiffness: 800 });
+  const dotYSpring = useSpring(cursorY, { damping: 50, stiffness: 800 });
+
   useEffect(() => {
     // Detect mobile devices
     const checkMobile = () => {
@@ -83,8 +87,8 @@ export default function CustomCursor() {
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-50 mix-blend-screen"
         style={{
-          x: useSpring(cursorX, { damping: 50, stiffness: 800 }),
-          y: useSpring(cursorY, { damping: 50, stiffness: 800 }),
+          x: dotXSpring,
+          y: dotYSpring,
           transform: 'translate(12px, 12px)', // Center dot inside the 32px (8rem) ring
           scale: isHovered ? 0.5 : 1,
         }}
