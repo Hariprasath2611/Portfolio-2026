@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ExternalLink, Github, Star, GitFork, Calendar, Filter } from 'lucide-react';
-import { fetchGitHubRepos, GitHubRepo } from '../utils/github';
+import { Search, ExternalLink, Star, GitFork, Calendar, Filter } from 'lucide-react';
+import { fetchGitHubRepos } from '../utils/github';
+import type { GitHubRepo } from '../utils/github';
+import { GithubIcon } from '../components/BrandIcons';
 
 // List of repository names we want to prioritize as "featured"
 const FEATURED_REPOS = ['quantum-vault', 'portfolio-2026', 'orbit-mesh-mobile'];
@@ -297,7 +299,7 @@ export default function Projects() {
                               className="p-1.5 rounded-lg border border-slate-200 dark:border-cyan-500/10 bg-slate-100/50 dark:bg-slate-900/40 text-slate-600 dark:text-cyan-400 hover:text-cyan-300 hover:border-cyan-400 transition-colors"
                               title="Code Repository"
                             >
-                              <Github className="w-4 h-4" />
+                              <GithubIcon className="w-4 h-4" />
                             </a>
                             {repo.homepage && (
                               <a

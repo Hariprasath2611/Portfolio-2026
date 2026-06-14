@@ -1,5 +1,5 @@
-import React from 'react';
-import { Terminal, Github, Linkedin, Instagram } from 'lucide-react';
+import { Terminal } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from '../components/BrandIcons';
 
 export default function Footer() {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -69,7 +69,7 @@ export default function Footer() {
               className="hover:text-cyan-400 transition-colors"
               aria-label="GitHub Profile"
             >
-              <Github className="w-4.5 h-4.5" />
+              <GithubIcon className="w-4.5 h-4.5" />
             </a>
             <a
               href="https://linkedin.com/in/hariprasath2611"
@@ -78,7 +78,7 @@ export default function Footer() {
               className="hover:text-cyan-400 transition-colors"
               aria-label="LinkedIn Profile"
             >
-              <Linkedin className="w-4.5 h-4.5" />
+              <LinkedinIcon className="w-4.5 h-4.5" />
             </a>
             <a
               href="https://instagram.com/hari_prasath"
@@ -87,7 +87,7 @@ export default function Footer() {
               className="hover:text-cyan-400 transition-colors"
               aria-label="Instagram Profile"
             >
-              <Instagram className="w-4.5 h-4.5" />
+              <InstagramIcon className="w-4.5 h-4.5" />
             </a>
           </div>
 

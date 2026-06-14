@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Users, BookOpen, Flame, Award, Calendar, BarChart2 } from 'lucide-react';
-import { fetchGitHubProfile, fetchGitHubRepos, GitHubProfile, GitHubRepo } from '../utils/github';
+import { Users, BookOpen, Flame, Award, Calendar, BarChart2 } from 'lucide-react';
+import { fetchGitHubProfile, fetchGitHubRepos } from '../utils/github';
+import type { GitHubProfile, GitHubRepo } from '../utils/github';
+import { GithubIcon } from '../components/BrandIcons';
 
 export default function GitHubDashboard() {
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
@@ -147,7 +149,7 @@ export default function GitHubDashboard() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1 text-xs font-mono text-cyan-400 hover:text-purple-400 transition-colors"
                   >
-                    <Github className="w-3.5 h-3.5" />
+                    <GithubIcon className="w-3.5 h-3.5" />
                     <span>@{profile?.login}</span>
                   </a>
                 </div>

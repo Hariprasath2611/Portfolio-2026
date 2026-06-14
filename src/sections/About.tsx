@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Layout, Server, Database, Smartphone, Award, Coffee, Zap } from 'lucide-react';
 

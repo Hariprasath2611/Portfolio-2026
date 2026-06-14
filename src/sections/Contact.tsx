@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MessageSquare, Copy, Check, Send, Linkedin, Github, Instagram, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MessageSquare, Copy, Check, Send } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from '../components/BrandIcons';
 import confetti from 'canvas-confetti';
 
 interface FormState {
@@ -170,7 +171,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="glass-panel p-4 rounded-xl flex flex-col items-center gap-2 text-slate-500 hover:text-cyan-400 hover:border-cyan-400/40 text-center transition-all duration-300"
               >
-                <Linkedin className="w-5 h-5" />
+                <LinkedinIcon className="w-5 h-5" />
                 <span className="text-[10px] font-mono font-bold uppercase">LinkedIn</span>
               </a>
 
@@ -180,7 +181,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="glass-panel p-4 rounded-xl flex flex-col items-center gap-2 text-slate-500 hover:text-cyan-400 hover:border-cyan-400/40 text-center transition-all duration-300"
               >
-                <Github className="w-5 h-5" />
+                <GithubIcon className="w-5 h-5" />
                 <span className="text-[10px] font-mono font-bold uppercase">GitHub</span>
               </a>
 
@@ -190,7 +191,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="glass-panel p-4 rounded-xl flex flex-col items-center gap-2 text-slate-500 hover:text-cyan-400 hover:border-cyan-400/40 text-center transition-all duration-300"
               >
-                <Instagram className="w-5 h-5" />
+                <InstagramIcon className="w-5 h-5" />
                 <span className="text-[10px] font-mono font-bold uppercase">Instagram</span>
               </a>
             </div>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, Github, Linkedin, Terminal, Cpu, Database, Globe, Smartphone } from 'lucide-react';
+import { ArrowRight, MessageSquare, Terminal, Cpu, Database, Globe, Smartphone } from 'lucide-react';
 import DeveloperIllustration from '../components/DeveloperIllustration';
+import { GithubIcon, LinkedinIcon } from '../components/BrandIcons';
 
 interface HeroProps {
   theme: 'light' | 'dark';
@@ -136,7 +137,7 @@ export default function Hero({ theme }: HeroProps) {
               className="p-3 rounded-full border border-slate-200 dark:border-cyan-500/20 bg-slate-100/50 dark:bg-slate-950/40 hover:border-cyan-400 dark:hover:border-cyan-400 text-slate-600 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 transition-all duration-300"
               aria-label="GitHub Profile"
             >
-              <Github className="w-5 h-5" />
+              <GithubIcon className="w-5 h-5" />
             </a>
 
             <a
@@ -146,7 +147,7 @@ export default function Hero({ theme }: HeroProps) {
               className="p-3 rounded-full border border-slate-200 dark:border-cyan-500/20 bg-slate-100/50 dark:bg-slate-950/40 hover:border-cyan-400 dark:hover:border-cyan-400 text-slate-600 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 transition-all duration-300"
               aria-label="LinkedIn Profile"
             >
-              <Linkedin className="w-5 h-5" />
+              <LinkedinIcon className="w-5 h-5" />
             </a>
           </div>
         </motion.div>
