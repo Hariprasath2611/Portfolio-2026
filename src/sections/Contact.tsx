@@ -25,7 +25,7 @@ export default function Contact() {
   const [copiedType, setCopiedType] = useState<string | null>(null);
 
   const contactDetails = {
-    email: 'hp5173690@gmail.com',
+    email: 'hariprasathd26112006@gmail.com',
     phone: '+91 9790851329',
     whatsapp: 'https://wa.me/919790851329?text=Hi%20Hari,%20I%27d%20love%20to%20discuss%20a%20project!',
     linkedin: 'https://linkedin.com/in/hariprasath2611',
