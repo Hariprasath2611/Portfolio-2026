@@ -128,8 +128,8 @@ export default function Hero({ theme }: HeroProps) {
             </button>
 
             <a
-              href="/public/Resume.pdf"
-              download="Resume.pdf"
+              href="/D_Hari_Prasath_Resume.pdf"
+              download="D_Hari_Prasath_Resume.pdf"
               className="px-6 py-3 rounded-lg border border-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 dark:text-cyan-300 font-medium flex items-center gap-2 cursor-pointer transition-all duration-300 shadow-[0_0_10px_rgba(6,182,212,0.15)] hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]"
             >
               <span>Download CV</span>
