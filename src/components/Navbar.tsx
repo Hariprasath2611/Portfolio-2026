@@ -122,7 +122,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           {/* Resume Download Button */}
           <a
             href="/public/Resume.pdf"
-            download="D_Hari_Prasath_Resume.pdf"
+            download="Resume.pdf"
             className="px-4 py-2 rounded-lg border border-cyan-500/30 text-cyan-400 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_12px_rgba(6,182,212,0.2)] font-mono text-xs font-bold transition-all duration-300"
           >
             RESUME
@@ -200,7 +200,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               >
                 <a
                   href="/public/Resume.pdf"
-                  download="D_Hari_Prasath_Resume.pdf"
+                  download="Resume.pdf"
                   className="inline-block mt-4 px-6 py-2.5 rounded-lg border border-cyan-400 text-cyan-400 font-bold font-mono text-sm tracking-widest uppercase hover:bg-cyan-500/10 transition-all duration-300"
                 >
                   Download CV
