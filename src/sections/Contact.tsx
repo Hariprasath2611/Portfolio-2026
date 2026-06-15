@@ -57,27 +57,50 @@ export default function Contact() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    // Simulate sending logic
-    setTimeout(() => {
-      setIsSubmitting(false);
-      
-      // Fire confetti burst!
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#00f2fe', '#9d4edd', '#06b6d4', '#d946ef'],
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${contactDetails.email}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          _subject: `Portfolio Contact: ${form.subject}`
+        })
       });
 
-      // Reset Form
-      setForm({ name: '', email: '', subject: '', message: '' });
-      alert('Message sent successfully! Thank you for getting in touch.');
-    }, 1200);
+      if (response.ok) {
+        setIsSubmitting(false);
+        
+        // Fire confetti burst!
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#00f2fe', '#9d4edd', '#06b6d4', '#d946ef'],
+        });
+
+        // Reset Form
+        setForm({ name: '', email: '', subject: '', message: '' });
+        alert('Message sent successfully! If this is your first time using this form, please check your inbox (including spam) to click the FormSubmit activation link.');
+      } else {
+        throw new Error('Failed to send message via FormSubmit');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setIsSubmitting(false);
+      alert('Oops! There was an issue sending your message. Please try again or reach out directly to ' + contactDetails.email);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -226,7 +249,7 @@ export default function Contact() {
                         className={`w-full px-4 py-2.5 rounded-lg border bg-slate-50/50 dark:bg-slate-900/40 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-1 transition-all ${
                           errors.name ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-cyan-500/10 focus:border-cyan-400 focus:ring-cyan-400'
                         }`}
-                        placeholder="John Doe"
+                        placeholder="Hari Prasath D"
                       />
                       {errors.name && <span className="text-[10px] font-mono text-red-500">{errors.name}</span>}
                     </div>
@@ -244,7 +267,7 @@ export default function Contact() {
                         className={`w-full px-4 py-2.5 rounded-lg border bg-slate-50/50 dark:bg-slate-900/40 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-1 transition-all ${
                           errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-cyan-500/10 focus:border-cyan-400 focus:ring-cyan-400'
                         }`}
-                        placeholder="john@example.com"
+                        placeholder="hariprasathd26112006@gmail.com"
                       />
                       {errors.email && <span className="text-[10px] font-mono text-red-500">{errors.email}</span>}
                     </div>
