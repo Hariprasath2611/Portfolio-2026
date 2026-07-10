@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Terminal, Cpu, Database, Globe, Smartphone, FileDown } from 'lucide-react';
 import DeveloperIllustration from '../components/DeveloperIllustration';
 import { GithubIcon, LinkedinIcon } from '../components/BrandIcons';
+import LiquidEther from '../components/LiquidEther';
 
 interface HeroProps {
   theme: 'light' | 'dark';
@@ -15,6 +16,9 @@ const ROLES = [
   'Mobile App Developer',
   'Open Source Enthusiast'
 ];
+
+const DARK_COLORS = ['#06b6d4', '#6366f1', '#d946ef'];
+const LIGHT_COLORS = ['#0284c7', '#4f46e5', '#a855f7'];
 
 export default function Hero({ theme }: HeroProps) {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -69,6 +73,17 @@ export default function Hero({ theme }: HeroProps) {
       id="home"
       className="relative min-h-[90vh] flex flex-col justify-center items-center pt-24 pb-12 overflow-hidden bg-cyber-grid bg-futuristic-mesh"
     >
+      {/* Interactive Liquid Ether Background */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <LiquidEther
+          colors={theme === 'dark' ? DARK_COLORS : LIGHT_COLORS}
+          mouseForce={15}
+          cursorSize={80}
+          autoDemo={true}
+          autoSpeed={0.4}
+          autoIntensity={1.8}
+        />
+      </div>
       {/* Moving Matrix-like background lines */}
       <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
         <div className="absolute top-0 left-10 w-[1px] h-full bg-gradient-to-b from-cyan-400/50 via-cyan-400/5 to-transparent animate-matrix-rain duration-1000" />
