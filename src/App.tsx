@@ -29,19 +29,6 @@ export default function App() {
       const timer = setTimeout(() => {
         ScrollTrigger.refresh();
         console.log("App: ScrollTrigger.refresh() executed after layout load.");
-
-        // DIAGNOSTIC LOGGER: Confirm ScrollTrigger works
-        ScrollTrigger.create({
-          trigger: "#about",
-          start: "top bottom",
-          end: "bottom top",
-          onEnter: () => console.log("DIAGNOSTIC: #about entered viewport (scrolling down)"),
-          onLeave: () => console.log("DIAGNOSTIC: #about left viewport (scrolling down)"),
-          onEnterBack: () => console.log("DIAGNOSTIC: #about re-entered viewport (scrolling up)"),
-          onLeaveBack: () => console.log("DIAGNOSTIC: #about left viewport (scrolling up)"),
-          markers: { startColor: "blue", endColor: "blue", indent: 200 }
-        });
-        console.log("DIAGNOSTIC: ScrollTrigger listener created on #about");
       }, 600);
       return () => clearTimeout(timer);
     }
