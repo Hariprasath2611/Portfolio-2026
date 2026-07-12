@@ -43,44 +43,57 @@ export default function ScrollFloat({
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el) {
+      console.warn('ScrollFloat: containerRef is null');
+      return;
+    }
+
+    const charElements = el.querySelectorAll('.char');
+    console.log(`ScrollFloat [${children}]: Mount. Found ${charElements.length} characters.`);
+
+    if (charElements.length === 0) {
+      console.warn(`ScrollFloat [${children}]: No elements with class .char found inside`, el);
+      return;
+    }
 
     const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
 
-    const charElements = el.querySelectorAll('.char');
-
-    const anim = gsap.fromTo(
-      charElements,
-      {
-        willChange: 'opacity, transform',
-        opacity: 0,
-        yPercent: 120,
-        scaleY: 2.3,
-        scaleX: 0.7,
-        transformOrigin: '50% 0%'
-      },
-      {
-        duration: animationDuration,
-        ease: ease,
-        opacity: 1,
-        yPercent: 0,
-        scaleY: 1,
-        scaleX: 1,
-        stagger: stagger,
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: scrollStart,
-          end: scrollEnd,
-          scrub: true
+    // Use gsap.context to manage GSAP tweens cleanly in React
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        charElements,
+        {
+          willChange: 'opacity, transform',
+          opacity: 0,
+          yPercent: 120,
+          scaleY: 2.3,
+          scaleX: 0.7,
+          transformOrigin: '50% 0%'
+        },
+        {
+          duration: animationDuration,
+          ease: ease,
+          opacity: 1,
+          yPercent: 0,
+          scaleY: 1,
+          scaleX: 1,
+          stagger: stagger,
+          scrollTrigger: {
+            trigger: el,
+            scroller,
+            start: scrollStart,
+            end: scrollEnd,
+            scrub: true
+          }
         }
-      }
-    );
+      );
+    }, el);
 
     return () => {
-      anim.kill();
+      console.log(`ScrollFloat [${children}]: Reverting GSAP context.`);
+      ctx.revert();
     };
-  }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
+  }, [children, scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
     <h2 ref={containerRef} className={`scroll-float ${containerClassName}`}>
