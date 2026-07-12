@@ -16,9 +16,6 @@ const ROLES = [
   'Open Source Enthusiast'
 ];
 
-const DARK_COLORS = ['#06b6d4', '#6366f1', '#d946ef'];
-const LIGHT_COLORS = ['#0284c7', '#4f46e5', '#a855f7'];
-
 export default function Hero({ theme }: HeroProps) {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
