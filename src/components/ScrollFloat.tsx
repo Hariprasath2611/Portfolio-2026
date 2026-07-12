@@ -56,8 +56,6 @@ export default function ScrollFloat({
       return;
     }
 
-    const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
-
     // Use gsap.context to manage GSAP tweens cleanly in React
     const ctx = gsap.context(() => {
       // TEST: Immediate opacity animation to see if GSAP is running on the elements
