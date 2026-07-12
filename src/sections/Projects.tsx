@@ -4,6 +4,7 @@ import { Search, ExternalLink, Star, GitFork, Calendar, Filter } from 'lucide-re
 import { fetchGitHubRepos } from '../utils/github';
 import type { GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
+import ScrollFloat from '../components/ScrollFloat';
 
 // List of repository names we want to prioritize as "featured"
 const FEATURED_REPOS = ['quantum-vault', 'portfolio-2026', 'orbit-mesh-mobile'];

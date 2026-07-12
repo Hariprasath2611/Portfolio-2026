@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, Layout, Server, Database, Smartphone, Award, Coffee, Zap } from 'lucide-react';
 import LiquidEther from '../components/LiquidEther';
+import ScrollFloat from '../components/ScrollFloat';
 
 interface AboutProps {
   theme: 'light' | 'dark';
@@ -57,11 +58,14 @@ export default function About({ theme }: AboutProps) {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white mb-4">
+        <div className="text-center mb-16 flex flex-col items-center">
+          <ScrollFloat
+            containerClassName="mb-4"
+            textClassName="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white"
+          >
             &gt; ABOUT_ME
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
+          </ScrollFloat>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
