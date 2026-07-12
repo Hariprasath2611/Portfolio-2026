@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Award, Code, Compass, Zap } from 'lucide-react';
+import ScrollFloat from '../components/ScrollFloat';
 
 interface CounterProps {
   target: number;
@@ -74,11 +75,14 @@ export default function Achievements() {
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white mb-4">
+        <div className="text-center mb-16 flex flex-col items-center">
+          <ScrollFloat
+            containerClassName="mb-4"
+            textClassName="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white"
+          >
             &gt; SYSTEM_ACHIEVEMENTS
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
+          </ScrollFloat>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
         </div>
 
         {/* Stats Grid */}
