@@ -56,15 +56,15 @@ export default function ScrollFloat({
           yPercent: 120,
           scaleY: 2,
           scaleX: 0.8,
-          transformOrigin: '50% 0%'
+          transformOrigin: '50% 0%',
+          willChange: 'opacity, transform'
         },
         {
-          duration: animationDuration,
-          ease: ease,
           opacity: 1,
           yPercent: 0,
           scaleY: 1,
           scaleX: 1,
+          ease: ease,
           stagger: stagger,
           scrollTrigger: {
             trigger: el,
