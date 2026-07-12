@@ -60,32 +60,20 @@ export default function ScrollFloat({
 
     // Use gsap.context to manage GSAP tweens cleanly in React
     const ctx = gsap.context(() => {
+      // TEST: Immediate opacity animation to see if GSAP is running on the elements
       gsap.fromTo(
         charElements,
         {
-          willChange: 'opacity, transform',
           opacity: 0,
-          yPercent: 120,
-          scaleY: 2.3,
-          scaleX: 0.7,
-          transformOrigin: '50% 0%'
+          y: 20
         },
         {
-          duration: animationDuration,
-          ease: ease,
           opacity: 1,
-          yPercent: 0,
-          scaleY: 1,
-          scaleX: 1,
-          stagger: stagger,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: scrollStart,
-            end: scrollEnd,
-            scrub: true,
-            markers: true
-          }
+          y: 0,
+          duration: 1.5,
+          stagger: 0.05,
+          delay: 0.5,
+          ease: 'power2.out'
         }
       );
     }, el);

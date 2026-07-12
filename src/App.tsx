@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
@@ -15,10 +15,24 @@ import Timeline from './sections/Timeline';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import { useTheme } from './hooks/useTheme';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+        console.log("App: ScrollTrigger.refresh() executed after layout load.");
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   return (
     <>
