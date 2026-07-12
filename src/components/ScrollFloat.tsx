@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef } from 'react';
-import type { RefObject } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -9,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export interface ScrollFloatProps {
   children: string;
-  scrollContainerRef?: RefObject<HTMLElement | null>;
   containerClassName?: string;
   textClassName?: string;
   animationDuration?: number;
@@ -21,13 +19,12 @@ export interface ScrollFloatProps {
 
 export default function ScrollFloat({
   children,
-  scrollContainerRef,
   containerClassName = '',
   textClassName = '',
   animationDuration = 1,
-  ease = 'back.inOut(2)',
-  scrollStart = 'center bottom+=50%',
-  scrollEnd = 'bottom bottom-=40%',
+  ease = 'back.out(1.5)',
+  scrollStart = 'top 90%',
+  scrollEnd = 'bottom 60%',
   stagger = 0.03
 }: ScrollFloatProps) {
   const containerRef = useRef<HTMLHeadingElement>(null);
@@ -35,7 +32,11 @@ export default function ScrollFloat({
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
     return text.split('').map((char, index) => (
-      <span className="char" key={index}>
+      <span 
+        className="char" 
+        key={index} 
+        style={{ display: 'inline-block', willChange: 'opacity, transform' }}
+      >
         {char === ' ' ? '\u00A0' : char}
       </span>
     ));
@@ -43,44 +44,42 @@ export default function ScrollFloat({
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el) {
-      console.warn('ScrollFloat: containerRef is null');
-      return;
-    }
+    if (!el) return;
 
     const charElements = el.querySelectorAll('.char');
-    console.log(`ScrollFloat [${children}]: Mount. Found ${charElements.length} characters.`);
 
-    if (charElements.length === 0) {
-      console.warn(`ScrollFloat [${children}]: No elements with class .char found inside`, el);
-      return;
-    }
-
-    // Use gsap.context to manage GSAP tweens cleanly in React
     const ctx = gsap.context(() => {
-      // TEST: Immediate opacity animation to see if GSAP is running on the elements
       gsap.fromTo(
         charElements,
         {
           opacity: 0,
-          y: 20
+          yPercent: 120,
+          scaleY: 2,
+          scaleX: 0.8,
+          transformOrigin: '50% 0%'
         },
         {
+          duration: animationDuration,
+          ease: ease,
           opacity: 1,
-          y: 0,
-          duration: 1.5,
-          stagger: 0.05,
-          delay: 0.5,
-          ease: 'power2.out'
+          yPercent: 0,
+          scaleY: 1,
+          scaleX: 1,
+          stagger: stagger,
+          scrollTrigger: {
+            trigger: el,
+            start: scrollStart,
+            end: scrollEnd,
+            scrub: 0.5
+          }
         }
       );
     }, el);
 
     return () => {
-      console.log(`ScrollFloat [${children}]: Reverting GSAP context.`);
       ctx.revert();
     };
-  }, [children, scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
+  }, [children, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
     <h2 ref={containerRef} className={`scroll-float ${containerClassName}`}>
