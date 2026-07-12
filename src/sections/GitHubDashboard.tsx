@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, BookOpen, Flame, Award, Calendar, BarChart2 } from 'lucide-react';
+import ScrollFloat from '../components/ScrollFloat';
 import { fetchGitHubProfile, fetchGitHubRepos } from '../utils/github';
 import type { GitHubProfile, GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
@@ -109,11 +110,14 @@ export default function GitHubDashboard() {
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white mb-4">
+        <div className="text-center mb-16 flex flex-col items-center">
+          <ScrollFloat
+            containerClassName="mb-4"
+            textClassName="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white"
+          >
             &gt; GITHUB_DASHBOARD
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
+          </ScrollFloat>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
         </div>
 
         {loading ? (
