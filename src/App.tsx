@@ -34,7 +34,7 @@ export default function App() {
           {/* Main Sections */}
           <main className="w-full">
             <Hero theme={theme} />
-            <About />
+            <About theme={theme} />
             <TechStack />
             <GitHubDashboard />
             <Projects />

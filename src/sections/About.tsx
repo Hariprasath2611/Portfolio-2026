@@ -1,5 +1,13 @@
 import { motion } from 'framer-motion';
 import { Cpu, Layout, Server, Database, Smartphone, Award, Coffee, Zap } from 'lucide-react';
+import LiquidEther from '../components/LiquidEther';
+
+interface AboutProps {
+  theme: 'light' | 'dark';
+}
+
+const DARK_COLORS = ['#06b6d4', '#6366f1', '#d946ef'];
+const LIGHT_COLORS = ['#0284c7', '#4f46e5', '#a855f7'];
 
 const HIGHLIGHTS = [
   {
@@ -31,10 +39,22 @@ const TELEMETRY = [
   { label: 'Commit Success Rate', val: '99.2%', icon: <Award className="w-4 h-4 text-green-400" /> }
 ];
 
-export default function About() {
+export default function About({ theme }: AboutProps) {
   return (
-    <section id="about" className="py-20 bg-slate-100/30 dark:bg-slate-950/20 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="py-20 bg-slate-100/30 dark:bg-slate-950/20 relative overflow-hidden">
+      {/* Interactive Liquid Ether Background */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <LiquidEther
+          colors={theme === 'dark' ? DARK_COLORS : LIGHT_COLORS}
+          mouseForce={15}
+          cursorSize={80}
+          autoDemo={true}
+          autoSpeed={0.4}
+          autoIntensity={1.8}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Title */}
         <div className="text-center mb-16">
