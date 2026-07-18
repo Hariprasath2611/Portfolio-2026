@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, useCallback, ReactNode } from 'react';
+import { useLayoutEffect, useRef, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import Lenis from 'lenis';
 import './ScrollStack.css';
 
@@ -249,7 +250,7 @@ const ScrollStack = ({
         smoothWheel: true,
         touchMultiplier: 2,
         infinite: false,
-        gestureOrientationHandler: true,
+        gestureOrientation: 'vertical',
         normalizeWheel: true,
         wheelMultiplier: 1,
         touchInertiaMultiplier: 35,
@@ -257,7 +258,7 @@ const ScrollStack = ({
         syncTouch: true,
         syncTouchLerp: 0.075,
         touchInertia: 0.6
-      });
+      } as any);
 
       lenis.on('scroll', handleScroll);
 
