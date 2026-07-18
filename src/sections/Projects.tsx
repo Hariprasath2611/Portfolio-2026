@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ExternalLink, Star, GitFork, Calendar, Filter } from 'lucide-react';
 import { fetchGitHubRepos } from '../utils/github';
 import type { GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
 import ScrollFloat from '../components/ScrollFloat';
+import ScrollStack, { ScrollStackItem } from '../components/ScrollStack';
 
 // List of repository names we want to prioritize as "featured"
 const FEATURED_REPOS = ['quantum-vault', 'portfolio-2026', 'orbit-mesh-mobile'];
@@ -204,34 +204,33 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Project Grid */}
+        {/* Project Stack */}
         {loading ? (
           <div className="flex flex-col items-center justify-center h-64 font-mono text-cyan-400 animate-pulse">
             <span>SYNCHRONIZING REPOSITORY CLUSTERS...</span>
           </div>
         ) : (
           <>
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              layout
-            >
-              <AnimatePresence mode="popLayout">
+            {processedRepos.length > 0 ? (
+              <ScrollStack
+                useWindowScroll={true}
+                itemDistance={80}
+                itemScale={0.03}
+                itemStackDistance={35}
+                stackPosition="15%"
+                baseScale={0.92}
+                rotationAmount={1}
+              >
                 {processedRepos.map((repo) => {
                   const isFeatured = FEATURED_REPOS.includes(repo.name);
                   return (
-                    <motion.article
+                    <ScrollStackItem
                       key={repo.id}
-                      className={`glass-card p-6 rounded-xl flex flex-col justify-between text-left relative overflow-hidden border ${
+                      itemClassName={`glass-card p-6 flex flex-col justify-between text-left relative overflow-hidden border ${
                         isFeatured
                           ? 'border-cyan-400/35 shadow-[0_0_20px_rgba(6,182,212,0.1)]'
                           : 'border-slate-200/50 dark:border-cyan-500/5'
                       }`}
-                      layout
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.3 }}
-                      whileHover={{ y: -6 }}
                     >
                       {/* Top banner tag for featured repos */}
                       {isFeatured && (
@@ -319,14 +318,11 @@ export default function Projects() {
                           </div>
                         </div>
                       </div>
-
-                    </motion.article>
+                    </ScrollStackItem>
                   );
                 })}
-              </AnimatePresence>
-            </motion.div>
-
-            {processedRepos.length === 0 && (
+              </ScrollStack>
+            ) : (
               <div className="py-20 text-center font-mono text-slate-400">
                 <span>NO MODULES FOUND MATCHING FILTER CRITERIA</span>
               </div>
