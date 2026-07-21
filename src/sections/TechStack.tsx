@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import ScrollFloat from '../components/ScrollFloat';
-import ScrollStack, { ScrollStackItem } from '../components/ScrollStack';
 
 interface Technology {
   name: string;
@@ -8,6 +8,15 @@ interface Technology {
   color: string; // brand neon color
   logo: React.ReactNode;
 }
+
+const CATEGORIES = [
+  { id: 'all', label: 'ALL_MODULES' },
+  { id: 'frontend', label: 'FRONTEND' },
+  { id: 'backend', label: 'BACKEND' },
+  { id: 'database', label: 'DATABASES' },
+  { id: 'mobile', label: 'MOBILE' },
+  { id: 'tools', label: 'TOOLS' }
+];
 
 const TECHNOLOGIES: Technology[] = [
   // Frontend
@@ -157,46 +166,19 @@ const TECHNOLOGIES: Technology[] = [
   }
 ];
 
-const CATEGORY_DETAILS = [
-  {
-    id: 'frontend' as const,
-    title: 'FRONTEND DEVELOPMENT',
-    description: 'Building responsive, highly interactive, and beautiful user interfaces using modern web frameworks and styling engines.',
-    glowColor: 'rgba(6, 182, 212, 0.1)'
-  },
-  {
-    id: 'backend' as const,
-    title: 'BACKEND SERVICES',
-    description: 'Designing reliable server architectures, RESTful APIs, and secure microservices to power client applications.',
-    glowColor: 'rgba(16, 185, 129, 0.1)'
-  },
-  {
-    id: 'database' as const,
-    title: 'DATABASES & CACHING',
-    description: 'Structuring scalable database schemas and storage systems to keep application data highly available and fast.',
-    glowColor: 'rgba(245, 158, 11, 0.1)'
-  },
-  {
-    id: 'mobile' as const,
-    title: 'MOBILE APPS',
-    description: 'Crafting native iOS and Android experiences using cross-platform architectures for fast deployment cycles.',
-    glowColor: 'rgba(99, 102, 241, 0.1)'
-  },
-  {
-    id: 'tools' as const,
-    title: 'DEVELOPER WORKFLOW',
-    description: 'Utilizing version control systems, CI/CD deployment pipelines, and modern hosting infrastructure to optimize developer velocity.',
-    glowColor: 'rgba(244, 63, 94, 0.1)'
-  }
-];
-
 export default function TechStack() {
+  const [activeTab, setActiveTab] = useState('all');
+
+  const filteredTechs = TECHNOLOGIES.filter(
+    (tech) => activeTab === 'all' || tech.category === activeTab
+  );
+
   return (
-    <section id="skills" className="py-20 bg-cyber-grid relative overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="skills" className="py-20 bg-cyber-grid relative">
+      <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Title */}
-        <div className="text-center mb-10 flex flex-col items-center">
+        <div className="text-center mb-16 flex flex-col items-center">
           <ScrollFloat
             containerClassName="mb-4"
             textClassName="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white"
@@ -206,70 +188,57 @@ export default function TechStack() {
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
         </div>
 
-        {/* Scroll Stack Container */}
-        <ScrollStack
-          useWindowScroll={true}
-          itemDistance={120}
-          itemScale={0.04}
-          itemStackDistance={24}
-          stackPosition="110px"
-          baseScale={0.82}
-          blurAmount={1}
-          rotationAmount={0.5}
+        {/* Tab Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {CATEGORIES.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider cursor-pointer border transition-all duration-300 ${
+                activeTab === tab.id
+                  ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 border-cyan-400 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]'
+                  : 'bg-white/40 dark:bg-gray-900/40 border-slate-200 dark:border-cyan-500/10 text-slate-600 dark:text-gray-400 hover:border-cyan-500/30'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Grid of Tech Cards */}
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          layout
         >
-          {CATEGORY_DETAILS.map((cat, index) => {
-            const cardTechs = TECHNOLOGIES.filter(tech => tech.category === cat.id);
-            return (
-              <ScrollStackItem key={cat.id}>
-                <div 
-                  className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-start relative overflow-hidden h-full rounded-[inherit] p-1"
-                >
-                  {/* Subtle Background Glow Accent per Card */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none transition-opacity duration-300 dark:opacity-30 opacity-10"
-                    style={{
-                      background: `radial-gradient(circle at 10% 10%, ${cat.glowColor} 0%, transparent 60%)`
-                    }}
-                  />
+          {filteredTechs.map((tech) => (
+            <motion.div
+              key={tech.name}
+              className="glass-card p-6 flex flex-col items-center justify-center aspect-square gap-4 cursor-pointer relative group overflow-hidden border border-slate-200/50 dark:border-cyan-500/10"
+              layout
+              whileHover={{
+                y: -6,
+                borderColor: tech.color.replace('0.4', '1'),
+                boxShadow: `0 0 20px ${tech.color}`,
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* Outer decorative line corners */}
+              <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-transparent group-hover:border-cyan-400 transition-colors" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-transparent group-hover:border-purple-400 transition-colors" />
 
-                  {/* Left Column: Info */}
-                  <div className="md:col-span-1 flex flex-col h-full justify-between z-10">
-                    <div>
-                      <div className="text-xs font-mono text-cyan-500 dark:text-cyan-400 mb-2 tracking-widest flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
-                        MODULE // 0{index + 1}
-                      </div>
-                      <h3 className="text-2xl font-bold font-orbitron text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:via-slate-100 dark:to-slate-400 mb-4 leading-tight">
-                        {cat.title}
-                      </h3>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm font-sans leading-relaxed">
-                        {cat.description}
-                      </p>
-                    </div>
-                  </div>
+              {/* Logo container */}
+              <div className="text-slate-600 dark:text-gray-300 group-hover:text-cyan-400 dark:group-hover:text-cyan-300 transition-colors duration-300">
+                {tech.logo}
+              </div>
 
-                  {/* Right Column: Grid of Tech */}
-                  <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4 z-10 h-full justify-center content-start">
-                    {cardTechs.map(tech => (
-                      <div
-                        key={tech.name}
-                        className="p-4 rounded-2xl flex flex-col items-center justify-center gap-3 bg-slate-100/50 dark:bg-[#0d1527]/40 border border-slate-200/50 dark:border-cyan-500/5 hover:border-cyan-500/30 dark:hover:border-cyan-500/20 hover:shadow-md dark:hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all duration-300 group/item aspect-square cursor-pointer"
-                      >
-                        <div className="text-slate-500 dark:text-gray-400 group-hover/item:text-cyan-600 dark:group-hover/item:text-cyan-300 transition-colors duration-300 transform group-hover/item:scale-110">
-                          {tech.logo}
-                        </div>
-                        <span className="font-mono text-xs font-bold tracking-wider text-slate-700 dark:text-slate-300 group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors duration-300 uppercase">
-                          {tech.name}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+              {/* Name */}
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-gray-300 group-hover:text-white">
+                {tech.name}
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
 
-                </div>
-              </ScrollStackItem>
-            );
-          })}
-        </ScrollStack>
       </div>
     </section>
   );
