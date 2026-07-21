@@ -210,7 +210,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
     if (useWindowScroll) {
       const lenis = new Lenis({
         duration: 1.2,
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         touchMultiplier: 2,
         infinite: false,
@@ -218,7 +218,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         lerp: 0.1,
         syncTouch: true,
         syncTouchLerp: 0.075
-      });
+      } as any);
 
       lenis.on('scroll', handleScroll);
 
@@ -238,7 +238,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         wrapper: scroller,
         content: scroller.querySelector('.scroll-stack-inner') as HTMLElement || undefined,
         duration: 1.2,
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         touchMultiplier: 2,
         infinite: false,
@@ -250,7 +250,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         syncTouch: true,
         syncTouchLerp: 0.075,
         touchInertia: 0.6
-      });
+      } as any);
 
       lenis.on('scroll', handleScroll);
 
