@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!isLoading) {
@@ -52,7 +52,7 @@ export default function App() {
             cursorColor="#06b6d4"
             cursorColorOnTarget="#d946ef"
           />
-          <Navbar theme={theme} toggleTheme={toggleTheme} />
+          <Navbar theme={theme} />
           
           {/* Main Sections */}
           <main className="w-full">

@@ -4,7 +4,6 @@ import { Menu, X, Sun, Moon, Terminal } from 'lucide-react';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
-  toggleTheme: () => void;
 }
 
 const NAV_ITEMS = [
@@ -18,7 +17,7 @@ const NAV_ITEMS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar({ theme, toggleTheme }: NavbarProps) {
+export default function Navbar({ theme }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -128,26 +127,10 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             RESUME
           </a>
 
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border border-slate-200 dark:border-cyan-500/20 bg-slate-100/50 dark:bg-gray-900/50 text-slate-700 dark:text-cyan-400 hover:border-cyan-400 dark:hover:border-cyan-400 hover:text-cyan-400 dark:hover:text-cyan-400 cursor-pointer shadow-sm transition-all duration-300"
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
         </nav>
 
         {/* Mobile Navbar Controls */}
         <div className="flex items-center gap-4 lg:hidden">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border border-slate-200 dark:border-cyan-500/20 bg-slate-100/50 dark:bg-gray-900/50 text-slate-700 dark:text-cyan-400 hover:text-cyan-400 hover:border-cyan-400 cursor-pointer transition-all duration-300"
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
-
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-lg border border-slate-200 dark:border-cyan-500/20 bg-slate-100/50 dark:bg-gray-900/50 text-slate-700 dark:text-cyan-400 hover:text-cyan-400 hover:border-cyan-400 cursor-pointer transition-all duration-300"
