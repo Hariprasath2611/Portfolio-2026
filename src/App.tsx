@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen';
 import TargetCursor from './components/TargetCursor';
-import SplashCursor from './components/SplashCursor';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar from './components/Navbar';
 import BackToTop from './components/BackToTop';
@@ -43,7 +42,6 @@ export default function App() {
         <div className="min-h-screen bg-slate-50 dark:bg-[#030712] text-slate-800 dark:text-gray-100 transition-colors duration-300">
           {/* Global UI Components */}
           <ScrollProgress />
-          <SplashCursor />
           <TargetCursor 
             targetSelector="a, button, [role='button'], .cursor-pointer, .cursor-target"
             spinDuration={2}
