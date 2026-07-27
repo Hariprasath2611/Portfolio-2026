@@ -81,6 +81,16 @@ export default function SplashCursor({
     // Track if the effect is still active for cleanup
     let isActive = true;
 
+    function hashCode(s: string) {
+      if (s.length === 0) return 0;
+      let hash = 0;
+      for (let i = 0; i < s.length; i++) {
+        hash = (hash << 5) - hash + s.charCodeAt(i);
+        hash |= 0;
+      }
+      return hash;
+    }
+
     let config = {
       SIM_RESOLUTION,
       DYE_RESOLUTION,
@@ -120,7 +130,7 @@ export default function SplashCursor({
         antialias: false,
         preserveDrawingBuffer: false
       };
-      let gl = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
+      let gl: WebGL2RenderingContext | WebGLRenderingContext | null = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
       const isWebGL2 = !!gl;
       if (!isWebGL2) {
         gl = (canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params)) as WebGLRenderingContext | null;
@@ -780,11 +790,11 @@ export default function SplashCursor({
     }
 
     function resizeCanvas() {
-      let width = scaleByPixelRatio(canvas.clientWidth);
-      let height = scaleByPixelRatio(canvas.clientHeight);
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
+      let width = scaleByPixelRatio(canvas!.clientWidth);
+      let height = scaleByPixelRatio(canvas!.clientHeight);
+      if (canvas!.width !== width || canvas!.height !== height) {
+        canvas!.width = width;
+        canvas!.height = height;
         return true;
       }
       return false;
@@ -912,7 +922,7 @@ export default function SplashCursor({
       if (!velocity || !dye) return;
       splatProgram.bind();
       gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
-      gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
+      gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas!.width / canvas!.height);
       gl.uniform2f(splatProgram.uniforms.point, x, y);
       gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0.0);
       gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100.0));
@@ -926,7 +936,7 @@ export default function SplashCursor({
     }
 
     function correctRadius(radius: number) {
-      let aspectRatio = canvas.width / canvas.height;
+      let aspectRatio = canvas!.width / canvas!.height;
       if (aspectRatio > 1) radius *= aspectRatio;
       return radius;
     }
@@ -935,8 +945,8 @@ export default function SplashCursor({
       pointer.id = id;
       pointer.down = true;
       pointer.moved = false;
-      pointer.texcoordX = posX / canvas.width;
-      pointer.texcoordY = 1.0 - posY / canvas.height;
+      pointer.texcoordX = posX / canvas!.width;
+      pointer.texcoordY = 1.0 - posY / canvas!.height;
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
       pointer.deltaX = 0;
@@ -947,8 +957,8 @@ export default function SplashCursor({
     function updatePointerMoveData(pointer: Pointer, posX: number, posY: number, color: { r: number; g: number; b: number }) {
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
-      pointer.texcoordX = posX / canvas.width;
-      pointer.texcoordY = 1.0 - posY / canvas.height;
+      pointer.texcoordX = posX / canvas!.width;
+      pointer.texcoordY = 1.0 - posY / canvas!.height;
       pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
       pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
       pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
@@ -960,13 +970,13 @@ export default function SplashCursor({
     }
 
     function correctDeltaX(delta: number) {
-      let aspectRatio = canvas.width / canvas.height;
+      let aspectRatio = canvas!.width / canvas!.height;
       if (aspectRatio < 1) delta *= aspectRatio;
       return delta;
     }
 
     function correctDeltaY(delta: number) {
-      let aspectRatio = canvas.width / canvas.height;
+      let aspectRatio = canvas!.width / canvas!.height;
       if (aspectRatio > 1) delta /= aspectRatio;
       return delta;
     }
