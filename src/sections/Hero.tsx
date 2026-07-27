@@ -221,7 +221,7 @@ export default function Hero({ theme }: HeroProps) {
               <span>React Native</span>
             </motion.div>
 
-            <DeveloperIllustration theme={theme} />
+            <AnimatedProfilePhoto />
           </div>
         </motion.div>
       </div>
