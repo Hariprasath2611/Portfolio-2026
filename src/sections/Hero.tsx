@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Terminal, Cpu, Database, Globe, Smartphone, FileDown } from 'lucide-react';
-import AnimatedProfilePhoto from '../components/AnimatedProfilePhoto';
+import DeveloperIllustration from '../components/DeveloperIllustration';
 import { GithubIcon, LinkedinIcon } from '../components/BrandIcons';
 import LiquidEther from '../components/LiquidEther';
 
@@ -221,7 +221,7 @@ export default function Hero({ theme }: HeroProps) {
               <span>React Native</span>
             </motion.div>
 
-            <AnimatedProfilePhoto />
+            <DeveloperIllustration theme={theme} />
           </div>
         </motion.div>
       </div>
