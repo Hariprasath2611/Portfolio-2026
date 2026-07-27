@@ -50,7 +50,7 @@
   width: 100%;
   max-width: 52rem;
   margin: 20px auto;
-  padding: 2.5rem;
+  padding: 1.5rem;
   border-radius: 24px;
   box-sizing: border-box;
   -webkit-transform: translateZ(0);
@@ -67,6 +67,12 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(226, 232, 240, 0.8);
   transition: background-color 0.3s, border-color 0.3s;
+}
+
+@media (min-width: 768px) {
+  .scroll-stack-card {
+    padding: 2.5rem;
+  }
 }
 
 /* Dark Mode matching portfolio bg */

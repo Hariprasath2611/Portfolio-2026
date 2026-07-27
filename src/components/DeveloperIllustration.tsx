@@ -77,6 +77,7 @@ export default function DeveloperIllustration({ theme }: DeveloperIllustrationPr
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
+      const scaleFactor = width / 500;
       const centerX = width / 2;
       const centerY = height / 2;
       const accentCyan = isDark ? 'rgba(6, 182, 212, 0.4)' : 'rgba(6, 182, 212, 0.6)';
@@ -87,7 +88,7 @@ export default function DeveloperIllustration({ theme }: DeveloperIllustrationPr
       // 1. Draw Grid Lines
       ctx.strokeStyle = gridCol;
       ctx.lineWidth = 1;
-      const gridSize = 40;
+      const gridSize = Math.max(20, Math.floor(40 * scaleFactor));
       for (let x = 0; x < width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -103,44 +104,45 @@ export default function DeveloperIllustration({ theme }: DeveloperIllustrationPr
 
       // 2. Draw HUD Circles (Outer & Inner Orbits)
       ctx.strokeStyle = accentCyan;
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([15, 10]);
+      ctx.lineWidth = 1.5 * scaleFactor;
+      ctx.setLineDash([15 * scaleFactor, 10 * scaleFactor]);
       ctx.beginPath();
-      ctx.arc(centerX, centerY, 180, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, 180 * scaleFactor, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.strokeStyle = accentPurple;
-      ctx.setLineDash([5, 15]);
+      ctx.setLineDash([5 * scaleFactor, 15 * scaleFactor]);
       ctx.beginPath();
-      ctx.arc(centerX, centerY, 150, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, 150 * scaleFactor, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.strokeStyle = accentCyan;
-      ctx.setLineDash([40, 2]);
+      ctx.setLineDash([40 * scaleFactor, 2 * scaleFactor]);
       ctx.beginPath();
-      ctx.arc(centerX, centerY, 100, rotationAngle, rotationAngle + Math.PI * 2);
+      ctx.arc(centerX, centerY, 100 * scaleFactor, rotationAngle, rotationAngle + Math.PI * 2);
       ctx.stroke();
 
       ctx.setLineDash([]); // Reset dashed lines
 
       // Inner Core Radar Ring
       ctx.strokeStyle = accentPurple;
+      ctx.lineWidth = 1 * scaleFactor;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, 40, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, 40 * scaleFactor, 0, Math.PI * 2);
       ctx.stroke();
 
       // Core details
       ctx.fillStyle = accentCyan;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, 6, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, 6 * scaleFactor, 0, Math.PI * 2);
       ctx.fill();
 
       // Rotating Radar Sweeper
       ctx.strokeStyle = isDark ? 'rgba(6, 182, 212, 0.15)' : 'rgba(6, 182, 212, 0.25)';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2 * scaleFactor;
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
-      ctx.lineTo(centerX + Math.cos(rotationAngle) * 180, centerY + Math.sin(rotationAngle) * 180);
+      ctx.lineTo(centerX + Math.cos(rotationAngle) * 180 * scaleFactor, centerY + Math.sin(rotationAngle) * 180 * scaleFactor);
       ctx.stroke();
 
       // Increment rotation
@@ -150,19 +152,19 @@ export default function DeveloperIllustration({ theme }: DeveloperIllustrationPr
       particles.forEach((p) => {
         // Increment particle angle for orbital motion
         p.angle += p.speed;
-        let targetX = centerX + Math.cos(p.angle) * p.orbit;
-        let targetY = centerY + Math.sin(p.angle) * p.orbit;
+        let targetX = centerX + Math.cos(p.angle) * p.orbit * scaleFactor;
+        let targetY = centerY + Math.sin(p.angle) * p.orbit * scaleFactor;
 
         // Interaction with mouse
         if (mouse.active) {
           const dx = mouse.x - targetX;
           const dy = mouse.y - targetY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 80) {
+          if (dist < 80 * scaleFactor) {
             // Pull nodes towards mouse slightly
-            const force = (80 - dist) / 80;
-            targetX += (dx / dist) * force * 15;
-            targetY += (dy / dist) * force * 15;
+            const force = (80 * scaleFactor - dist) / (80 * scaleFactor);
+            targetX += (dx / dist) * force * 15 * scaleFactor;
+            targetY += (dy / dist) * force * 15 * scaleFactor;
           }
         }
 
@@ -172,33 +174,34 @@ export default function DeveloperIllustration({ theme }: DeveloperIllustrationPr
 
         // Connect node to center core with faint line
         ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+        ctx.lineWidth = 1 * scaleFactor;
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         ctx.lineTo(p.x, p.y);
         ctx.stroke();
 
         // Draw node dot
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 10 * scaleFactor;
         ctx.shadowColor = p.color;
         ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius * scaleFactor, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0; // reset
 
         // Draw tech label text
         ctx.fillStyle = textCol;
-        ctx.font = 'bold 10px monospace';
-        ctx.fillText(p.label, p.x + 10, p.y + 4);
+        ctx.font = `bold ${Math.max(7, Math.floor(10 * scaleFactor))}px monospace`;
+        ctx.fillText(p.label, p.x + 10 * scaleFactor, p.y + 4 * scaleFactor);
       });
 
       // 4. Floating Hex code stream details (aesthetic details)
       ctx.fillStyle = isDark ? 'rgba(6, 182, 212, 0.15)' : 'rgba(6, 182, 212, 0.25)';
-      ctx.font = '9px monospace';
+      ctx.font = `${Math.max(6, Math.floor(9 * scaleFactor))}px monospace`;
       const hexStream = ['0x4E 0x65 0x6F 0x6E', 'REACT_V19', 'NODE_SYS_ON', 'PING_SUCCESS', 'PORT_8080'];
       hexStream.forEach((txt, idx) => {
-        const xOffset = Math.sin(rotationAngle + idx * 4) * 10;
-        ctx.fillText(txt, 25 + xOffset, 45 + idx * 95);
+        const xOffset = Math.sin(rotationAngle + idx * 4) * 10 * scaleFactor;
+        ctx.fillText(txt, 25 * scaleFactor + xOffset, 45 * scaleFactor + idx * 95 * scaleFactor);
       });
 
       animationFrameId = requestAnimationFrame(draw);

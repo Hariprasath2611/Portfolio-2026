@@ -31,15 +31,29 @@ export default function ScrollFloat({
 
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
-    return text.split('').map((char, index) => (
-      <span 
-        className="char" 
-        key={index} 
-        style={{ display: 'inline-block', willChange: 'opacity, transform' }}
-      >
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
+    const words = text.split(' ');
+    
+    return words.map((word, wIdx) => {
+      const chars = word.split('').map((char, cIdx) => (
+        <span 
+          className="char" 
+          key={cIdx} 
+          style={{ display: 'inline-block', willChange: 'opacity, transform' }}
+        >
+          {char}
+        </span>
+      ));
+      
+      return (
+        <span 
+          key={wIdx} 
+          style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
+        >
+          {chars}
+          {wIdx < words.length - 1 && '\u00A0'}
+        </span>
+      );
+    });
   }, [children]);
 
   useEffect(() => {
