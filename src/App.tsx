@@ -52,7 +52,7 @@ export default function App() {
             cursorColor="#06b6d4"
             cursorColorOnTarget="#d946ef"
           />
-          <Navbar theme={theme} />
+          <Navbar />
           
           {/* Main Sections */}
           <main className="w-full">

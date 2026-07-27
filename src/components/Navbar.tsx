@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, Terminal } from 'lucide-react';
-
-interface NavbarProps {
-  theme: 'light' | 'dark';
-}
+import { Menu, X, Terminal } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '#home' },
@@ -17,7 +13,7 @@ const NAV_ITEMS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar({ theme }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
