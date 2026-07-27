@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Shield, Zap, RefreshCw, KeyRound } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Shield, Zap, RefreshCw, KeyRound } from 'lucide-react';
 import './CyberConsole.css';
 
 const DEFAULT_LOGS = [
