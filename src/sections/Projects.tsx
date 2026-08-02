@@ -221,7 +221,7 @@ export default function Projects() {
                   return (
                     <motion.article
                       key={repo.id}
-                      className={`glass-card p-6 rounded-xl flex flex-col justify-between text-left relative overflow-hidden border ${
+                      className={`glass-card p-6 rounded-xl flex flex-col justify-between text-left relative overflow-hidden border cursor-pointer ${
                         isFeatured
                           ? 'border-cyan-400/35 shadow-[0_0_20px_rgba(6,182,212,0.1)]'
                           : 'border-slate-200/50 dark:border-cyan-500/5'
@@ -232,6 +232,7 @@ export default function Projects() {
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.3 }}
                       whileHover={{ y: -6 }}
+                      onClick={() => window.open(repo.html_url, '_blank', 'noopener,noreferrer')}
                     >
                       {/* Top banner tag for featured repos */}
                       {isFeatured && (
@@ -302,6 +303,7 @@ export default function Projects() {
                               rel="noopener noreferrer"
                               className="p-1.5 rounded-lg border border-slate-200 dark:border-cyan-500/10 bg-slate-100/50 dark:bg-slate-900/40 text-slate-600 dark:text-cyan-400 hover:text-cyan-300 hover:border-cyan-400 transition-colors"
                               title="Code Repository"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <GithubIcon className="w-4 h-4" />
                             </a>
@@ -312,6 +314,7 @@ export default function Projects() {
                                 rel="noopener noreferrer"
                                 className="p-1.5 rounded-lg border border-slate-200 dark:border-cyan-500/10 bg-slate-100/50 dark:bg-slate-900/40 text-slate-600 dark:text-cyan-400 hover:text-cyan-300 hover:border-cyan-400 transition-colors"
                                 title="Live Demo"
+                                onClick={(e) => e.stopPropagation()}
                               >
                                 <ExternalLink className="w-4 h-4" />
                               </a>
