@@ -434,7 +434,30 @@ export async function fetchGitHubRepos(username: string): Promise<GitHubRepo[]> 
 export async function fetchGitHubStarredRepos(username: string): Promise<GitHubRepo[]> {
   const cacheKey = `gh_starred_repos_${username}`;
   const cached = getCached<GitHubRepo[]>(cacheKey);
-  if (cached) return cached;
+
+  const injectPrivateRepos = (reposList: GitHubRepo[]): GitHubRepo[] => {
+    const ccrAppExists = reposList.some(r => r.name.toLowerCase() === 'ccr-app');
+    if (!ccrAppExists) {
+      return [
+        {
+          id: 999999999,
+          name: 'CCR-App',
+          description: 'The CCR Management System replaces manual progress logging, Excel tracking, and paper reports. It provides a secure, digital pipeline for Subject Teachers, Class Coordinators, HODs, and the Principal.',
+          html_url: 'https://github.com/Hariprasath2611/CCR-App',
+          homepage: null,
+          stargazers_count: 1,
+          forks_count: 0,
+          language: 'TypeScript',
+          updated_at: new Date().toISOString(),
+          topics: ['react', 'typescript', 'tailwindcss', 'database', 'collaboration'],
+        },
+        ...reposList
+      ];
+    }
+    return reposList;
+  };
+
+  if (cached) return injectPrivateRepos(cached);
 
   try {
     const res = await fetch(`https://api.github.com/users/${username}/starred`);
@@ -452,11 +475,12 @@ export async function fetchGitHubStarredRepos(username: string): Promise<GitHubR
       updated_at: repo.updated_at,
       topics: repo.topics || [],
     }));
-    setCached(cacheKey, repos);
-    return repos;
+    const finalRepos = injectPrivateRepos(repos);
+    setCached(cacheKey, finalRepos);
+    return finalRepos;
   } catch (error) {
     console.warn('GitHub Starred Repos fetch failed, using fallback mock data:', error);
-    return MOCK_STARRED_REPOS;
+    return injectPrivateRepos(MOCK_STARRED_REPOS);
   }
 }
 

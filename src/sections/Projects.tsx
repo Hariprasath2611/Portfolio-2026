@@ -7,7 +7,7 @@ import { GithubIcon } from '../components/BrandIcons';
 import ScrollFloat from '../components/ScrollFloat';
 
 // List of repository names we want to prioritize as "featured"
-const FEATURED_REPOS = ['BuildSpace-AI', 'Portfolio-2026', 'STARTUPFORGE-AI'];
+const FEATURED_REPOS = ['CCR-App', 'BuildSpace-AI', 'Portfolio-2026', 'STARTUPFORGE-AI'];
 
 export default function Projects() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
