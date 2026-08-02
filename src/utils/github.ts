@@ -118,6 +118,70 @@ const MOCK_REPOS: GitHubRepo[] = [
   }
 ];
 
+const MOCK_STARRED_REPOS: GitHubRepo[] = [
+  {
+    id: 1272959095,
+    name: 'BuildSpace-AI',
+    description: 'Autonomous AI workspace platform for generating boilerplate, running dev streams, and orchestrating server nodes.',
+    html_url: 'https://github.com/Hariprasath2611/BuildSpace-AI',
+    homepage: 'https://build-space-ai.vercel.app',
+    stargazers_count: 14,
+    forks_count: 2,
+    language: 'TypeScript',
+    updated_at: new Date().toISOString(),
+    topics: ['react', 'nextjs', 'ai', 'openai'],
+  },
+  {
+    id: 1141002099,
+    name: 'TrustLocal',
+    description: 'A decentralized trust and reputation registry for localized freelance markets using Web3 authentication mechanisms.',
+    html_url: 'https://github.com/Hariprasath2611/TrustLocal',
+    homepage: 'https://trust-local.vercel.app',
+    stargazers_count: 8,
+    forks_count: 1,
+    language: 'JavaScript',
+    updated_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    topics: ['blockchain', 'trust-reputation', 'web3', 'javascript'],
+  },
+  {
+    id: 1271881858,
+    name: 'STARTUPFORGE-AI',
+    description: 'Interactive system that automatically forges software architecture blueprints and database schemas based on natural language startup briefs.',
+    html_url: 'https://github.com/Hariprasath2611/STARTUPFORGE-AI',
+    homepage: null,
+    stargazers_count: 12,
+    forks_count: 3,
+    language: 'TypeScript',
+    updated_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    topics: ['react', 'tailwindcss', 'startup', 'openai', 'full-stack'],
+  },
+  {
+    id: 4,
+    name: 'Portfolio-2026',
+    description: 'Premium futuristic developer portfolio designed with interactive layouts, glassmorphism, Framer Motion, and GitHub integrations.',
+    html_url: 'https://github.com/Hariprasath2611/Portfolio-2026',
+    homepage: 'https://hariprasath.dev',
+    stargazers_count: 35,
+    forks_count: 12,
+    language: 'TypeScript',
+    updated_at: new Date().toISOString(),
+    topics: ['react', 'tailwindcss', 'framer-motion', 'github-api', 'vite'],
+  },
+  {
+    id: 5,
+    name: 'Freelance-Marketplace-for-Students',
+    description: 'A dedicated, secure platform facilitating quick developer tasks, collaborative assignments, and smart payments for student creators.',
+    html_url: 'https://github.com/Hariprasath2611/Freelance-Marketplace-for-Students',
+    homepage: null,
+    stargazers_count: 7,
+    forks_count: 1,
+    language: 'JavaScript',
+    updated_at: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString(),
+    topics: ['node', 'react', 'mongodb', 'freelance'],
+  }
+];
+
+
 const MOCK_EVENTS: GitHubActivity[] = [
   { type: 'PushEvent', repo: { name: 'quantum-vault' }, created_at: new Date().toISOString() },
   { type: 'CreateEvent', repo: { name: 'portfolio-2026' }, created_at: new Date(Date.now() - 2 * 3600000).toISOString() },
@@ -210,6 +274,36 @@ export async function fetchGitHubRepos(username: string): Promise<GitHubRepo[]> 
     return MOCK_REPOS;
   }
 }
+
+export async function fetchGitHubStarredRepos(username: string): Promise<GitHubRepo[]> {
+  const cacheKey = `gh_starred_repos_${username}`;
+  const cached = getCached<GitHubRepo[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const res = await fetch(`https://api.github.com/users/${username}/starred`);
+    if (!res.ok) throw new Error('Failed to fetch starred repos');
+    const data = await res.json();
+    const repos: GitHubRepo[] = data.map((repo: any) => ({
+      id: repo.id,
+      name: repo.name,
+      description: repo.description || 'No description provided.',
+      html_url: repo.html_url,
+      homepage: repo.homepage,
+      stargazers_count: repo.stargazers_count,
+      forks_count: repo.forks_count,
+      language: repo.language || 'TypeScript',
+      updated_at: repo.updated_at,
+      topics: repo.topics || [],
+    }));
+    setCached(cacheKey, repos);
+    return repos;
+  } catch (error) {
+    console.warn('GitHub Starred Repos fetch failed, using fallback mock data:', error);
+    return MOCK_STARRED_REPOS;
+  }
+}
+
 
 export async function fetchGitHubActivity(username: string): Promise<GitHubActivity[]> {
   const cacheKey = `gh_activity_${username}`;

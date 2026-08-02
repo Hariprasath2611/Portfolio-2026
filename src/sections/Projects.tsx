@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ExternalLink, Star, GitFork, Calendar, Filter } from 'lucide-react';
-import { fetchGitHubRepos } from '../utils/github';
+import { fetchGitHubStarredRepos } from '../utils/github';
 import type { GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
 import ScrollFloat from '../components/ScrollFloat';
 
 // List of repository names we want to prioritize as "featured"
-const FEATURED_REPOS = ['quantum-vault', 'portfolio-2026', 'orbit-mesh-mobile'];
+const FEATURED_REPOS = ['BuildSpace-AI', 'Portfolio-2026', 'STARTUPFORGE-AI'];
 
 export default function Projects() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
@@ -19,7 +19,7 @@ export default function Projects() {
   useEffect(() => {
     async function loadRepos() {
       try {
-        const repoData = await fetchGitHubRepos('Hariprasath2611');
+        const repoData = await fetchGitHubStarredRepos('Hariprasath2611');
         setRepos(repoData);
       } catch (err) {
         console.error('Failed to load repositories', err);
