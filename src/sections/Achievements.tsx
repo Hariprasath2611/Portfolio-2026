@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useInView } from 'framer-motion';
 import { Award, Code, Compass, Zap } from 'lucide-react';
 import ScrollFloat from '../components/ScrollFloat';
-import ScrollStack, { ScrollStackItem } from '../components/ScrollStack';
 
 interface CounterProps {
   target: number;
@@ -86,60 +85,48 @@ export default function Achievements() {
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
         </div>
 
-        {/* Scroll Stack for Achievements */}
-        <ScrollStack
-          useWindowScroll={true}
-          itemDistance={80}
-          itemScale={0.04}
-          itemStackDistance={25}
-          stackPosition="15%"
-          scaleEndPosition="10%"
-          baseScale={0.88}
-          rotationAmount={0}
-          blurAmount={2}
-        >
+        {/* Achievements Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {STATS.map((stat, idx) => (
-            <ScrollStackItem key={idx}>
-              <div className="flex flex-col md:flex-row items-center md:items-start justify-between w-full h-full gap-6 md:gap-12">
-                
-                {/* Left side: Icon & Stat Counter */}
-                <div className="flex flex-col items-center justify-center text-center md:w-1/3">
-                  <div className="p-5 rounded-2xl bg-slate-100/50 dark:bg-slate-900/60 border border-slate-200/50 dark:border-cyan-500/10 text-cyan-400 mb-4 flex items-center justify-center shadow-inner relative group transition-transform duration-300">
-                    <div className="absolute inset-0 bg-cyan-500/10 dark:bg-cyan-500/5 blur-lg rounded-full" />
-                    <div className="relative z-10">{stat.icon}</div>
-                  </div>
+            <div
+              key={idx}
+              className="relative p-6 rounded-2xl bg-white/40 dark:bg-[#0a0f1e]/80 backdrop-blur-md border border-slate-200/80 dark:border-cyan-500/10 shadow-lg flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400/50 dark:hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-500/10 dark:hover:shadow-cyan-500/5 group"
+            >
+              {/* Glow backdrop on hover */}
+              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cyan-500/0 to-purple-500/0 group-hover:from-cyan-500/5 group-hover:to-purple-500/5 rounded-2xl transition-all duration-500 blur-xl" />
 
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-mono font-bold text-slate-800 dark:text-white tracking-tight">
-                    <Counter target={stat.target} />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">{stat.suffix}</span>
-                  </div>
-                </div>
-
-                {/* Vertical Divider */}
-                <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-slate-200 dark:via-cyan-500/10 to-transparent" />
-
-                {/* Right side: Label & Details */}
-                <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left md:w-2/3">
-                  <h3 className="font-orbitron font-extrabold text-slate-700 dark:text-slate-200 text-lg md:text-xl tracking-wider uppercase mb-3">
-                    {stat.label}
-                  </h3>
-                  <p className="text-sm md:text-base text-slate-500 dark:text-gray-400 leading-relaxed font-mono font-light">
-                    {stat.desc}
-                  </p>
-                  
-                  {/* Cybernetic details */}
-                  <div className="mt-6 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 dark:text-cyan-500/60">
-                      system_status: optimal
-                    </span>
-                  </div>
-                </div>
-                
+              {/* Icon */}
+              <div className="p-4 rounded-xl bg-slate-100/50 dark:bg-slate-900/60 border border-slate-200/50 dark:border-cyan-500/10 text-cyan-400 mb-4 flex items-center justify-center shadow-inner relative group-hover:scale-110 transition-transform duration-300">
+                <div className="absolute inset-0 bg-cyan-500/10 dark:bg-cyan-500/5 blur-md rounded-full" />
+                <div className="relative z-10">{stat.icon}</div>
               </div>
-            </ScrollStackItem>
+
+              {/* Stat Counter */}
+              <div className="text-3xl md:text-4xl font-mono font-bold text-slate-800 dark:text-white tracking-tight mb-2">
+                <Counter target={stat.target} />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">{stat.suffix}</span>
+              </div>
+
+              {/* Label */}
+              <h3 className="font-orbitron font-extrabold text-slate-700 dark:text-slate-200 text-sm md:text-base tracking-wider uppercase mb-2">
+                {stat.label}
+              </h3>
+
+              {/* Description */}
+              <p className="text-xs md:text-sm text-slate-500 dark:text-gray-400 leading-relaxed font-mono font-light mb-4 flex-grow">
+                {stat.desc}
+              </p>
+              
+              {/* Cybernetic details */}
+              <div className="mt-auto pt-4 border-t border-slate-200/30 dark:border-cyan-500/5 w-full flex items-center justify-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-[9px] uppercase font-mono tracking-widest text-slate-400 dark:text-cyan-500/60">
+                  system_status: optimal
+                </span>
+              </div>
+            </div>
           ))}
-        </ScrollStack>
+        </div>
 
       </div>
     </section>
