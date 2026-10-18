@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { ArrowUpRight, FileDown } from 'lucide-react';
 import HeroVisual from '../components/HeroVisual';
 import MarqueeStrip from '../components/MarqueeStrip';
@@ -29,12 +28,7 @@ export default function Hero({ navigate }: HeroProps) {
         {/* Left Column: Text & CTAs */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
           {/* Status Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border-2 border-[#12110F] shadow-[3px_3px_0px_#12110F] mb-5 sm:mb-6 select-none max-w-full"
-          >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border-2 border-[#12110F] shadow-[3px_3px_0px_#12110F] mb-5 sm:mb-6 select-none max-w-full">
             <span className="relative flex h-2.5 w-2.5 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
@@ -82,15 +76,10 @@ export default function Hero({ navigate }: HeroProps) {
               <span>Download resume</span>
               <FileDown className="w-4 h-4" />
             </button>
-          </motion.div>
+          </div>
 
           {/* 3 Quick Stats Row */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-            className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 pt-5 sm:pt-6 border-t-2 border-[#12110F]/20 w-full max-w-lg"
-          >
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 pt-5 sm:pt-6 border-t-2 border-[#12110F]/20 w-full max-w-lg">
             <div>
               <div className="text-xl sm:text-2xl md:text-3xl font-extrabold font-display text-[#12110F]">2000+</div>
               <div className="text-[10px] sm:text-xs md:text-sm font-mono text-[#12110F]/70 uppercase tracking-tight">GitHub Contribs</div>
@@ -103,7 +92,7 @@ export default function Hero({ navigate }: HeroProps) {
               <div className="text-xl sm:text-2xl md:text-3xl font-extrabold font-display text-[#12110F]">2</div>
               <div className="text-[10px] sm:text-xs md:text-sm font-mono text-[#12110F]/70 uppercase tracking-tight">Internships</div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Right Column: Visual Composite */}

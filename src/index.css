@@ -19,6 +19,8 @@
   --animate-marquee: marquee 25s linear infinite;
   --animate-spin-slow: spin 16s linear infinite;
   --animate-blob: blob 10s ease-in-out infinite alternate;
+  --animate-float-1: float-1 4s ease-in-out infinite;
+  --animate-float-2: float-2 5s ease-in-out infinite;
 
   @keyframes marquee {
     0% { transform: translateX(0%); }
@@ -29,6 +31,16 @@
     0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
     50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
     100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  }
+
+  @keyframes float-1 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes float-2 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(6px); }
   }
 }
 

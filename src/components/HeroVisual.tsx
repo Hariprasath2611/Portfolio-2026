@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 export default function HeroVisual() {
   return (
     <div className="relative flex items-center justify-center w-full max-w-sm sm:max-w-md mx-auto py-6 sm:py-8">
@@ -54,46 +52,35 @@ export default function HeroVisual() {
 
       {/* 5. Floating Tech Stickers */}
       {/* Top Left: React.js */}
-      <motion.div
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-8 -left-2 sm:top-10 sm:-left-6 md:-left-10 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#BDF3D4] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] -rotate-6 select-none"
+      <div
+        className="absolute top-8 -left-2 sm:top-10 sm:-left-6 md:-left-10 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#BDF3D4] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] -rotate-6 select-none animate-float-1"
       >
         React.js
-      </motion.div>
+      </div>
 
       {/* Mid Left: TypeScript */}
-      <motion.div
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute top-28 -left-2 sm:top-36 sm:-left-8 md:-left-12 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#D9CCFF] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] rotate-3 select-none"
+      <div
+        className="absolute top-28 -left-2 sm:top-36 sm:-left-8 md:-left-12 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#D9CCFF] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] rotate-3 select-none animate-float-2"
       >
         TypeScript
-      </motion.div>
+      </div>
 
       {/* Bottom Right: Solidity */}
-      <motion.div
-        animate={{ y: [0, -5, 0] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-        className="absolute bottom-12 -right-2 sm:bottom-16 sm:-right-6 md:-right-8 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#FFD0BC] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] rotate-6 select-none"
+      <div
+        className="absolute bottom-12 -right-2 sm:bottom-16 sm:-right-6 md:-right-8 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#FFD0BC] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] rotate-6 select-none animate-float-1"
       >
         Solidity
-      </motion.div>
+      </div>
 
       {/* Top Right: Node.js */}
-      <motion.div
-        animate={{ y: [0, 5, 0] }}
-        transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-        className="absolute top-20 -right-2 sm:top-28 sm:-right-8 md:-right-10 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#FFE585] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] -rotate-6 select-none"
+      <div
+        className="absolute top-20 -right-2 sm:top-28 sm:-right-8 md:-right-10 z-20 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#FFE585] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] sm:shadow-[3px_3px_0px_#12110F] font-mono font-bold text-[11px] sm:text-xs text-[#12110F] -rotate-6 select-none animate-float-2"
       >
         Node.js
-      </motion.div>
+      </div>
 
       {/* 6. Sticky Note Card: "Now at Kotrelex (Intern)" */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3 }}
+      <div
         className="absolute -bottom-5 left-1 sm:-bottom-6 sm:left-4 z-20 bg-white border-2 border-[#12110F] shadow-[3px_3px_0px_#12110F] sm:shadow-[4px_4px_0px_#12110F] rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-2.5 -rotate-2 sm:-rotate-3 select-none max-w-[90%]"
       >
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse border border-[#12110F] shrink-0" />
@@ -103,7 +90,7 @@ export default function HeroVisual() {
             Now at Kotrelex <span className="font-normal text-[11px] sm:text-xs text-slate-500">(Intern)</span>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
