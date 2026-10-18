@@ -1,133 +1,165 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
-  --color-primary: #00f2fe;
-  --color-secondary: #9d4edd;
-  --color-neon-blue: #06b6d4;
-  --color-neon-purple: #d946ef;
-  
-  --font-orbitron: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
-  --font-space: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --font-inter: 'Inter', system-ui, sans-serif;
+  --color-canvas: #F4F1EA;
+  --color-ink: #12110F;
+  --color-lavender: #D9CCFF;
+  --color-mint: #BDF3D4;
+  --color-peach: #FFD0BC;
+  --color-sky: #BBDDFF;
+  --color-butter: #FFE585;
+  --color-yellow: #FFD84D;
+  --color-coral: #FF8A5B;
 
-  --animate-gradient-x: gradient-x 8s ease infinite;
-  --animate-float-slow: float-slow 6s ease-in-out infinite;
-  --animate-matrix-rain: matrix-rain 20s linear infinite;
+  --font-display: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
 
-  @keyframes gradient-x {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-spin-slow: spin 16s linear infinite;
+  --animate-blob: blob 10s ease-in-out infinite alternate;
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
   }
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(3deg); }
-  }
-  @keyframes matrix-rain {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
+
+  @keyframes blob {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
   }
 }
 
-/* Base Overrides */
+/* Base Styles */
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-space);
+  font-family: var(--font-sans);
+  background-color: #F4F1EA;
+  color: #12110F;
   overflow-x: hidden;
 }
 
 body {
-  @apply bg-slate-50 text-slate-800 transition-colors duration-300;
+  background-color: #F4F1EA;
+  color: #12110F;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-.dark body {
-  @apply bg-[#030712] text-gray-200;
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }
 
-/* Glassmorphism Styles */
-.glass-panel {
-  @apply bg-white/45 backdrop-blur-md border border-slate-200/50 shadow-lg transition-all duration-300;
+.font-display {
+  font-family: var(--font-display);
 }
 
-.dark .glass-panel {
-  @apply bg-slate-950/45 backdrop-blur-md border border-cyan-500/10 shadow-2xl;
+.font-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
 }
 
-.glass-card {
-  @apply bg-white/30 backdrop-blur-sm border border-slate-200/40 rounded-xl transition-all duration-300 hover:shadow-xl;
+.font-mono-code {
+  font-family: var(--font-mono);
 }
 
-.dark .glass-card {
-  @apply bg-slate-900/40 backdrop-blur-sm border border-cyan-500/5 rounded-xl transition-all duration-300 hover:border-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/5;
+/* Neo-Brutalist Utility Classes */
+.neo-border {
+  border: 2px solid #12110F;
 }
 
-/* Glow Effects */
-.text-glow-cyan {
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+.neo-border-3 {
+  border: 3px solid #12110F;
 }
 
-.text-glow-purple {
-  text-shadow: 0 0 10px rgba(217, 70, 239, 0.4);
+.neo-shadow {
+  box-shadow: 6px 6px 0px #12110F;
 }
 
-.border-glow-cyan:hover {
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
-  border-color: rgba(6, 182, 212, 0.4);
+.neo-shadow-sm {
+  box-shadow: 4px 4px 0px #12110F;
 }
 
-.border-glow-purple:hover {
-  box-shadow: 0 0 20px rgba(217, 70, 239, 0.25);
-  border-color: rgba(217, 70, 239, 0.4);
+.neo-shadow-xs {
+  box-shadow: 2px 2px 0px #12110F;
 }
 
-/* Premium Scrollbar */
+.neo-shadow-lg {
+  box-shadow: 8px 8px 0px #12110F;
+}
+
+.neo-card {
+  border: 2px solid #12110F;
+  box-shadow: 6px 6px 0px #12110F;
+  border-radius: 24px;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.neo-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px #12110F;
+}
+
+.neo-btn {
+  border: 2px solid #12110F;
+  box-shadow: 4px 4px 0px #12110F;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.neo-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0px #12110F;
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #12110F;
+}
+
+/* Custom Highlight Underline */
+.highlight-draw {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.highlight-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 12px;
+  background-color: #FFD84D;
+  z-index: -1;
+  transform: rotate(-1deg);
+  border-radius: 4px;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-100;
-}
-
-.dark ::-webkit-scrollbar-track {
-  @apply bg-[#020617];
+  background: #F4F1EA;
+  border-left: 2px solid #12110F;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+  background: #FFD84D;
+  border: 2px solid #12110F;
+  border-radius: 9999px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  @apply bg-cyan-500/20 rounded-full border border-slate-900 hover:bg-cyan-500/40 transition-colors;
-}
-
-/* Background Gradients */
-.bg-futuristic-mesh {
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.03) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(217, 70, 239, 0.03) 0px, transparent 50%);
-}
-
-.dark .bg-futuristic-mesh {
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.07) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(217, 70, 239, 0.05) 0px, transparent 50%);
-}
-
-/* Grid overlay background */
-.bg-cyber-grid {
-  background-size: 30px 30px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-}
-
-.dark .bg-cyber-grid {
-  background-image: 
-    linear-gradient(to right, rgba(6, 182, 212, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+::-webkit-scrollbar-thumb:hover {
+  background: #FF8A5B;
 }
 
 /* Hide scrollbar utility */
