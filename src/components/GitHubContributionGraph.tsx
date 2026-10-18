@@ -51,8 +51,27 @@ export default function GitHubContributionGraph({
   );
 
   useEffect(() => {
-    loadContributions(false);
-  }, [loadContributions]);
+    let ignore = false;
+    fetchGitHubContributions(username, false)
+      .then((result) => {
+        if (!ignore) {
+          setData(result);
+          lastFetchTimeRef.current = Date.now();
+          if (onTotalChange && result.total) {
+            onTotalChange(result.total);
+          }
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load GitHub contributions', err);
+        if (!ignore) setLoading(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [username, onTotalChange]);
 
   // Auto-scroll to latest contributions (rightmost edge) on initial load
   useEffect(() => {
