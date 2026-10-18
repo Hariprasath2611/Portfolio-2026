@@ -36,7 +36,7 @@ export default function Hero({ navigate }: HeroProps) {
             <span className="font-mono text-[11px] sm:text-xs font-bold text-[#12110F] leading-tight">
               Open to internships, freelance & full-time roles
             </span>
-          </motion.div>
+          </div>
 
           {/* Headline with word rise & highlighter draw */}
           <h1 className="text-[clamp(2rem,7vw,2.75rem)] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight text-[#12110F] leading-[1.1] mb-5 sm:mb-6">
