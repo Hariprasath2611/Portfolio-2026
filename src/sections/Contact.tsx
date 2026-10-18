@@ -78,7 +78,7 @@ export default function Contact() {
             origin: { y: 0.6 },
             colors: ['#FFD84D', '#FF8A5B', '#D9CCFF', '#12110F'],
           });
-        } catch (cErr) {
+        } catch {
           console.log('Confetti effect executed');
         }
       } else {
