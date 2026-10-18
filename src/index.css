@@ -142,24 +142,16 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
+/* Hide side scrollbar while keeping full scroll functionality */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #F4F1EA;
-  border-left: 2px solid #12110F;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #FFD84D;
-  border: 2px solid #12110F;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #FF8A5B;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0px;
 }
 
 /* Hide scrollbar utility */
