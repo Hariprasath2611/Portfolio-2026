@@ -17,7 +17,7 @@ export default function App() {
   const { currentPath, navigate } = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#F4F1EA] text-[#12110F] font-sans selection:bg-[#FFD84D] selection:text-[#12110F] relative">
+    <div className="min-h-screen min-h-screen-dvh bg-[#F4F1EA] text-[#12110F] font-sans selection:bg-[#FFD84D] selection:text-[#12110F] relative">
       {/* 1. Top Reading / Scroll Progress Bar */}
       <TopScrollProgress />
 
