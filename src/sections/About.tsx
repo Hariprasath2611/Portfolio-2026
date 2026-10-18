@@ -3,7 +3,7 @@ import { Award, Briefcase, GraduationCap, MapPin, Sparkles, Terminal, Code2, Hea
 
 export default function About() {
   return (
-    <section id="about" className="py-20 md:py-28 px-6 max-w-6xl mx-auto">
+    <section id="about" className="py-20 md:py-28 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Section Header */}
       <div className="flex flex-col items-start mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
@@ -15,14 +15,14 @@ export default function About() {
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
         {/* Large Summary Card - 7 cols */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="md:col-span-7 neo-card bg-[#D9CCFF] p-6 sm:p-8 flex flex-col justify-between"
+          className="md:col-span-7 neo-card bg-[#D9CCFF] p-5 sm:p-8 flex flex-col justify-between"
         >
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-[#12110F] text-xs font-mono font-bold text-[#12110F] mb-4 shadow-[2px_2px_0px_#12110F]">

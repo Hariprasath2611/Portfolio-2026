@@ -49,7 +49,7 @@ const CATEGORIES: SkillCategory[] = [
 
 export default function TechStack() {
   return (
-    <section id="skills" className="py-20 md:py-28 px-6 max-w-6xl mx-auto">
+    <section id="skills" className="py-20 md:py-28 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Section Header */}
       <div className="flex flex-col items-start mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
@@ -58,13 +58,13 @@ export default function TechStack() {
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-[#12110F]">
           The stack <span className="font-serif-italic font-normal">I rely on.</span>
         </h2>
-        <p className="text-[#12110F]/70 font-sans mt-3 text-base max-w-xl">
+        <p className="text-[#12110F]/70 font-sans mt-3 text-sm sm:text-base max-w-xl">
           Clean, production-tested technologies chosen for performance, stability, and developer velocity.
         </p>
       </div>
 
       {/* Grouped Pastel Category Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {CATEGORIES.map((cat, idx) => (
           <motion.div
             key={cat.title}
@@ -72,7 +72,7 @@ export default function TechStack() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: idx * 0.08 }}
-            className={`neo-card ${cat.bgColor} p-6 flex flex-col justify-between`}
+            className={`neo-card ${cat.bgColor} p-5 sm:p-6 flex flex-col justify-between`}
           >
             <div>
               <div className="flex items-center gap-3 mb-4">
