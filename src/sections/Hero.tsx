@@ -95,25 +95,14 @@ export default function Hero({ navigate }: HeroProps) {
               <ArrowUpRight className="w-4 h-4" />
             </button>
 
-            <a
-              href="/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx"
-              download="D Hariprasath - One Page Resume (ATS).docx"
+            <button
+              onClick={() => (navigate ? navigate('/resume') : (window.location.href = '/resume'))}
               className="neo-btn px-6 py-3.5 rounded-full bg-white text-[#12110F] font-display font-extrabold text-sm md:text-base flex items-center gap-2 cursor-pointer hover:bg-[#D9CCFF] transition-all"
               data-cursor="pointer"
             >
               <span>Download resume</span>
               <FileDown className="w-4 h-4" />
-            </a>
-
-            {navigate && (
-              <button
-                onClick={() => navigate('/resume')}
-                className="neo-btn px-5 py-3.5 rounded-full bg-[#FFD84D] text-[#12110F] font-mono font-bold text-xs md:text-sm flex items-center gap-1.5 cursor-pointer hover:bg-[#FFE585] transition-all"
-                data-cursor="pointer"
-              >
-                <span>View ATS Resume ↗</span>
-              </button>
-            )}
+            </button>
           </motion.div>
 
           {/* 3 Quick Stats Row */}
