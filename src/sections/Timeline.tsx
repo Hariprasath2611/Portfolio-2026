@@ -49,7 +49,7 @@ const TIMELINE_DATA: TimelineEvent[] = [
     icon: <GraduationCap className="w-4 h-4 text-[#12110F]" />,
   },
   {
-    date: '2023 – Ongoing',
+    date: '2024 – Ongoing',
     role: 'Open Source Builder & Hackathon Competitor',
     organization: '20+ National Hackathons & GitHub Community',
     desc: 'Achieved 2000+ GitHub contributions through continuous open-source commits, community pull requests, and competing in 20+ national hackathons.',
