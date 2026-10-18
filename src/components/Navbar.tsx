@@ -24,10 +24,7 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    if (currentPath === '/resume') {
-      setActiveSection('resume');
-      return;
-    }
+    if (currentPath === '/resume') return;
 
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'github', 'projects', 'services', 'timeline', 'contact'];

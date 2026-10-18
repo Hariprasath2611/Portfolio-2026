@@ -13,7 +13,13 @@ interface Spark {
 const SPARK_COLORS = ['#FFD84D', '#FF8A5B', '#D9CCFF', '#BDF3D4', '#12110F'];
 
 export default function CustomCursor() {
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    return finePointer && !prefersReducedMotion && !isTouch;
+  });
   const [isVisible, setIsVisible] = useState(false);
   const [cursorState, setCursorState] = useState<'default' | 'pointer' | 'view' | 'hi' | 'text'>('default');
   const [sparks, setSparks] = useState<Spark[]>([]);
@@ -33,17 +39,7 @@ export default function CustomCursor() {
   const smoothY = useSpring(rawY, springConfig);
 
   useEffect(() => {
-    // Check for desktop fine pointer and reduced motion
-    const finePointer = window.matchMedia('(pointer: fine)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    if (!finePointer || prefersReducedMotion || isTouch) {
-      setIsEnabled(false);
-      return;
-    }
-
-    setIsEnabled(true);
+    if (!isEnabled) return;
 
     const onMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
