@@ -54,8 +54,8 @@ export default function About() {
         </motion.div>
 
         {/* 4 Stats Grid - 5 cols */}
-        <div className="md:col-span-5 grid grid-cols-2 gap-4">
-          {/* Stat 1 */}
+        <div className="md:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Stat 1: GitHub Contributions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -63,16 +63,27 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="neo-card bg-[#BDF3D4] p-5 flex flex-col justify-between"
           >
-            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
-              <Code2 className="w-5 h-5" />
-            </div>
             <div>
-              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">2000+</div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+                  <Code2 className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white border border-[#12110F] shadow-[1px_1px_0px_#12110F]">
+                  Top 5% Active
+                </span>
+              </div>
+              <p className="font-sans text-xs text-[#12110F]/85 leading-relaxed">
+                Daily commits, open-source PRs, and repositories maintained across React & Node ecosystems.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-[#12110F]/20 mt-4">
+              <div className="text-3xl font-extrabold font-display text-[#12110F]">2000+</div>
               <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">GitHub Contribs</div>
             </div>
           </motion.div>
 
-          {/* Stat 2 */}
+          {/* Stat 2: Hackathons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -80,16 +91,27 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="neo-card bg-[#FFD0BC] p-5 flex flex-col justify-between"
           >
-            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
-              <Award className="w-5 h-5" />
-            </div>
             <div>
-              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">20+</div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+                  <Award className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white border border-[#12110F] shadow-[1px_1px_0px_#12110F]">
+                  SIH 2026 Lead
+                </span>
+              </div>
+              <p className="font-sans text-xs text-[#12110F]/85 leading-relaxed">
+                Led multidisciplinary teams in 20+ national hackathons, building Web3 and offline-first apps.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-[#12110F]/20 mt-4">
+              <div className="text-3xl font-extrabold font-display text-[#12110F]">20+</div>
               <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">Hackathons</div>
             </div>
           </motion.div>
 
-          {/* Stat 3 */}
+          {/* Stat 3: Internships */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -97,16 +119,27 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="neo-card bg-[#BBDDFF] p-5 flex flex-col justify-between"
           >
-            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
-              <Briefcase className="w-5 h-5" />
-            </div>
             <div>
-              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">2</div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+                  <Briefcase className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white border border-[#12110F] shadow-[1px_1px_0px_#12110F]">
+                  Production
+                </span>
+              </div>
+              <p className="font-sans text-xs text-[#12110F]/85 leading-relaxed">
+                Full-Stack Intern at Kotrelex & Code Alfa shipping real user features and backend integrations.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-[#12110F]/20 mt-4">
+              <div className="text-3xl font-extrabold font-display text-[#12110F]">2</div>
               <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">Internships</div>
             </div>
           </motion.div>
 
-          {/* Stat 4 */}
+          {/* Stat 4: CGPA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -114,11 +147,22 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.25 }}
             className="neo-card bg-[#FFE585] p-5 flex flex-col justify-between"
           >
-            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
-              <GraduationCap className="w-5 h-5" />
-            </div>
             <div>
-              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">8.75</div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white border border-[#12110F] shadow-[1px_1px_0px_#12110F]">
+                  Distinction
+                </span>
+              </div>
+              <p className="font-sans text-xs text-[#12110F]/85 leading-relaxed">
+                Maintained top academic standing in Computer Science & Engineering at Jaya Engineering College.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-[#12110F]/20 mt-4">
+              <div className="text-3xl font-extrabold font-display text-[#12110F]">8.75</div>
               <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">CGPA / 10</div>
             </div>
           </motion.div>
