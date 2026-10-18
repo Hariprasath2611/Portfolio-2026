@@ -36,20 +36,20 @@ export default function TopScrollProgress() {
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setHoverPercent(null)}
-      className="fixed top-0 left-0 right-0 z-[100] h-2 md:h-2.5 bg-[#F4F1EA] border-b-2 border-[#12110F] cursor-pointer group select-none"
+      className="fixed top-0 left-0 right-0 z-[100] h-[3.5px] bg-[#12110F]/10 cursor-pointer group select-none"
       role="progressbar"
       aria-label="Website scroll progress"
     >
-      {/* Neo-Brutalist Progress Fill */}
+      {/* Sleek Neo-Brutalist Progress Fill */}
       <motion.div
-        className="h-full bg-[#FFD84D] origin-left border-r-2 border-[#12110F] relative group-hover:bg-[#FFE585] transition-colors"
+        className="h-full bg-[#FFD84D] origin-left border-r border-[#12110F] shadow-[0_1px_6px_rgba(255,216,77,0.8)] group-hover:bg-[#FFE585] transition-colors"
         style={{ scaleX }}
       />
 
       {/* Floating percentage tooltip on seek/hover */}
       {hoverPercent !== null && (
         <div
-          className="absolute top-3.5 pointer-events-none -translate-x-1/2 px-2 py-0.5 rounded-md bg-[#12110F] text-[#FFD84D] font-mono text-[10px] font-bold border border-[#FFD84D] shadow-[2px_2px_0px_#12110F] whitespace-nowrap z-[110]"
+          className="absolute top-2.5 pointer-events-none -translate-x-1/2 px-2 py-0.5 rounded-md bg-[#12110F] text-[#FFD84D] font-mono text-[10px] font-bold border border-[#FFD84D] shadow-[2px_2px_0px_#12110F] whitespace-nowrap z-[110]"
           style={{ left: `${hoverX}px` }}
         >
           {hoverPercent}%
