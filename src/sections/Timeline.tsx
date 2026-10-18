@@ -1,144 +1,145 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import ScrollFloat from '../components/ScrollFloat';
-import { Code, Atom, Server, Layers, Smartphone, Target } from 'lucide-react';
+import { Briefcase, Calendar, GraduationCap, Trophy, Sparkles } from 'lucide-react';
 
-interface Milestone {
-  icon: React.ReactNode;
-  title: string;
-  period: string;
-  description: string;
+interface TimelineEvent {
+  date: string;
+  role: string;
+  organization: string;
+  desc: string;
   skills: string[];
+  bgColor: string;
+  icon: React.ReactNode;
 }
 
-const MILESTONES: Milestone[] = [
+const TIMELINE_DATA: TimelineEvent[] = [
   {
-    icon: <Code className="w-5 h-5" />,
-    title: 'Learning Web Development',
-    period: 'Phase 1: Foundations',
-    description: 'Mastered the core building blocks of the web. Focused on semantic markup, responsive stylesheets, raw ES6 script logic, and building modular static websites.',
-    skills: ['HTML5', 'CSS3', 'ES6 JavaScript', 'Responsive Layouts', 'Git Version Control']
+    date: 'July 2026 – Present',
+    role: 'Full Stack Developer Intern',
+    organization: 'Kotrelex',
+    desc: 'Develop and maintain production full-stack web features using React, Node.js, and MongoDB. Collaborate on frontend state management and backend endpoint logic with team code reviews.',
+    skills: ['React.js', 'Node.js', 'MongoDB', 'Git / GitHub', 'Team Collaboration'],
+    bgColor: 'bg-[#BDF3D4]', // Mint
+    icon: <Briefcase className="w-4 h-4 text-[#12110F]" />,
   },
   {
-    icon: <Atom className="w-5 h-5" />,
-    title: 'React Development Integration',
-    period: 'Phase 2: Frontend SPA',
-    description: 'Transitioned to single-page applications. Explored React ecosystem components, state flows, client routing, hooks architecture, and Tailwind layout utilities.',
-    skills: ['React JS', 'Tailwind CSS', 'Vite', 'Hooks API', 'State Management']
+    date: 'May 2026 – June 2026',
+    role: 'Full Stack Developer Intern',
+    organization: 'Code Alfa',
+    desc: 'Engineered frontend interfaces and backend integrations for web applications in a startup environment. Contributed clean reusable components and modular API handlers.',
+    skills: ['React.js', 'JavaScript', 'REST APIs', 'Tailwind CSS', 'Git'],
+    bgColor: 'bg-[#FFD0BC]', // Peach
+    icon: <Briefcase className="w-4 h-4 text-[#12110F]" />,
   },
   {
-    icon: <Server className="w-5 h-5" />,
-    title: 'Backend Engineering Systems',
-    period: 'Phase 3: Server Side Logic',
-    description: 'Engineered server services and web gateways. Learned Express endpoint mappings, token-based user authentication, password encryption, and caching mechanics.',
-    skills: ['Node.js', 'Express.js', 'REST API Design', 'JWT Security', 'Redis Caching']
+    date: '2026',
+    role: 'Team Lead & Core Engineer',
+    organization: 'Smart India Hackathon 2026 (Team LuminaryForge)',
+    desc: 'Spearheaded development of BHAROSA, a Web3 decentralized identity and asset management platform using W3C DIDs, Verifiable Credentials, 6 Solidity smart contracts, and Groth16 zero-knowledge proofs. Authored 96 automated tests.',
+    skills: ['Solidity', 'Groth16 ZK', 'W3C DIDs', 'TypeScript', 'PostgreSQL', 'IPFS'],
+    bgColor: 'bg-[#D9CCFF]', // Lavender
+    icon: <Trophy className="w-4 h-4 text-[#12110F]" />,
   },
   {
-    icon: <Layers className="w-5 h-5" />,
-    title: 'Full Stack Orchestrations',
-    period: 'Phase 4: Database & Integration',
-    description: 'Linked high-speed frontends with structured relational and non-relational database states. Handled migrations, complex joins, and deployment pipelines.',
-    skills: ['PostgreSQL', 'MongoDB', 'Firebase', 'Vercel / Render', 'Data Normalization']
+    date: '2024 – 2028 (Expected)',
+    role: 'B.E. Computer Science and Engineering',
+    organization: 'Jaya Engineering College, Chennai',
+    desc: 'Third-year undergraduate student maintaining an 8.75 CGPA out of 10. Deep diving into Operating Systems, Database Management Systems, Distributed Networks, and Software Engineering methodologies.',
+    skills: ['CGPA: 8.75', 'Data Structures', 'Database Systems', 'Computer Networks'],
+    bgColor: 'bg-[#FFE585]', // Butter
+    icon: <GraduationCap className="w-4 h-4 text-[#12110F]" />,
   },
   {
-    icon: <Smartphone className="w-5 h-5" />,
-    title: 'Mobile Application Engineering',
-    period: 'Phase 5: Cross-Platform Apps',
-    description: 'Utilized shared JavaScript logic structures to build interactive mobile products on iOS and Android with native responsive interfaces.',
-    skills: ['React Native', 'Mobile UI Design', 'SQLite Storage', 'Push Notifications', 'Native Bridges']
+    date: '2023 – Ongoing',
+    role: 'Open Source Builder & Hackathon Competitor',
+    organization: '20+ National Hackathons & GitHub Community',
+    desc: 'Achieved 2000+ GitHub contributions through continuous open-source commits, community pull requests, and competing in 20+ national hackathons.',
+    skills: ['2000+ Commits', '20+ Hackathons', 'Rapid Prototyping', 'System Design'],
+    bgColor: 'bg-[#BBDDFF]', // Sky
+    icon: <Sparkles className="w-4 h-4 text-[#12110F]" />,
   },
-  {
-    icon: <Target className="w-5 h-5" />,
-    title: 'Future R&D Goals',
-    period: 'Ongoing: Advanced Mainframe',
-    description: 'Focusing on distributed serverless edge runtime setups, vector databases for LLM integrations, and WebAssembly implementations for heavy calculation speeds.',
-    skills: ['GraphQL', 'Next.js', 'Vector DBs', 'System Architectures', 'WebAssembly']
-  }
 ];
 
 export default function Timeline() {
   return (
-    <section id="timeline" className="py-20 bg-cyber-grid relative overflow-hidden">
-      
-      {/* Decorative vertical background line */}
-      <div className="absolute top-0 bottom-0 left-[50%] -translate-x-[50%] w-[2px] bg-slate-200/50 dark:bg-cyan-500/10 hidden md:block" />
-
-      <div className="max-w-5xl mx-auto px-6">
-        
-        {/* Section Title */}
-        <div className="text-center mb-16 flex flex-col items-center">
-          <ScrollFloat
-            containerClassName="mb-4"
-            textClassName="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white"
-          >
-            &gt; DEVELOPMENT_JOURNEY
-          </ScrollFloat>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
+    <section id="timeline" className="py-20 md:py-28 px-6 max-w-5xl mx-auto">
+      {/* Section Header */}
+      <div className="flex flex-col items-start mb-16">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
+          06 / TIMELINE
         </div>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-[#12110F]">
+          The journey <span className="font-serif-italic font-normal">so far.</span>
+        </h2>
+        <p className="text-[#12110F]/70 font-sans mt-3 text-base max-w-xl">
+          Internships, hackathon leadership, education milestones, and open-source contributions mapped across dates.
+        </p>
+      </div>
 
-        {/* Timeline Stack */}
-        <div className="flex flex-col gap-12 relative">
-          {MILESTONES.map((mil, idx) => {
-            const isLeft = idx % 2 === 0;
+      {/* Timeline Layout: Left Date Column + Dashed Line + Right Card */}
+      <div className="relative pl-4 sm:pl-0">
+        {/* Vertical Dashed Line */}
+        <div className="absolute top-4 bottom-4 left-4 sm:left-[180px] w-0.5 border-l-2 border-dashed border-[#12110F]" />
 
-            return (
-              <div
-                key={idx}
-                className={`flex flex-col md:flex-row items-center justify-between relative md:gap-8 ${
-                  isLeft ? 'md:flex-row-reverse' : ''
-                }`}
-              >
-                {/* Center Node Dot */}
-                <div className="absolute left-[50%] -translate-x-[50%] z-20 hidden md:flex items-center justify-center w-10 h-10 rounded-full border-2 border-cyan-400 bg-slate-900 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]">
-                  {mil.icon}
+        <div className="flex flex-col gap-10">
+          {TIMELINE_DATA.map((event, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.08 }}
+              className="flex flex-col sm:flex-row items-start gap-4 sm:gap-10 relative"
+            >
+              {/* Left Date Column */}
+              <div className="hidden sm:flex flex-col items-end w-[160px] pt-4 select-none shrink-0">
+                <span className="font-mono text-xs font-extrabold text-[#12110F] bg-white px-2.5 py-1 rounded-md border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] text-right">
+                  {event.date}
+                </span>
+              </div>
+
+              {/* Center Dot Node on the Dashed Line */}
+              <div className="absolute left-[15px] sm:left-[171px] top-5 -translate-x-1/2 w-7 h-7 rounded-full bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center z-10">
+                {event.icon}
+              </div>
+
+              {/* Right Content Card */}
+              <div className="w-full pl-8 sm:pl-6">
+                {/* Mobile Date Badge */}
+                <div className="sm:hidden mb-2">
+                  <span className="font-mono text-[11px] font-extrabold text-[#12110F] bg-white px-2 py-0.5 rounded-md border border-[#12110F]">
+                    {event.date}
+                  </span>
                 </div>
 
-                {/* Milestone Content Card */}
-                <motion.div
-                  className="w-full md:w-[45%] text-left"
-                  initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-60px' }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                >
-                  <div className="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-cyan-500/5 hover:border-cyan-500/15 relative">
-                    
-                    {/* Period Label */}
-                    <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 mb-1">
-                      {mil.period}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="font-orbitron font-bold text-slate-800 dark:text-white text-base md:text-lg mb-3">
-                      {mil.title}
+                <div className={`neo-card ${event.bgColor} p-6 sm:p-7 flex flex-col justify-between`}>
+                  <div>
+                    <h3 className="text-xl font-display font-extrabold text-[#12110F] mb-1">
+                      {event.role}
                     </h3>
-
-                    {/* Description */}
-                    <p className="text-xs md:text-sm text-slate-500 dark:text-gray-400 leading-relaxed mb-4">
-                      {mil.description}
-                    </p>
-
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-200/30 dark:border-cyan-500/5">
-                      {mil.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="text-[9px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200/30 dark:border-cyan-500/10 text-slate-600 dark:text-gray-400"
-                        >
-                          {skill}
-                        </span>
-                      ))}
+                    <div className="font-mono text-xs font-bold text-[#12110F]/80 mb-4">
+                      {event.organization}
                     </div>
+                    <p className="font-sans text-xs sm:text-sm text-[#12110F]/85 leading-relaxed mb-6">
+                      {event.desc}
+                    </p>
                   </div>
-                </motion.div>
 
-                {/* Empty Spacer column for grid layout alignment */}
-                <div className="hidden md:block w-[45%]" />
+                  {/* Skills Pills */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t-2 border-[#12110F]/15">
+                    {event.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-2.5 py-1 bg-white rounded-lg border-2 border-[#12110F] font-mono text-[11px] font-bold text-[#12110F] shadow-[1px_1px_0px_#12110F]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            );
-          })}
+            </motion.div>
+          ))}
         </div>
-
       </div>
     </section>
   );
