@@ -1,5 +1,6 @@
 import { useRouter } from './hooks/useRouter';
 import CustomCursor from './components/CustomCursor';
+import TopScrollProgress from './components/TopScrollProgress';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import About from './sections/About';
@@ -17,10 +18,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F4F1EA] text-[#12110F] font-sans selection:bg-[#FFD84D] selection:text-[#12110F] relative">
-      {/* 1. Global Custom Neo-Brutalist Cursor */}
+      {/* 1. Top Reading / Scroll Progress Bar */}
+      <TopScrollProgress />
+
+      {/* 2. Global Custom Neo-Brutalist Cursor */}
       <CustomCursor />
 
-      {/* 2. Floating Pill Navbar */}
+      {/* 3. Floating Pill Navbar */}
       <Navbar currentPath={currentPath} navigate={navigate} />
 
       {/* 3. Main Views (Landing Page vs Dedicated Resume Page) */}
