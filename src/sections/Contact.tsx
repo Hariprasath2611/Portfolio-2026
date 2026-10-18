@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Copy, Check, Send, Sparkles, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Copy, Check, Send } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from '../components/BrandIcons';
 
