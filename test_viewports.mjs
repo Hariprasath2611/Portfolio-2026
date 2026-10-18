@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer-core';
+import os from 'os';
+import path from 'path';
 
 const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 
@@ -12,17 +14,19 @@ const viewports = [
   { name: 'Small Tablet / 600px', width: 600, height: 960, isLandscape: false },
   { name: 'iPad Portrait / 768px', width: 768, height: 1024, isLandscape: false },
   { name: 'iPad Landscape / 1024px', width: 1024, height: 768, isLandscape: true },
-  { name: 'Desktop / 1440px', width: 1440, height: 900, isLandscape: true },
+  { name: 'Desktop Large / 1440px', width: 1440, height: 900, isLandscape: true },
   { name: 'iPhone Landscape (375h)', width: 667, height: 375, isLandscape: true },
   { name: 'iPhone 14 Landscape (390h)', width: 844, height: 390, isLandscape: true },
   { name: 'Android Landscape (412h)', width: 915, height: 412, isLandscape: true },
 ];
 
 async function run() {
+  const tmpDir = path.join(os.tmpdir(), 'chrome_test_' + Date.now());
   const browser = await puppeteer.launch({
     executablePath: chromePath,
-    headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    headless: true,
+    userDataDir: tmpDir,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions'],
   });
 
   const page = await browser.newPage();
@@ -36,8 +40,8 @@ async function run() {
       hasTouch: vp.width < 1024,
     });
 
-    await page.goto('http://localhost:5174/', { waitUntil: 'networkidle0' });
-    await new Promise((r) => setTimeout(r, 400));
+    await page.goto('http://localhost:5174/', { waitUntil: 'domcontentloaded' });
+    await new Promise((r) => setTimeout(r, 200));
 
     const metrics = await page.evaluate(() => {
       const docScrollWidth = document.documentElement.scrollWidth;
@@ -45,42 +49,26 @@ async function run() {
       const innerWidth = window.innerWidth;
       const hasHorizontalScroll = docScrollWidth > innerWidth || bodyScrollWidth > innerWidth;
 
-      // Find any element extending outside viewport
-      const elements = Array.from(document.querySelectorAll('*'));
-      const overflowingElements = [];
-      for (const el of elements) {
-        const rect = el.getBoundingClientRect();
-        if (rect.right > innerWidth + 1) {
-          const id = el.id ? `#${el.id}` : '';
-          const cls = el.className && typeof el.className === 'string' ? `.${el.className.split(' ')[0]}` : '';
-          const tag = el.tagName.toLowerCase();
-          overflowingElements.push(`${tag}${id}${cls} (right: ${Math.round(rect.right)}px)`);
-          if (overflowingElements.length >= 3) break;
-        }
-      }
-
       return {
         docScrollWidth,
         bodyScrollWidth,
         innerWidth,
         hasHorizontalScroll,
-        overflowingElements,
       };
     });
 
-    // Test mobile drawer at mobile widths
     let menuPass = 'N/A (Desktop)';
     if (vp.width < 1024) {
       try {
         const hamburger = await page.$('button[aria-label*="navigation menu"]');
         if (hamburger) {
           await hamburger.click();
-          await new Promise((r) => setTimeout(r, 200));
+          await new Promise((r) => setTimeout(r, 150));
           const drawerOpen = await page.evaluate(() => {
             return !!document.querySelector('div[aria-hidden="true"]');
           });
           await page.keyboard.press('Escape');
-          await new Promise((r) => setTimeout(r, 200));
+          await new Promise((r) => setTimeout(r, 150));
           const drawerClosed = await page.evaluate(() => {
             return !document.querySelector('div[aria-hidden="true"]');
           });
@@ -96,20 +84,20 @@ async function run() {
     results.push({
       viewport: `${vp.width}x${vp.height}`,
       device: vp.name,
-      horizontalScroll: metrics.hasHorizontalScroll ? 'FAIL' : 'PASS',
+      horizontalScroll: metrics.hasHorizontalScroll ? 'FAIL (Overflow)' : 'PASS (No scroll)',
       docWidth: metrics.docScrollWidth,
       windowWidth: metrics.innerWidth,
       menu: menuPass,
     });
   }
 
-  // Also test /resume page at 320, 360, 375, 390, 412, 430, 768, 1440
-  const resumeWidths = [320, 360, 375, 390, 412, 430, 768, 1440];
+  // Also test /resume page
+  const resumeWidths = [320, 360, 375, 390, 412, 430, 600, 768, 1024, 1440];
   const resumeResults = [];
   for (const w of resumeWidths) {
     await page.setViewport({ width: w, height: 800 });
-    await page.goto('http://localhost:5174/resume', { waitUntil: 'networkidle0' });
-    await new Promise((r) => setTimeout(r, 400));
+    await page.goto('http://localhost:5174/resume', { waitUntil: 'domcontentloaded' });
+    await new Promise((r) => setTimeout(r, 200));
 
     const resMetrics = await page.evaluate(() => {
       const docScrollWidth = document.documentElement.scrollWidth;
@@ -123,16 +111,16 @@ async function run() {
 
     resumeResults.push({
       page: '/resume',
-      width: w,
-      horizontalScroll: resMetrics.hasHorizontalScroll ? 'FAIL' : 'PASS',
+      width: `${w}px`,
+      horizontalScroll: resMetrics.hasHorizontalScroll ? 'FAIL (Overflow)' : 'PASS (No scroll)',
       docWidth: resMetrics.docScrollWidth,
       windowWidth: resMetrics.innerWidth,
     });
   }
 
-  console.log('--- HOMEPAGE VIEWPORT RESULTS ---');
+  console.log('--- HOMEPAGE TEST MATRIX ---');
   console.table(results);
-  console.log('--- RESUME VIEWPORT RESULTS ---');
+  console.log('--- RESUME PAGE TEST MATRIX ---');
   console.table(resumeResults);
 
   await browser.close();
