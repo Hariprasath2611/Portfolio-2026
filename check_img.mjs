@@ -36,6 +36,14 @@ async function test() {
     console.log('Screenshot saved to arch_debug.png');
   }
 
+  await page.setViewport({ width: 375, height: 667 });
+  await page.reload({ waitUntil: 'networkidle0' });
+  const archMobile = await page.$('div.relative.z-10.rounded-t-\\[120px\\]');
+  if (archMobile) {
+    await archMobile.screenshot({ path: 'arch_mobile_debug.png' });
+    console.log('Mobile screenshot saved to arch_mobile_debug.png');
+  }
+
   await browser.close();
 }
 test().catch(console.error);
