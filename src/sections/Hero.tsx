@@ -48,44 +48,23 @@ export default function Hero({ navigate }: HeroProps) {
           <h1 className="text-[clamp(2rem,7vw,2.75rem)] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight text-[#12110F] leading-[1.1] mb-5 sm:mb-6">
             <span className="flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-1">
               {words.map((word, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="inline-block"
-                >
+                <span key={i} className="inline-block">
                   {word}
-                </motion.span>
+                </span>
               ))}
-              <motion.span
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.45 }}
-                className="highlight-draw font-serif-italic font-normal text-[#12110F] px-1"
-              >
+              <span className="highlight-draw font-serif-italic font-normal text-[#12110F] px-1">
                 real products.
-              </motion.span>
+              </span>
             </span>
           </h1>
 
           {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-sm sm:text-base md:text-lg text-[#12110F]/80 max-w-xl font-sans leading-relaxed mb-6 sm:mb-8"
-          >
+          <p className="text-sm sm:text-base md:text-lg text-[#12110F]/80 max-w-xl font-sans leading-relaxed mb-6 sm:mb-8">
             Third-year B.E. Computer Science student at Jaya Engineering College with 2 full-stack internships, 2000+ GitHub contributions, and Smart India Hackathon Web3 project leadership. Based in Chennai, India.
-          </motion.p>
+          </p>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12 w-full sm:w-auto"
-          >
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12 w-full sm:w-auto">
             <button
               onClick={() => handleScrollTo('contact')}
               className="neo-btn min-h-[48px] px-6 py-3.5 rounded-full bg-[#12110F] text-white font-display font-extrabold text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer hover:bg-[#FFD84D] hover:text-[#12110F] transition-all"
