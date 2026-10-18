@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Check, Cpu, Layout, Server, Database, Smartphone, ShieldCheck, Zap } from 'lucide-react';
+import { Check, Cpu, Server, Database, Smartphone, ShieldCheck, Zap } from 'lucide-react';
 
 const SERVICES = [
   {

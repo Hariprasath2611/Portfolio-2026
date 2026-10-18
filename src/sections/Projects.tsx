@@ -99,7 +99,7 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
   },
 ];
 
-function StackingCard({ project, index, total }: { project: FeaturedProject; index: number; total: number }) {
+function StackingCard({ project, index }: { project: FeaturedProject; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -198,7 +198,7 @@ function StackingCard({ project, index, total }: { project: FeaturedProject; ind
               className="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-bold text-xs sm:text-sm cursor-pointer"
               data-cursor="pointer"
             >
-              <Github className="w-4 h-4" />
+              <GithubIcon className="w-4 h-4" />
               <span>Source Code</span>
             </a>
 
@@ -274,7 +274,6 @@ export default function Projects() {
             key={proj.id}
             project={proj}
             index={idx}
-            total={FEATURED_PROJECTS.length}
           />
         ))}
       </div>
@@ -291,17 +290,35 @@ export default function Projects() {
             </p>
           </div>
 
-          {/* Search bar */}
-          <div className="relative w-full sm:w-64">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#12110F]/50" />
-            <input
-              type="text"
-              placeholder="Search projects..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border-2 border-[#12110F] shadow-[3px_3px_0px_#12110F] text-xs font-mono font-bold text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-[#FFE585]"
-              data-cursor="text"
-            />
+          {/* Category Filter Pills & Search bar */}
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F]">
+              {(['all', 'web', 'mobile'] as const).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
+                    activeCategory === cat
+                      ? 'bg-[#12110F] text-white'
+                      : 'text-[#12110F] hover:bg-[#FFE585]'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="relative w-full sm:w-60">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#12110F]/50" />
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] text-xs font-mono font-bold text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-[#FFE585]"
+                data-cursor="text"
+              />
+            </div>
           </div>
         </div>
 

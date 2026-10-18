@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, GraduationCap, Trophy, Sparkles } from 'lucide-react';
+import { Briefcase, GraduationCap, Trophy, Sparkles } from 'lucide-react';
 
 interface TimelineEvent {
   date: string;
