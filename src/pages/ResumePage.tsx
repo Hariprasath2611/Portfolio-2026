@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileDown, Printer, ArrowLeft } from 'lucide-react';
+import { FileDown, Printer, ArrowLeft, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../components/BrandIcons';
 
 interface ResumePageProps {
@@ -17,6 +17,15 @@ export default function ResumePage({ navigate }: ResumePageProps) {
     <div className="pt-28 md:pt-36 pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Top Breadcrumb & Headline */}
       <div className="flex flex-col items-center text-center mb-12">
+        <button
+          onClick={() => navigate('/')}
+          className="neo-btn mb-6 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-[#12110F] font-mono text-xs font-bold hover:bg-[#FFD84D] cursor-pointer"
+          data-cursor="pointer"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Back to Home</span>
+        </button>
+
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
           MY RESUME
         </div>
