@@ -93,26 +93,26 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#FFD84D] border-t-2 border-[#12110F] relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="contact" className="py-20 md:py-24 bg-[#FFD84D] border-t-2 border-[#12110F] relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="flex flex-col items-start mb-14">
+        <div className="flex flex-col items-start mb-12 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
             07 / CONTACT
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-[#12110F]">
             Let us build <span className="font-serif-italic font-normal">something good.</span>
           </h2>
-          <p className="text-[#12110F]/80 font-sans mt-3 text-base max-w-xl">
+          <p className="text-[#12110F]/80 font-sans mt-3 text-sm sm:text-base max-w-xl">
             Have an open role, hackathon collaboration, or client build? Pick your project type or send me a note.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Direct Info & Socials */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="lg:col-span-5 flex flex-col gap-5 sm:gap-6">
             {/* Availability Selection Chips */}
-            <div className="neo-card bg-white p-6">
+            <div className="neo-card bg-white p-5 sm:p-6">
               <span className="font-mono text-xs font-extrabold uppercase text-[#12110F]/60 block mb-3">
                 Select Opportunity Type:
               </span>
@@ -122,7 +122,7 @@ export default function Contact() {
                     key={opp}
                     type="button"
                     onClick={() => setForm((prev) => ({ ...prev, opportunityType: opp }))}
-                    className={`px-4 py-2 rounded-xl font-mono text-xs font-bold border-2 border-[#12110F] transition-all cursor-pointer ${
+                    className={`min-h-[44px] px-4 py-2 rounded-xl font-mono text-xs font-bold border-2 border-[#12110F] transition-all cursor-pointer ${
                       form.opportunityType === opp
                         ? 'bg-[#12110F] text-white shadow-[2px_2px_0px_#12110F]'
                         : 'bg-[#F4F1EA] text-[#12110F] hover:bg-[#FFE585]'
@@ -136,7 +136,7 @@ export default function Contact() {
             </div>
 
             {/* Email Card with Copy */}
-            <div className="neo-card bg-white p-5 flex items-center justify-between gap-4">
+            <div className="neo-card bg-white p-4 sm:p-5 flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 overflow-hidden">
                 <div className="w-10 h-10 rounded-xl bg-[#D9CCFF] border-2 border-[#12110F] flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5 text-[#12110F]" />
@@ -145,7 +145,7 @@ export default function Contact() {
                   <div className="text-[10px] font-mono font-bold uppercase text-[#12110F]/60">Email</div>
                   <a
                     href={`mailto:${contactDetails.email}`}
-                    className="font-mono text-xs md:text-sm font-bold text-[#12110F] truncate block hover:underline"
+                    className="font-mono text-xs sm:text-sm font-bold text-[#12110F] truncate block hover:underline"
                   >
                     {contactDetails.email}
                   </a>
@@ -154,8 +154,8 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={() => handleCopy(contactDetails.email, 'email')}
-                className="p-2 rounded-lg border-2 border-[#12110F] bg-[#F4F1EA] hover:bg-[#FFD84D] transition-colors shrink-0 cursor-pointer"
-                aria-label="Copy Email"
+                className="w-11 h-11 rounded-lg border-2 border-[#12110F] bg-[#F4F1EA] hover:bg-[#FFD84D] transition-colors shrink-0 flex items-center justify-center cursor-pointer"
+                aria-label="Copy Email address"
                 data-cursor="pointer"
               >
                 {copiedType === 'email' ? <Check className="w-4 h-4 text-emerald-700" /> : <Copy className="w-4 h-4 text-[#12110F]" />}
@@ -163,7 +163,7 @@ export default function Contact() {
             </div>
 
             {/* Phone Card with Copy */}
-            <div className="neo-card bg-white p-5 flex items-center justify-between gap-4">
+            <div className="neo-card bg-white p-4 sm:p-5 flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#BDF3D4] border-2 border-[#12110F] flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5 text-[#12110F]" />
@@ -172,7 +172,7 @@ export default function Contact() {
                   <div className="text-[10px] font-mono font-bold uppercase text-[#12110F]/60">Phone / WhatsApp</div>
                   <a
                     href={`tel:${contactDetails.phone}`}
-                    className="font-mono text-xs md:text-sm font-bold text-[#12110F] hover:underline"
+                    className="font-mono text-xs sm:text-sm font-bold text-[#12110F] hover:underline"
                   >
                     {contactDetails.phone}
                   </a>
@@ -181,8 +181,8 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={() => handleCopy(contactDetails.phone, 'phone')}
-                className="p-2 rounded-lg border-2 border-[#12110F] bg-[#F4F1EA] hover:bg-[#FFD84D] transition-colors shrink-0 cursor-pointer"
-                aria-label="Copy Phone"
+                className="w-11 h-11 rounded-lg border-2 border-[#12110F] bg-[#F4F1EA] hover:bg-[#FFD84D] transition-colors shrink-0 flex items-center justify-center cursor-pointer"
+                aria-label="Copy Phone number"
                 data-cursor="pointer"
               >
                 {copiedType === 'phone' ? <Check className="w-4 h-4 text-emerald-700" /> : <Copy className="w-4 h-4 text-[#12110F]" />}
@@ -190,25 +190,25 @@ export default function Contact() {
             </div>
 
             {/* Location Card */}
-            <div className="neo-card bg-white p-5 flex items-center gap-3">
+            <div className="neo-card bg-white p-4 sm:p-5 flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#FFD0BC] border-2 border-[#12110F] flex items-center justify-center shrink-0">
                 <MapPin className="w-5 h-5 text-[#12110F]" />
               </div>
               <div>
                 <div className="text-[10px] font-mono font-bold uppercase text-[#12110F]/60">Location</div>
-                <div className="font-mono text-xs md:text-sm font-bold text-[#12110F]">
+                <div className="font-mono text-xs sm:text-sm font-bold text-[#12110F]">
                   {contactDetails.location}
                 </div>
               </div>
             </div>
 
             {/* Social Pills */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 pt-2">
               <a
                 href={contactDetails.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neo-btn flex-1 py-2.5 rounded-xl bg-white text-[#12110F] flex items-center justify-center gap-2 font-mono text-xs font-bold hover:bg-[#D9CCFF]"
+                className="neo-btn flex-1 min-h-[44px] py-2.5 px-3 rounded-xl bg-white text-[#12110F] flex items-center justify-center gap-2 font-mono text-xs font-bold hover:bg-[#D9CCFF]"
                 data-cursor="pointer"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -218,7 +218,7 @@ export default function Contact() {
                 href={contactDetails.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neo-btn flex-1 py-2.5 rounded-xl bg-white text-[#12110F] flex items-center justify-center gap-2 font-mono text-xs font-bold hover:bg-[#BBDDFF]"
+                className="neo-btn flex-1 min-h-[44px] py-2.5 px-3 rounded-xl bg-white text-[#12110F] flex items-center justify-center gap-2 font-mono text-xs font-bold hover:bg-[#BBDDFF]"
                 data-cursor="pointer"
               >
                 <LinkedinIcon className="w-4 h-4" />
@@ -228,9 +228,9 @@ export default function Contact() {
                 href={contactDetails.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neo-btn py-2.5 px-4 rounded-xl bg-white text-[#12110F] flex items-center justify-center font-mono text-xs font-bold hover:bg-[#FFD0BC]"
+                className="neo-btn min-w-[44px] min-h-[44px] py-2.5 px-3.5 rounded-xl bg-white text-[#12110F] flex items-center justify-center font-mono text-xs font-bold hover:bg-[#FFD0BC]"
                 data-cursor="pointer"
-                aria-label="Instagram"
+                aria-label="Instagram profile"
               >
                 <InstagramIcon className="w-4 h-4" />
               </a>
@@ -241,78 +241,90 @@ export default function Contact() {
           <div className="lg:col-span-7">
             <motion.form
               onSubmit={handleSubmit}
-              className="neo-card bg-white p-6 sm:p-8 flex flex-col gap-5"
+              className="neo-card bg-white p-5 sm:p-8 flex flex-col gap-4 sm:gap-5"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 <div>
-                  <label className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
+                  <label htmlFor="contact-name" className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
                     Your Name *
                   </label>
                   <input
+                    id="contact-name"
+                    name="name"
                     type="text"
                     required
+                    autoComplete="name"
                     placeholder="D Hariprasath"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-sm text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white"
+                    className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-base text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white min-h-[48px]"
                     data-cursor="text"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
+                  <label htmlFor="contact-email" className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
                     Your Email *
                   </label>
                   <input
+                    id="contact-email"
+                    name="email"
                     type="email"
+                    inputMode="email"
                     required
+                    autoComplete="email"
                     placeholder="hariprasathd26112006@gmail.com"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-sm text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white"
+                    className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-base text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white min-h-[48px]"
                     data-cursor="text"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
+                <label htmlFor="contact-subject" className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
                   Subject
                 </label>
                 <input
+                  id="contact-subject"
+                  name="subject"
                   type="text"
+                  autoComplete="off"
                   placeholder={`Discussing ${form.opportunityType} opportunity`}
                   value={form.subject}
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-sm text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-base text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white min-h-[48px]"
                   data-cursor="text"
                 />
               </div>
 
               <div>
-                <label className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
+                <label htmlFor="contact-message" className="block font-mono text-xs font-bold uppercase text-[#12110F] mb-1.5">
                   Message *
                 </label>
                 <textarea
+                  id="contact-message"
+                  name="message"
                   required
-                  rows={5}
+                  rows={4}
                   placeholder="Tell me about your team, tech stack, and goals..."
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-sm text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-[#F4F1EA] border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] font-sans text-base text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-white resize-none"
                   data-cursor="text"
                 />
               </div>
 
               {submitStatus === 'success' && (
-                <div className="p-4 rounded-xl bg-[#BDF3D4] border-2 border-[#12110F] font-mono text-xs font-bold text-[#12110F] flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-800" />
+                <div className="p-3.5 sm:p-4 rounded-xl bg-[#BDF3D4] border-2 border-[#12110F] font-mono text-xs font-bold text-[#12110F] flex items-center gap-2">
+                  <Check className="w-4 h-4 text-emerald-800 shrink-0" />
                   <span>Message delivered! I will reply within 24 hours.</span>
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="p-4 rounded-xl bg-red-100 border-2 border-red-700 font-mono text-xs font-bold text-red-700">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-red-100 border-2 border-red-700 font-mono text-xs font-bold text-red-700">
                   Submission failed. Please email me directly at {contactDetails.email}
                 </div>
               )}
@@ -320,7 +332,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="neo-btn w-full py-4 rounded-xl bg-[#12110F] text-white hover:bg-[#FF8A5B] hover:text-[#12110F] font-display font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
+                className="neo-btn w-full min-h-[52px] py-3.5 sm:py-4 rounded-xl bg-[#12110F] text-white hover:bg-[#FF8A5B] hover:text-[#12110F] font-display font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
                 data-cursor="pointer"
               >
                 {isSubmitting ? (
