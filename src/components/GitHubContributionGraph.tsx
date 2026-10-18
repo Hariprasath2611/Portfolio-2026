@@ -88,7 +88,7 @@ export default function GitHubContributionGraph({
       }
     }
     return filtered;
-  }, [data?.monthLabels]);
+  }, [data]);
 
   // Color mapping matching user design
   const getCellColor = (level: number) => {

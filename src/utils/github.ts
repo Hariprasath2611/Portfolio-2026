@@ -26,7 +26,7 @@ export interface GitHubActivity {
   type: string;
   repo: { name: string };
   created_at: string;
-  payload?: any;
+  payload?: Record<string, unknown>;
 }
 
 export interface ContributionDay {
@@ -383,7 +383,7 @@ function getCached<T>(key: string, customDuration?: number): T | null {
       return null;
     }
     return parsed.data;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -397,7 +397,7 @@ function setCached<T>(key: string, data: T): void {
         timestamp: Date.now(),
       })
     );
-  } catch (e) {
+  } catch {
     // Ignore storage quota issues
   }
 }
@@ -437,18 +437,18 @@ export async function fetchGitHubRepos(username: string): Promise<GitHubRepo[]> 
   try {
     const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`);
     if (!res.ok) throw new Error('Failed to fetch repos');
-    const data = await res.json();
-    const repos: GitHubRepo[] = data.map((repo: any) => ({
-      id: repo.id,
-      name: repo.name,
-      description: repo.description || 'No description provided.',
-      html_url: repo.html_url,
-      homepage: repo.homepage,
-      stargazers_count: repo.stargazers_count,
-      forks_count: repo.forks_count,
-      language: repo.language || 'TypeScript',
-      updated_at: repo.updated_at,
-      topics: repo.topics || [],
+    const data = (await res.json()) as Array<Record<string, unknown>>;
+    const repos: GitHubRepo[] = data.map((repo) => ({
+      id: Number(repo.id),
+      name: String(repo.name || ''),
+      description: String(repo.description || 'No description provided.'),
+      html_url: String(repo.html_url || ''),
+      homepage: (repo.homepage as string) || null,
+      stargazers_count: Number(repo.stargazers_count) || 0,
+      forks_count: Number(repo.forks_count) || 0,
+      language: (repo.language as string) || 'TypeScript',
+      updated_at: String(repo.updated_at || ''),
+      topics: (repo.topics as string[]) || [],
     }));
     setCached(cacheKey, repos);
     return repos;
@@ -489,18 +489,18 @@ export async function fetchGitHubStarredRepos(username: string): Promise<GitHubR
   try {
     const res = await fetch(`https://api.github.com/users/${username}/starred`);
     if (!res.ok) throw new Error('Failed to fetch starred repos');
-    const data = await res.json();
-    const repos: GitHubRepo[] = data.map((repo: any) => ({
-      id: repo.id,
-      name: repo.name,
-      description: repo.description || 'No description provided.',
-      html_url: repo.html_url,
-      homepage: repo.homepage,
-      stargazers_count: repo.stargazers_count,
-      forks_count: repo.forks_count,
-      language: repo.language || 'TypeScript',
-      updated_at: repo.updated_at,
-      topics: repo.topics || [],
+    const data = (await res.json()) as Array<Record<string, unknown>>;
+    const repos: GitHubRepo[] = data.map((repo) => ({
+      id: Number(repo.id),
+      name: String(repo.name || ''),
+      description: String(repo.description || 'No description provided.'),
+      html_url: String(repo.html_url || ''),
+      homepage: (repo.homepage as string) || null,
+      stargazers_count: Number(repo.stargazers_count) || 0,
+      forks_count: Number(repo.forks_count) || 0,
+      language: (repo.language as string) || 'TypeScript',
+      updated_at: String(repo.updated_at || ''),
+      topics: (repo.topics as string[]) || [],
     }));
     const finalRepos = injectPrivateRepos(repos);
     setCached(cacheKey, finalRepos);
@@ -520,8 +520,8 @@ export async function fetchGitHubActivity(username: string): Promise<GitHubActiv
   try {
     const res = await fetch(`https://api.github.com/users/${username}/events`);
     if (!res.ok) throw new Error('Failed to fetch activities');
-    const data = await res.json();
-    const activities = data.slice(0, 10).map((event: any) => ({
+    const data = (await res.json()) as Array<{ type: string; repo: { name: string }; created_at: string }>;
+    const activities = data.slice(0, 10).map((event) => ({
       type: event.type,
       repo: { name: event.repo.name.replace(`${username}/`, '') },
       created_at: event.created_at,
