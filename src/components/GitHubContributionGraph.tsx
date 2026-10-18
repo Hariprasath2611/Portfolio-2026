@@ -174,9 +174,9 @@ export default function GitHubContributionGraph({
             disabled={isRefreshing}
             title="Sync with GitHub (Live)"
             aria-label="Sync with GitHub"
-            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/10 transition-colors disabled:opacity-50"
+            className="min-w-[40px] min-h-[40px] p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/10 transition-colors disabled:opacity-50 flex items-center justify-center cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#FFD84D]' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-[#FFD84D]' : ''}`} />
           </button>
         </div>
       </div>
@@ -184,7 +184,8 @@ export default function GitHubContributionGraph({
       {/* Heatmap Grid Area */}
       <div
         ref={scrollRef}
-        className="overflow-x-auto pb-3 pt-1 scrollbar-none relative"
+        className="overflow-x-auto pb-3 pt-1 scrollbar-none relative touch-pan-x"
+        style={{ WebkitOverflowScrolling: 'touch' }}
         onMouseLeave={() => setHoveredCell(null)}
       >
         {loading && !data ? (
@@ -247,6 +248,17 @@ export default function GitHubContributionGraph({
                       <div
                         key={day.date}
                         className={`w-3 h-3 rounded-[2.5px] cursor-pointer transition-all duration-150 hover:scale-135 hover:z-30 hover:ring-2 hover:ring-emerald-400 ${colorClass}`}
+                        onClick={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const containerRect = containerRef.current?.getBoundingClientRect();
+                          if (containerRect) {
+                            setHoveredCell({
+                              day,
+                              x: rect.left - containerRect.left + rect.width / 2,
+                              y: rect.top - containerRect.top,
+                            });
+                          }
+                        }}
                         onMouseEnter={(e) => {
                           const rect = e.currentTarget.getBoundingClientRect();
                           const containerRect = containerRef.current?.getBoundingClientRect();

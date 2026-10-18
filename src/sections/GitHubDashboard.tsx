@@ -70,30 +70,30 @@ export default function GitHubDashboard() {
   const languageStats = getLanguageStats();
 
   return (
-    <section id="github" className="py-24 bg-[#12110F] text-[#F4F1EA] relative overflow-hidden border-y-2 border-[#12110F]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="github" className="py-20 md:py-24 bg-[#12110F] text-[#F4F1EA] relative overflow-hidden border-y-2 border-[#12110F]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="flex flex-col items-start mb-14">
+        <div className="flex flex-col items-start mb-12 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFD84D] text-[#12110F] text-xs font-mono font-bold tracking-wider mb-4 border-2 border-[#FFD84D] shadow-[2px_2px_0px_#FF8A5B]">
             03 / GITHUB
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-white">
             Open code, <span className="font-serif-italic font-normal text-[#FFD84D]">written every day.</span>
           </h2>
-          <p className="text-slate-400 font-sans mt-3 text-base max-w-xl">
+          <p className="text-slate-400 font-sans mt-3 text-sm sm:text-base max-w-xl">
             Live metrics from my GitHub profile showcasing open source contributions, repositories, and daily coding rhythm.
           </p>
         </div>
 
         {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Profile Card */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-5 rounded-3xl border-2 border-white/20 bg-white/5 p-6 md:p-8 backdrop-blur-sm shadow-[6px_6px_0px_#000000]"
+            className="lg:col-span-5 rounded-3xl border-2 border-white/20 bg-white/5 p-5 sm:p-6 md:p-8 backdrop-blur-sm shadow-[6px_6px_0px_#000000]"
           >
             <div className="flex items-center gap-4 mb-6">
               <img

@@ -14,36 +14,36 @@ export default function ResumePage({ navigate }: ResumePageProps) {
   };
 
   return (
-    <div className="pt-28 md:pt-36 pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div className="pt-24 sm:pt-28 md:pt-36 pb-16 sm:pb-20 px-3 sm:px-6 max-w-6xl mx-auto">
       {/* Top Breadcrumb & Headline */}
-      <div className="flex flex-col items-center text-center mb-12">
+      <div className="flex flex-col items-center text-center mb-10 sm:mb-12">
         <button
           onClick={() => navigate('/')}
-          className="neo-btn mb-6 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-[#12110F] font-mono text-xs font-bold hover:bg-[#FFD84D] cursor-pointer"
+          className="neo-btn mb-6 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-white text-[#12110F] font-mono text-xs font-bold hover:bg-[#FFD84D] cursor-pointer"
           data-cursor="pointer"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          <ArrowLeft className="w-4 h-4" />
           <span>Back to Home</span>
         </button>
 
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
           MY RESUME
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-[#12110F]">
+        <h1 className="text-[clamp(2rem,7vw,2.75rem)] sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-[#12110F]">
           Take a look, then <span className="font-serif-italic font-normal">download it.</span>
         </h1>
-        <p className="text-[#12110F]/70 font-sans mt-3 text-base max-w-xl">
+        <p className="text-[#12110F]/70 font-sans mt-3 text-sm sm:text-base max-w-xl">
           Clean ATS-optimized resume ready for recruiters and engineering hiring managers.
         </p>
       </div>
 
       {/* Main Grid: Left Profile Card + Right Resume Paper */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
         {/* Left Column: Sticky Profile Card */}
         <div className="lg:col-span-4 lg:sticky lg:top-28">
-          <div className="neo-card bg-[#D9CCFF] p-6 flex flex-col justify-between">
+          <div className="neo-card bg-[#D9CCFF] p-5 sm:p-6 flex flex-col justify-between">
             {/* Arch Photo Frame */}
-            <div className="relative w-40 h-48 mx-auto mb-4 flex items-end justify-center">
+            <div className="relative w-36 h-44 sm:w-40 sm:h-48 mx-auto mb-4 flex items-end justify-center">
               <div className="absolute inset-0 bg-[#FFD84D] rounded-t-[90px] rounded-b-2xl border-2 border-[#12110F] -rotate-2" />
               <div className="relative w-full h-full rounded-t-[90px] rounded-b-2xl border-2 border-[#12110F] bg-[#BBDDFF] overflow-hidden shadow-[4px_4px_0px_#12110F]">
                 <img
@@ -55,7 +55,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
             </div>
 
             <div className="text-center mb-5">
-              <h2 className="text-2xl font-display font-extrabold text-[#12110F]">
+              <h2 className="text-xl sm:text-2xl font-display font-extrabold text-[#12110F]">
                 D Hariprasath
               </h2>
               <div className="font-mono text-xs font-bold text-[#12110F]/70 mt-0.5">
@@ -69,26 +69,26 @@ export default function ResumePage({ navigate }: ResumePageProps) {
 
             {/* Meta Table Rows */}
             <div className="space-y-2 py-4 border-y-2 border-[#12110F]/20 font-mono text-xs">
-              <div className="flex justify-between items-center">
-                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold">Location</span>
-                <span className="text-[#12110F] font-bold">Chennai, Tamil Nadu</span>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold shrink-0">Location</span>
+                <span className="text-[#12110F] font-bold text-right truncate">Chennai, Tamil Nadu</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold">Email</span>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold shrink-0">Email</span>
                 <span className="text-[#12110F] font-bold truncate max-w-[170px]" title="hariprasathd26112006@gmail.com">
                   hariprasathd2611...
                 </span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold">Phone</span>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold shrink-0">Phone</span>
                 <span className="text-[#12110F] font-bold">+91 9790851329</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold">Education</span>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold shrink-0">Education</span>
                 <span className="text-[#12110F] font-bold">B.E. CSE (JEC)</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold">Graduation</span>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-[#12110F]/60 uppercase text-[10px] font-bold shrink-0">Graduation</span>
                 <span className="text-emerald-800 font-bold">Expected 2028</span>
               </div>
             </div>
@@ -98,7 +98,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               <a
                 href="/D%20Hariprasath%20-%20Resume%20(ATS-Friendly).docx"
                 download="D Hariprasath - Resume (ATS-Friendly).docx"
-                className="neo-btn w-full py-3 px-4 rounded-xl bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="neo-btn min-h-[44px] w-full py-3 px-4 rounded-xl bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                 data-cursor="pointer"
               >
                 <FileDown className="w-4 h-4" />
@@ -108,7 +108,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               <a
                 href="/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx"
                 download="D Hariprasath - One Page Resume (ATS).docx"
-                className="neo-btn w-full py-3 px-4 rounded-xl bg-white text-[#12110F] hover:bg-[#FFE585] font-display font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="neo-btn min-h-[44px] w-full py-3 px-4 rounded-xl bg-white text-[#12110F] hover:bg-[#FFE585] font-display font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                 data-cursor="pointer"
               >
                 <FileDown className="w-4 h-4" />
@@ -122,8 +122,8 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                 href="https://github.com/Hariprasath2611"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] hover:bg-[#FFD84D] transition-colors"
-                aria-label="GitHub"
+                className="w-11 h-11 rounded-lg bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] hover:bg-[#FFD84D] transition-colors flex items-center justify-center"
+                aria-label="GitHub profile"
                 data-cursor="pointer"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -132,16 +132,16 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                 href="https://linkedin.com/in/hariprasath-d-b19068379"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] hover:bg-[#BBDDFF] transition-colors"
-                aria-label="LinkedIn"
+                className="w-11 h-11 rounded-lg bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] hover:bg-[#BBDDFF] transition-colors flex items-center justify-center"
+                aria-label="LinkedIn profile"
                 data-cursor="pointer"
               >
                 <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
                 href="mailto:hariprasathd26112006@gmail.com"
-                className="p-2 rounded-lg bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] hover:bg-[#BDF3D4] transition-colors"
-                aria-label="Email"
+                className="w-11 h-11 rounded-lg bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] hover:bg-[#BDF3D4] transition-colors flex items-center justify-center"
+                aria-label="Email Hariprasath"
                 data-cursor="pointer"
               >
                 <Mail className="w-4 h-4" />
@@ -153,64 +153,67 @@ export default function ResumePage({ navigate }: ResumePageProps) {
         {/* Right Column: Paper Preview & Toolbar */}
         <div className="lg:col-span-8 flex flex-col gap-4">
           {/* Toolbar */}
-          <div className="neo-card bg-white p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
-            <div className="font-mono text-xs font-bold text-[#12110F]">
+          <div className="neo-card bg-white p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <div className="font-mono text-[11px] sm:text-xs font-bold text-[#12110F] text-center sm:text-left truncate">
               {activeTab === 'detailed'
-                ? 'D_HARIPRASATH_RESUME_(ATS_FRIENDLY).DOCX · FULL DETAILED'
+                ? 'D_HARIPRASATH_RESUME_(ATS_FRIENDLY).DOCX · FULL'
                 : 'D_HARIPRASATH_RESUME.DOCX · 1 PAGE · ATS'}
             </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setActiveTab('ats')}
-                className={`px-3 py-1 rounded-full font-mono text-xs font-bold border border-[#12110F] transition-all cursor-pointer ${
-                  activeTab === 'ats' ? 'bg-[#FFD84D] text-[#12110F] shadow-[1px_1px_0px_#12110F]' : 'bg-[#F4F1EA] text-[#12110F]'
-                }`}
-              >
-                ONE PAGE (ATS)
-              </button>
-              <button
-                onClick={() => setActiveTab('detailed')}
-                className={`px-3 py-1 rounded-full font-mono text-xs font-bold border border-[#12110F] transition-all cursor-pointer ${
-                  activeTab === 'detailed' ? 'bg-[#FFD84D] text-[#12110F] shadow-[1px_1px_0px_#12110F]' : 'bg-[#F4F1EA] text-[#12110F]'
-                }`}
-              >
-                Full detailed
-              </button>
-            </div>
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
+              <div className="inline-flex rounded-xl bg-[#F4F1EA] p-1 border border-[#12110F]">
+                <button
+                  onClick={() => setActiveTab('ats')}
+                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer min-h-[36px] ${
+                    activeTab === 'ats' ? 'bg-[#FFD84D] text-[#12110F] shadow-[1px_1px_0px_#12110F]' : 'text-[#12110F]'
+                  }`}
+                >
+                  1 PAGE (ATS)
+                </button>
+                <button
+                  onClick={() => setActiveTab('detailed')}
+                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer min-h-[36px] ${
+                    activeTab === 'detailed' ? 'bg-[#FFD84D] text-[#12110F] shadow-[1px_1px_0px_#12110F]' : 'text-[#12110F]'
+                  }`}
+                >
+                  Full detailed
+                </button>
+              </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handlePrint}
-                className="neo-btn px-3 py-1.5 rounded-lg bg-[#F4F1EA] hover:bg-[#FFD84D] font-mono text-xs font-bold flex items-center gap-1.5 text-[#12110F] cursor-pointer"
-                data-cursor="pointer"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>Print</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePrint}
+                  className="neo-btn min-h-[38px] px-3 py-1.5 rounded-lg bg-[#F4F1EA] hover:bg-[#FFD84D] font-mono text-xs font-bold flex items-center gap-1.5 text-[#12110F] cursor-pointer"
+                  data-cursor="pointer"
+                  aria-label="Print resume"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print</span>
+                </button>
 
-              <a
-                href={
-                  activeTab === 'detailed'
-                    ? '/D%20Hariprasath%20-%20Resume%20(ATS-Friendly).docx'
-                    : '/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx'
-                }
-                download={
-                  activeTab === 'detailed'
-                    ? 'D Hariprasath - Resume (ATS-Friendly).docx'
-                    : 'D Hariprasath - One Page Resume (ATS).docx'
-                }
-                className="neo-btn px-3.5 py-1.5 rounded-lg bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-mono text-xs font-bold flex items-center gap-1.5 cursor-pointer"
-                data-cursor="pointer"
-              >
-                <FileDown className="w-3.5 h-3.5" />
-                <span>Download</span>
-              </a>
+                <a
+                  href={
+                    activeTab === 'detailed'
+                      ? '/D%20Hariprasath%20-%20Resume%20(ATS-Friendly).docx'
+                      : '/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx'
+                  }
+                  download={
+                    activeTab === 'detailed'
+                      ? 'D Hariprasath - Resume (ATS-Friendly).docx'
+                      : 'D Hariprasath - One Page Resume (ATS).docx'
+                  }
+                  className="neo-btn min-h-[38px] px-3.5 py-1.5 rounded-lg bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-mono text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                  data-cursor="pointer"
+                >
+                  <FileDown className="w-3.5 h-3.5" />
+                  <span>Download</span>
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Paper-Style Resume Document */}
-          <div className="neo-card bg-white p-8 sm:p-12 text-[#12110F] shadow-[8px_8px_0px_#12110F] leading-relaxed">
+          <div className="neo-card bg-white p-5 sm:p-8 md:p-12 text-[#12110F] shadow-[6px_6px_0px_#12110F] sm:shadow-[8px_8px_0px_#12110F] leading-relaxed break-words">
             {/* Paper Header */}
             <div className="text-center pb-5 mb-5 border-b-2 border-[#12110F]">
               <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-[#12110F] mb-1.5">
@@ -221,20 +224,20 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                 <span>•</span>
                 <span>+91 9790851329</span>
                 <span>•</span>
-                <a href="mailto:hariprasathd26112006@gmail.com" className="text-indigo-600 hover:underline">
+                <a href="mailto:hariprasathd26112006@gmail.com" className="text-indigo-600 hover:underline break-all">
                   hariprasathd26112006@gmail.com
                 </a>
               </div>
               <div className="text-xs font-sans text-slate-700 flex flex-wrap justify-center items-center gap-2">
-                <a href="https://linkedin.com/in/hariprasath-d-b19068379" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">
+                <a href="https://linkedin.com/in/hariprasath-d-b19068379" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline break-all">
                   linkedin.com/in/hariprasath-d-b19068379
                 </a>
                 <span>•</span>
-                <a href="https://github.com/Hariprasath2611" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">
+                <a href="https://github.com/Hariprasath2611" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline break-all">
                   github.com/Hariprasath2611
                 </a>
                 <span>•</span>
-                <a href="https://hariprasathportfolio-zeta.vercel.app" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">
+                <a href="https://hariprasathportfolio-zeta.vercel.app" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline break-all">
                   hariprasathportfolio-zeta.vercel.app
                 </a>
               </div>
@@ -322,7 +325,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               <div className="mb-5">
                 <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
                   <span>BHAROSA: Decentralized Identity and Asset Platform</span>
-                  <a href="https://github.com/Hariprasath2611/SIH26125-LuminaryForge" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
+                  <a href="https://github.com/Hariprasath2611/SIH26125-LuminaryForge" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline break-all">
                     github.com/Hariprasath2611/SIH26125-LuminaryForge
                   </a>
                 </div>
@@ -341,7 +344,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               <div className="mb-5">
                 <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
                   <span>Course Coverage Report (CCR) Management System</span>
-                  <a href="https://github.com/Hariprasath2611/CCR-App" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
+                  <a href="https://github.com/Hariprasath2611/CCR-App" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline break-all">
                     github.com/Hariprasath2611/CCR-App
                   </a>
                 </div>
@@ -362,7 +365,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                   <div className="mb-5">
                     <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
                       <span>Campus ERP: Faculty Attendance Module</span>
-                      <a href="https://github.com/Hariprasath2611" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
+                      <a href="https://github.com/Hariprasath2611" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline break-all">
                         github.com/Hariprasath2611
                       </a>
                     </div>
@@ -378,7 +381,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                   <div>
                     <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
                       <span>Ryde: On-Demand Driver Booking App (in development)</span>
-                      <a href="https://github.com/Hariprasath2611/Ryde" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
+                      <a href="https://github.com/Hariprasath2611/Ryde" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline break-all">
                         github.com/Hariprasath2611/Ryde
                       </a>
                     </div>
