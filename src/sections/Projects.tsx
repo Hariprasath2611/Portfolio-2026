@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight, Github, ExternalLink, Search, Star, GitFork, ShieldAlert, CheckCircle2, Layers } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Search, Star, GitFork, ShieldAlert, CheckCircle2 } from 'lucide-react';
 import { fetchGitHubStarredRepos } from '../utils/github';
 import type { GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
