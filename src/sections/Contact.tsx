@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Copy, Check, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Copy, Check, Send, ArrowUpRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { GithubIcon, LinkedinIcon, InstagramIcon } from '../components/BrandIcons';
+import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from '../components/BrandIcons';
 
 interface FormState {
   name: string;
@@ -189,6 +189,35 @@ export default function Contact() {
               </button>
             </div>
 
+            {/* Quick WhatsApp Message Button */}
+            <a
+              href={`https://wa.me/919790851329?text=${encodeURIComponent(
+                `Hi Hariprasath, I am reaching out regarding a ${form.opportunityType} opportunity from your portfolio.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="neo-btn min-h-[52px] p-4 rounded-2xl bg-[#25D366] text-[#12110F] font-display font-extrabold text-sm sm:text-base flex items-center justify-between gap-3 hover:bg-[#20bd5a] transition-all cursor-pointer shadow-[4px_4px_0px_#12110F] group"
+              data-cursor="pointer"
+              aria-label="Quick WhatsApp Message"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white border-2 border-[#12110F] flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#12110F]">
+                  <WhatsappIcon className="w-5 h-5 text-[#25D366]" />
+                </div>
+                <div className="text-left">
+                  <div className="text-sm font-display font-extrabold text-[#12110F] leading-tight">
+                    Quick WhatsApp Message
+                  </div>
+                  <div className="text-[11px] font-mono font-medium text-[#12110F]/80">
+                    Direct chat • +91 9790851329
+                  </div>
+                </div>
+              </div>
+              <div className="w-8 h-8 rounded-full bg-white border-2 border-[#12110F] flex items-center justify-center shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shadow-[2px_2px_0px_#12110F]">
+                <ArrowUpRight className="w-4 h-4 text-[#12110F]" />
+              </div>
+            </a>
+
             {/* Location Card */}
             <div className="neo-card bg-white p-4 sm:p-5 flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#FFD0BC] border-2 border-[#12110F] flex items-center justify-center shrink-0">
@@ -344,6 +373,28 @@ export default function Contact() {
                   </>
                 )}
               </button>
+
+              <div className="flex items-center gap-3 my-1">
+                <div className="h-[2px] bg-[#12110F]/15 flex-1" />
+                <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase text-[#12110F]/60">or connect directly</span>
+                <div className="h-[2px] bg-[#12110F]/15 flex-1" />
+              </div>
+
+              <a
+                href={`https://wa.me/919790851329?text=${encodeURIComponent(
+                  form.message 
+                    ? `Hi Hariprasath, my name is ${form.name || 'a visitor'}. Regarding: ${form.subject || form.opportunityType}. ${form.message}` 
+                    : `Hi Hariprasath, I am reaching out regarding a ${form.opportunityType} opportunity from your portfolio.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="neo-btn w-full min-h-[48px] py-3 rounded-xl bg-[#25D366] text-[#12110F] font-display font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 hover:bg-[#20bd5a] transition-all cursor-pointer shadow-[3px_3px_0px_#12110F]"
+                data-cursor="pointer"
+              >
+                <WhatsappIcon className="w-4 h-4 text-[#12110F] shrink-0" />
+                <span>Chat on WhatsApp</span>
+                <ArrowUpRight className="w-4 h-4 text-[#12110F]" />
+              </a>
             </motion.form>
           </div>
         </div>
