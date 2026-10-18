@@ -29,7 +29,33 @@ export interface GitHubActivity {
   payload?: any;
 }
 
+export interface ContributionDay {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+export interface ContributionWeek {
+  days: (ContributionDay | null)[];
+}
+
+export interface MonthLabel {
+  weekIdx: number;
+  monthName: string;
+}
+
+export interface GitHubContributionsData {
+  total: number;
+  totalLastYear: number;
+  contributions: ContributionDay[];
+  weeks: ContributionWeek[];
+  monthLabels: MonthLabel[];
+  updatedAt: number;
+}
+
 const CACHE_DURATION = import.meta.env.DEV ? 5000 : 60 * 60 * 1000; // 5 seconds in development, 1 hour in production
+const CONTRIBUTIONS_CACHE_DURATION = import.meta.env.DEV ? 30 * 1000 : 10 * 60 * 1000; // 30s in dev, 10m in prod
+
 
 // Highly realistic fallback data for D Hari Prasath in case of rate-limiting or offline development
 const MOCK_PROFILE: GitHubProfile = {
