@@ -47,6 +47,7 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               <div className="absolute inset-0 bg-[#FFD84D] rounded-t-[90px] rounded-b-2xl border-2 border-[#12110F] -rotate-2" />
               <div className="relative w-full h-full rounded-t-[90px] rounded-b-2xl border-2 border-[#12110F] bg-[#BBDDFF] overflow-hidden shadow-[4px_4px_0px_#12110F]">
                 <picture className="w-full h-full">
+                  <source type="image/webp" media="(max-width: 640px)" srcSet="/HP-sm.webp" />
                   <source type="image/webp" srcSet="/HP.webp" />
                   <img
                     src="/HP.png"

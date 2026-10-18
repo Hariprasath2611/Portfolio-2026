@@ -13,6 +13,7 @@ export default function HeroVisual() {
         data-cursor="hi"
       >
         <picture className="w-full h-full">
+          <source type="image/webp" media="(max-width: 640px)" srcSet="/Photo%20one-sm.webp" />
           <source type="image/webp" srcSet="/Photo%20one.webp" />
           <img
             src="/Photo%20one.png"
