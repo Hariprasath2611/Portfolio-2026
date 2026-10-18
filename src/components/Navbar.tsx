@@ -23,6 +23,20 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // Close mobile drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   useEffect(() => {
     if (currentPath === '/resume') return;
 
@@ -54,19 +68,19 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
   };
 
   return (
-    <header className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
-      <nav className="pointer-events-auto bg-[#F4F1EA]/95 backdrop-blur-md border-2 border-[#12110F] shadow-[4px_4px_0px_#12110F] rounded-full px-4 md:px-6 py-2.5 flex items-center justify-between gap-4 md:gap-8 max-w-5xl w-full">
+    <header className="fixed top-[calc(env(safe-area-inset-top,0px)+0.75rem)] inset-x-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
+      <nav className="pointer-events-auto bg-[#F4F1EA]/95 backdrop-blur-md border-2 border-[#12110F] shadow-[4px_4px_0px_#12110F] rounded-full px-3.5 sm:px-4 md:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-3 sm:gap-4 md:gap-8 max-w-5xl w-full">
         {/* Brand Logo */}
         <a
           href="#home"
           onClick={(e) => handleLinkClick(e, '#home')}
-          className="flex items-center gap-2.5 group cursor-pointer"
+          className="flex items-center gap-2 sm:gap-2.5 group cursor-pointer min-h-[44px] py-1"
           data-cursor="pointer"
         >
-          <div className="w-8 h-8 rounded-full bg-[#12110F] text-[#FFD84D] font-display font-extrabold flex items-center justify-center text-xs border border-[#12110F] group-hover:rotate-6 transition-transform">
+          <div className="w-8 h-8 rounded-full bg-[#12110F] text-[#FFD84D] font-display font-extrabold flex items-center justify-center text-xs border border-[#12110F] group-hover:rotate-6 transition-transform shrink-0">
             HP
           </div>
-          <span className="font-display font-bold text-base md:text-lg text-[#12110F] tracking-tight">
+          <span className="font-display font-bold text-sm sm:text-base md:text-lg text-[#12110F] tracking-tight">
             Hariprasath
           </span>
         </a>
@@ -83,7 +97,7 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
                   <a
                     href={item.href}
                     onClick={(e) => handleLinkClick(e, item.href)}
-                    className={`px-3.5 py-1 rounded-full font-mono text-xs font-bold border-2 border-[#12110F] transition-all cursor-pointer ${
+                    className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-bold border-2 border-[#12110F] transition-all cursor-pointer ${
                       isActive
                         ? 'bg-[#FFD84D] text-[#12110F] shadow-[2px_2px_0px_#12110F]'
                         : 'bg-white/80 hover:bg-[#FFD84D] text-[#12110F] shadow-[2px_2px_0px_#12110F]'
@@ -101,7 +115,7 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
                 <a
                   href={item.href}
                   onClick={(e) => handleLinkClick(e, item.href)}
-                  className={`px-2.5 py-1 rounded-lg font-sans text-xs md:text-sm font-semibold transition-colors cursor-pointer ${
+                  className={`px-2.5 py-1.5 rounded-lg font-sans text-xs md:text-sm font-semibold transition-colors cursor-pointer ${
                     isActive
                       ? 'text-[#12110F] font-bold underline decoration-2 decoration-[#FFD84D] underline-offset-4'
                       : 'text-[#12110F]/70 hover:text-[#12110F]'
@@ -115,78 +129,93 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
           })}
         </ul>
 
-        {/* Hire Me CTA Button */}
+        {/* Header Right Action Group */}
         <div className="flex items-center gap-2">
           <a
             href="#contact"
             onClick={(e) => handleLinkClick(e, '#contact')}
-            className="neo-btn inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-bold text-xs md:text-sm cursor-pointer"
+            className="neo-btn inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2 rounded-full bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-bold text-xs sm:text-sm cursor-pointer min-h-[40px]"
             data-cursor="pointer"
           >
             <span>Hire me</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
 
-          {/* Mobile Hamburger Button */}
+          {/* Mobile Hamburger Button (44x44px minimum touch target) */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-1.5 rounded-full border-2 border-[#12110F] bg-white text-[#12110F] shadow-[2px_2px_0px_#12110F] cursor-pointer"
-            aria-label="Toggle Navigation Menu"
+            className="lg:hidden w-11 h-11 rounded-full border-2 border-[#12110F] bg-white text-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center cursor-pointer transition-transform active:scale-95"
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
           >
-            {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer & Backdrop */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -15, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -15, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="pointer-events-auto absolute top-16 inset-x-4 bg-[#F4F1EA] border-2 border-[#12110F] shadow-[6px_6px_0px_#12110F] rounded-3xl p-6 lg:hidden flex flex-col gap-4 z-50"
-          >
-            <div className="flex justify-between items-center pb-3 border-b-2 border-[#12110F]">
-              <span className="font-display font-extrabold text-sm uppercase tracking-wider text-[#12110F]">
-                Navigation
-              </span>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1 rounded-full border-2 border-[#12110F] bg-[#FFD84D]"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="pointer-events-auto fixed inset-0 bg-[#12110F]/40 backdrop-blur-xs z-40 lg:hidden"
+              aria-hidden="true"
+            />
 
-            <ul className="grid grid-cols-2 gap-2 text-center">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    onClick={(e) => handleLinkClick(e, item.href)}
-                    className={`block py-2.5 px-3 rounded-xl border-2 border-[#12110F] font-mono text-xs font-bold shadow-[2px_2px_0px_#12110F] ${
-                      item.isPill ? 'bg-[#FFD84D] text-[#12110F]' : 'bg-white hover:bg-[#D9CCFF]'
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {/* Drawer Container */}
+            <motion.div
+              initial={{ opacity: 0, y: -15, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -15, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="pointer-events-auto absolute top-16 inset-x-3 sm:inset-x-4 max-w-md mx-auto bg-[#F4F1EA] border-2 border-[#12110F] shadow-[6px_6px_0px_#12110F] rounded-3xl p-5 sm:p-6 lg:hidden flex flex-col gap-4 z-50"
+            >
+              <div className="flex justify-between items-center pb-3 border-b-2 border-[#12110F]">
+                <span className="font-display font-extrabold text-sm uppercase tracking-wider text-[#12110F]">
+                  Navigation
+                </span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-11 h-11 rounded-full border-2 border-[#12110F] bg-[#FFD84D] flex items-center justify-center cursor-pointer active:scale-95"
+                  aria-label="Close navigation drawer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-            <div className="pt-2">
-              <a
-                href="#contact"
-                onClick={(e) => handleLinkClick(e, '#contact')}
-                className="neo-btn w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#12110F] text-white font-display font-bold text-sm"
-              >
-                <span>Hire me directly</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-          </motion.div>
+              <ul className="grid grid-cols-2 gap-2.5 text-center">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleLinkClick(e, item.href)}
+                      className={`min-h-[44px] flex items-center justify-center py-2.5 px-3 rounded-xl border-2 border-[#12110F] font-mono text-xs font-bold shadow-[2px_2px_0px_#12110F] transition-all cursor-pointer ${
+                        item.isPill ? 'bg-[#FFD84D] text-[#12110F]' : 'bg-white hover:bg-[#D9CCFF]'
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-2">
+                <a
+                  href="#contact"
+                  onClick={(e) => handleLinkClick(e, '#contact')}
+                  className="neo-btn min-h-[48px] w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#12110F] text-white font-display font-bold text-sm cursor-pointer"
+                >
+                  <span>Hire me directly</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
