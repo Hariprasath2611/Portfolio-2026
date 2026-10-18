@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, GitFork, Star, Users, BookOpen, Flame, Code } from 'lucide-react';
+import { ArrowUpRight, Flame, Code } from 'lucide-react';
 import { fetchGitHubProfile, fetchGitHubRepos } from '../utils/github';
 import type { GitHubProfile, GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
@@ -8,7 +8,6 @@ import { GithubIcon } from '../components/BrandIcons';
 export default function GitHubDashboard() {
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadGitHubData() {
@@ -22,8 +21,6 @@ export default function GitHubDashboard() {
         setRepos(repoData);
       } catch (err) {
         console.error('Failed to load GitHub statistics', err);
-      } finally {
-        setLoading(false);
       }
     }
     loadGitHubData();
