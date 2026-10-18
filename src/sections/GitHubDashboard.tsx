@@ -99,6 +99,9 @@ export default function GitHubDashboard() {
               <img
                 src={profile?.avatar_url || 'https://avatars.githubusercontent.com/u/104332801?v=4'}
                 alt="GitHub Avatar"
+                width={64}
+                height={64}
+                loading="lazy"
                 className="w-16 h-16 rounded-2xl border-2 border-[#FFD84D] shadow-[3px_3px_0px_#FFD84D] object-cover"
               />
               <div>

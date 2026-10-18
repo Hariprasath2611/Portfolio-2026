@@ -14,12 +14,18 @@ export default function HeroVisual() {
         className="relative z-10 w-[210px] h-[280px] xs:w-[250px] xs:h-[330px] sm:w-[270px] sm:h-[360px] md:w-[320px] md:h-[420px] rounded-t-[120px] xs:rounded-t-[140px] sm:rounded-t-[160px] rounded-b-[24px] sm:rounded-b-[28px] border-3 border-[#12110F] bg-[#BBDDFF] overflow-hidden shadow-[6px_6px_0px_#12110F] sm:shadow-[8px_8px_0px_#12110F] flex items-end justify-center cursor-pointer group"
         data-cursor="hi"
       >
-        <img
-          src="/Photo%20one.png"
-          alt="D Hariprasath"
-          className="w-full h-full object-cover object-[center_12%] scale-105 group-hover:scale-110 transition-transform duration-500"
-          loading="eager"
-        />
+        <picture className="w-full h-full">
+          <source type="image/webp" srcSet="/Photo%20one.webp" />
+          <img
+            src="/Photo%20one.png"
+            alt="D Hariprasath"
+            width={320}
+            height={420}
+            className="w-full h-full object-cover object-[center_12%] scale-105 group-hover:scale-110 transition-transform duration-500"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
 
         {/* Subtle bottom gradient shadow inside arch */}
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#12110F]/30 to-transparent pointer-events-none" />

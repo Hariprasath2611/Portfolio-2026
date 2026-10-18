@@ -46,11 +46,17 @@ export default function ResumePage({ navigate }: ResumePageProps) {
             <div className="relative w-36 h-44 sm:w-40 sm:h-48 mx-auto mb-4 flex items-end justify-center">
               <div className="absolute inset-0 bg-[#FFD84D] rounded-t-[90px] rounded-b-2xl border-2 border-[#12110F] -rotate-2" />
               <div className="relative w-full h-full rounded-t-[90px] rounded-b-2xl border-2 border-[#12110F] bg-[#BBDDFF] overflow-hidden shadow-[4px_4px_0px_#12110F]">
-                <img
-                  src="/HP.png"
-                  alt="D Hariprasath"
-                  className="w-full h-full object-cover object-[center_10%] scale-105"
-                />
+                <picture className="w-full h-full">
+                  <source type="image/webp" srcSet="/HP.webp" />
+                  <img
+                    src="/HP.png"
+                    alt="D Hariprasath"
+                    width={160}
+                    height={192}
+                    className="w-full h-full object-cover object-[center_10%] scale-105"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
             </div>
 
