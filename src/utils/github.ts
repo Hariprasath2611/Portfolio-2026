@@ -603,8 +603,8 @@ function generateFallbackContributions(): GitHubContributionsData {
     const dayOfWeek = d.getDay();
 
     const rand = (i * 19 + dayOfWeek * 37) % 100;
-    let count = 0;
-    let level: 0 | 1 | 2 | 3 | 4 = 0;
+    let count: number;
+    let level: 0 | 1 | 2 | 3 | 4;
 
     if (rand > 88) {
       count = 25 + (rand % 40);
@@ -648,7 +648,12 @@ export async function fetchGitHubContributions(
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data.contributions) && data.contributions.length > 0) {
-        const total = data.total?.lastYear ?? data.contributions.reduce((s: number, c: any) => s + (c.count || 0), 0);
+        const total =
+          data.total?.lastYear ??
+          data.contributions.reduce(
+            (s: number, c: { count?: number }) => s + (c.count || 0),
+            0
+          );
         const processed = processContributionDays(data.contributions, total);
         setCached(cacheKey, processed);
         return processed;
@@ -666,13 +671,13 @@ export async function fetchGitHubContributions(
       if (Array.isArray(data.contributions) && data.contributions.length > 0) {
         const todayStr = new Date().toISOString().split('T')[0];
         const valid = data.contributions
-          .filter((c: any) => c.date <= todayStr)
-          .sort((a: any, b: any) => a.date.localeCompare(b.date));
+          .filter((c: { date: string }) => c.date <= todayStr)
+          .sort((a: { date: string }, b: { date: string }) => a.date.localeCompare(b.date));
 
-        const last365: ContributionDay[] = valid.slice(-365).map((c: any) => ({
+        const last365: ContributionDay[] = valid.slice(-365).map((c: { date: string; count?: number | string; intensity?: number | string }) => ({
           date: c.date,
           count: Number(c.count) || 0,
-          level: (Math.min(4, Math.max(0, Number(c.intensity) || (c.count > 0 ? 1 : 0)))) as 0 | 1 | 2 | 3 | 4,
+          level: (Math.min(4, Math.max(0, Number(c.intensity) || (Number(c.count) > 0 ? 1 : 0)))) as 0 | 1 | 2 | 3 | 4,
         }));
 
         const total = last365.reduce((s, c) => s + c.count, 0);
@@ -694,7 +699,7 @@ export async function fetchGitHubContributions(
         return parsed.data;
       }
     }
-  } catch (e) {
+  } catch {
     // Ignore
   }
 
