@@ -372,12 +372,13 @@ const MOCK_EVENTS: GitHubActivity[] = [
   { type: 'WatchEvent', repo: { name: 'framer-motion' }, created_at: new Date(Date.now() - 5 * 86400000).toISOString() },
 ];
 
-function getCached<T>(key: string): T | null {
+function getCached<T>(key: string, customDuration?: number): T | null {
   try {
     const item = localStorage.getItem(key);
     if (!item) return null;
     const parsed = JSON.parse(item);
-    if (Date.now() - parsed.timestamp > CACHE_DURATION) {
+    const duration = customDuration ?? CACHE_DURATION;
+    if (Date.now() - parsed.timestamp > duration) {
       localStorage.removeItem(key);
       return null;
     }
