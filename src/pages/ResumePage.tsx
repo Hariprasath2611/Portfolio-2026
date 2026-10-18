@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FileDown, Printer, ArrowLeft, Mail, ExternalLink, Check, Copy } from 'lucide-react';
+import { FileDown, Printer, ArrowLeft } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../components/BrandIcons';
 
 interface ResumePageProps {
