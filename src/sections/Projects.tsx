@@ -106,45 +106,45 @@ function StackingCard({ project, index }: { project: FeaturedProject; index: num
     offset: ['start end', 'start start'],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
 
   return (
     <div
       ref={cardRef}
-      className="sticky w-full mb-8 transition-transform will-change-transform"
+      className="relative md:sticky w-full mb-8 transition-transform will-change-transform"
       style={{
-        top: `calc(90px + ${index * 26}px)`,
+        top: `calc(85px + ${index * 22}px)`,
         zIndex: index + 10,
       }}
       data-cursor="view"
     >
       <motion.div
         style={{ scale }}
-        className={`neo-card ${project.bgColor} p-6 sm:p-8 md:p-10 flex flex-col justify-between`}
+        className={`neo-card ${project.bgColor} p-5 sm:p-8 md:p-10 flex flex-col justify-between`}
       >
         {/* Card Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b-2 border-[#12110F]/20 mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-[#12110F]/20 mb-5 sm:mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-[#12110F] text-xs font-mono font-bold text-[#12110F] shadow-[2px_2px_0px_#12110F]">
             <span>{project.tag}</span>
           </div>
-          <div className="font-mono text-sm font-extrabold text-[#12110F] px-3 py-1 rounded-full bg-[#12110F] text-white">
+          <div className="font-mono text-xs sm:text-sm font-extrabold text-[#12110F] px-3 py-1 rounded-full bg-[#12110F] text-white">
             {project.counter}
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-[#12110F] mb-6">
+        <h3 className="text-xl sm:text-3xl md:text-4xl font-display font-extrabold text-[#12110F] mb-5 sm:mb-6 leading-tight">
           {project.title}
         </h3>
 
         {/* Problem & Solution Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="p-4 sm:p-5 rounded-2xl bg-white/90 border-2 border-[#12110F] shadow-[3px_3px_0px_#12110F]">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-red-700 mb-2">
               <ShieldAlert className="w-4 h-4" />
               <span>The Problem</span>
             </div>
-            <p className="font-sans text-sm sm:text-base text-[#12110F]/85 leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm md:text-base text-[#12110F]/85 leading-relaxed">
               {project.problem}
             </p>
           </div>
@@ -154,23 +154,23 @@ function StackingCard({ project, index }: { project: FeaturedProject; index: num
               <CheckCircle2 className="w-4 h-4" />
               <span>What I Built</span>
             </div>
-            <p className="font-sans text-sm sm:text-base text-[#12110F]/85 leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm md:text-base text-[#12110F]/85 leading-relaxed">
               {project.solution}
             </p>
           </div>
         </div>
 
         {/* Key Numbers Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mb-6 sm:mb-8">
           {project.keyNumbers.map((num, i) => (
             <div
               key={i}
-              className="p-3 rounded-xl bg-white/80 border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] text-center"
+              className="p-2.5 sm:p-3 rounded-xl bg-white/80 border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] text-center"
             >
-              <div className="font-display font-extrabold text-lg sm:text-xl text-[#12110F]">
+              <div className="font-display font-extrabold text-base sm:text-lg md:text-xl text-[#12110F]">
                 {num.value}
               </div>
-              <div className="font-mono text-[10px] sm:text-xs uppercase text-[#12110F]/70 mt-0.5">
+              <div className="font-mono text-[9px] sm:text-[10px] md:text-xs uppercase text-[#12110F]/70 mt-0.5">
                 {num.label}
               </div>
             </div>
@@ -178,24 +178,24 @@ function StackingCard({ project, index }: { project: FeaturedProject; index: num
         </div>
 
         {/* Tech Pills & Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t-2 border-[#12110F]/20">
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-5 sm:pt-6 border-t-2 border-[#12110F]/20">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 bg-white rounded-lg border-2 border-[#12110F] font-mono text-xs font-bold text-[#12110F] shadow-[2px_2px_0px_#12110F]"
+                className="px-2.5 py-1 bg-white rounded-lg border-2 border-[#12110F] font-mono text-[11px] sm:text-xs font-bold text-[#12110F] shadow-[2px_2px_0px_#12110F]"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2 sm:pt-0">
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-bold text-xs sm:text-sm cursor-pointer"
+              className="neo-btn flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-bold text-xs sm:text-sm cursor-pointer"
               data-cursor="pointer"
             >
               <GithubIcon className="w-4 h-4" />
@@ -207,7 +207,7 @@ function StackingCard({ project, index }: { project: FeaturedProject; index: num
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neo-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-[#12110F] hover:bg-[#FFD84D] font-display font-bold text-xs sm:text-sm cursor-pointer"
+                className="neo-btn flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#12110F] hover:bg-[#FFD84D] font-display font-bold text-xs sm:text-sm cursor-pointer"
                 data-cursor="pointer"
               >
                 <span>Live Demo</span>
