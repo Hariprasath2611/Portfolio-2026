@@ -96,23 +96,23 @@ export default function ResumePage({ navigate }: ResumePageProps) {
             {/* Download Buttons */}
             <div className="flex flex-col gap-2.5 mt-5">
               <a
-                href="/D Hariprasath - One Page Resume (ATS).docx"
-                download="D Hariprasath - One Page Resume (ATS).docx"
+                href="/D%20Hariprasath%20-%20Resume%20(ATS-Friendly).docx"
+                download="D Hariprasath - Resume (ATS-Friendly).docx"
                 className="neo-btn w-full py-3 px-4 rounded-xl bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-display font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                 data-cursor="pointer"
               >
                 <FileDown className="w-4 h-4" />
-                <span>Download Resume (ATS)</span>
+                <span>Download Resume (ATS-Friendly)</span>
               </a>
 
               <a
-                href="/D_Hari_Prasath_Resume.docx"
-                download="D_Hari_Prasath_Resume.docx"
+                href="/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx"
+                download="D Hariprasath - One Page Resume (ATS).docx"
                 className="neo-btn w-full py-3 px-4 rounded-xl bg-white text-[#12110F] hover:bg-[#FFE585] font-display font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                 data-cursor="pointer"
               >
                 <FileDown className="w-4 h-4" />
-                <span>Download Standard Word</span>
+                <span>Download One-Page ATS</span>
               </a>
             </div>
 
