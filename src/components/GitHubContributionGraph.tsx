@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Flame, RefreshCw } from 'lucide-react';
 import { fetchGitHubContributions } from '../utils/github';
 import type { GitHubContributionsData, ContributionDay } from '../utils/github';
@@ -15,6 +15,7 @@ export default function GitHubContributionGraph({
   const [data, setData] = useState<GitHubContributionsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [justSynced, setJustSynced] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<{
     day: ContributionDay;
     x: number;
@@ -35,8 +36,12 @@ export default function GitHubContributionGraph({
         if (onTotalChange && result.total) {
           onTotalChange(result.total);
         }
+        if (forceRefresh) {
+          setJustSynced(true);
+          setTimeout(() => setJustSynced(false), 2500);
+        }
       } catch (err) {
-        console.error('Failed to load contributions', err);
+        console.error('Failed to load GitHub contributions', err);
       } finally {
         setLoading(false);
         setIsRefreshing(false);
@@ -56,7 +61,7 @@ export default function GitHubContributionGraph({
     }
   }, [data]);
 
-  // Window focus listener: silently re-validate if user returns after pushing commits
+  // Window focus listener: silently re-validate if user returns after pushing git changes
   useEffect(() => {
     const handleFocus = () => {
       const now = Date.now();
@@ -70,20 +75,35 @@ export default function GitHubContributionGraph({
     return () => window.removeEventListener('focus', handleFocus);
   }, [loadContributions]);
 
+  // Filtered month labels to avoid crowding
+  const displayMonthLabels = useMemo(() => {
+    if (!data?.monthLabels) return [];
+    const filtered: { weekIdx: number; monthName: string }[] = [];
+    let lastWeekIdx = -4;
+
+    for (const m of data.monthLabels) {
+      if (m.weekIdx - lastWeekIdx >= 3 && m.weekIdx < 51) {
+        filtered.push(m);
+        lastWeekIdx = m.weekIdx;
+      }
+    }
+    return filtered;
+  }, [data?.monthLabels]);
+
   // Color mapping matching user design
   const getCellColor = (level: number) => {
     switch (level) {
       case 1:
-        return 'bg-[#0e4429] border border-[#006d32]/30';
+        return 'bg-[#0e4429] hover:bg-[#135d39]';
       case 2:
-        return 'bg-[#006d32] border border-[#26a641]/30';
+        return 'bg-[#006d32] hover:bg-[#008f42]';
       case 3:
-        return 'bg-[#26a641] border border-[#39d353]/30 shadow-[0_0_8px_rgba(38,166,65,0.4)]';
+        return 'bg-[#26a641] hover:bg-[#34c752] shadow-[0_0_6px_rgba(38,166,65,0.4)]';
       case 4:
-        return 'bg-[#00f5a0] border border-[#39d353] shadow-[0_0_10px_rgba(0,245,160,0.6)]';
+        return 'bg-[#00f5a0] hover:bg-[#33ffb5] shadow-[0_0_10px_rgba(0,245,160,0.6)]';
       case 0:
       default:
-        return 'bg-white/[0.08] border border-white/5';
+        return 'bg-[#21262d] hover:bg-[#2b313a]';
     }
   };
 
@@ -116,7 +136,13 @@ export default function GitHubContributionGraph({
         </h4>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-emerald-400">
+          {justSynced && (
+            <span className="font-mono text-[11px] text-[#FFD84D] animate-pulse">
+              ✓ Synced with Git
+            </span>
+          )}
+
+          <div className="flex items-center gap-2 font-mono text-xs font-bold text-emerald-400">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -129,7 +155,7 @@ export default function GitHubContributionGraph({
             disabled={isRefreshing}
             title="Sync with GitHub (Live)"
             aria-label="Sync with GitHub"
-            className="p-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/10 transition-colors disabled:opacity-50"
+            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/10 transition-colors disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#FFD84D]' : ''}`} />
           </button>
@@ -146,7 +172,7 @@ export default function GitHubContributionGraph({
           /* Loading Skeleton */
           <div className="animate-pulse">
             <div className="h-4 w-64 bg-white/10 rounded mb-2" />
-            <div className="grid grid-rows-7 grid-flow-col gap-1 w-max">
+            <div className="grid grid-rows-7 grid-flow-col gap-[3px] w-max">
               {Array.from({ length: 7 * 36 }).map((_, i) => (
                 <div key={i} className="w-3 h-3 rounded-[2.5px] bg-white/10" />
               ))}
@@ -155,12 +181,12 @@ export default function GitHubContributionGraph({
         ) : (
           <div className="w-max select-none">
             {/* Month Labels Header */}
-            <div className="flex h-5 relative mb-1.5 text-[10px] font-mono text-slate-400 pl-6">
-              {data?.monthLabels.map((m, idx) => (
+            <div className="flex h-5 relative mb-1.5 text-[10px] font-mono text-slate-400">
+              {displayMonthLabels.map((m, idx) => (
                 <span
                   key={idx}
                   className="absolute"
-                  style={{ left: `${m.weekIdx * 15 + 24}px` }}
+                  style={{ left: `${m.weekIdx * 15 + 32}px` }}
                 >
                   {m.monthName}
                 </span>
@@ -169,15 +195,15 @@ export default function GitHubContributionGraph({
 
             {/* Grid with Day of Week Labels */}
             <div className="flex items-start gap-2">
-              {/* Day Labels (Mon, Wed, Fri) */}
-              <div className="grid grid-rows-7 text-[9px] font-mono text-slate-500 h-[108px] py-[2px] select-none leading-none items-center">
-                <span className="h-3 leading-3" />
-                <span className="h-3 leading-3">Mon</span>
-                <span className="h-3 leading-3" />
-                <span className="h-3 leading-3">Wed</span>
-                <span className="h-3 leading-3" />
-                <span className="h-3 leading-3">Fri</span>
-                <span className="h-3 leading-3" />
+              {/* Day Labels (Mon, Wed, Fri) aligned with 12px rows + 3px gap */}
+              <div className="grid grid-rows-7 gap-[3px] text-[9px] font-mono text-slate-500 select-none w-6 text-right pr-2 leading-[12px]">
+                <span className="h-[12px] leading-[12px]" />
+                <span className="h-[12px] leading-[12px]">Mon</span>
+                <span className="h-[12px] leading-[12px]" />
+                <span className="h-[12px] leading-[12px]">Wed</span>
+                <span className="h-[12px] leading-[12px]" />
+                <span className="h-[12px] leading-[12px]">Fri</span>
+                <span className="h-[12px] leading-[12px]" />
               </div>
 
               {/* Heatmap Columns (7 rows x N weeks) */}
@@ -247,11 +273,11 @@ export default function GitHubContributionGraph({
       <div className="flex items-center justify-between text-xs font-mono text-slate-400 mt-4 pt-4 border-t border-white/10">
         <span>Less</span>
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-white/[0.08] border border-white/5" title="0 contributions" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#0e4429] border border-[#006d32]/30" title="1-3 contributions" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#006d32] border border-[#26a641]/30" title="4-9 contributions" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#26a641] border border-[#39d353]/30" title="10-19 contributions" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#00f5a0] border border-[#39d353]" title="20+ contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#21262d]" title="No contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#0e4429]" title="1-3 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#006d32]" title="4-9 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#26a641]" title="10-19 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#00f5a0]" title="20+ contributions" />
         </div>
         <span>More</span>
       </div>
