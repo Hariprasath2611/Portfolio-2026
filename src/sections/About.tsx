@@ -1,158 +1,205 @@
 import { motion } from 'framer-motion';
-import { Cpu, Layout, Server, Database, Smartphone, Award, Coffee, Zap } from 'lucide-react';
-import LiquidEther from '../components/LiquidEther';
-import ScrollFloat from '../components/ScrollFloat';
+import { Award, Briefcase, GraduationCap, MapPin, Sparkles, Terminal, Code2, HeartHandshake } from 'lucide-react';
 
-interface AboutProps {
-  theme: 'light' | 'dark';
-}
-
-const DARK_COLORS = ['#06b6d4', '#6366f1', '#d946ef'];
-const LIGHT_COLORS = ['#0284c7', '#4f46e5', '#a855f7'];
-
-const HIGHLIGHTS = [
-  {
-    icon: <Layout className="w-5 h-5 text-cyan-400" />,
-    title: 'Frontend Engineering',
-    desc: 'Creating highly interactive, fluid, responsive and pixel-perfect UIs with React, Tailwind CSS, and Framer Motion.'
-  },
-  {
-    icon: <Server className="w-5 h-5 text-purple-400" />,
-    title: 'Backend Development',
-    desc: 'Designing robust, fast, and scalable backend infrastructures, microservices, and REST APIs using Node.js and Express.'
-  },
-  {
-    icon: <Database className="w-5 h-5 text-cyan-400" />,
-    title: 'Database Design',
-    desc: 'Structuring efficient data schemas and index models using SQL (PostgreSQL) and NoSQL (MongoDB, Firebase).'
-  },
-  {
-    icon: <Smartphone className="w-5 h-5 text-purple-400" />,
-    title: 'Mobile Application Development',
-    desc: 'Building performant, native-feeling cross-platform mobile apps for iOS and Android using React Native.'
-  }
-];
-
-const TELEMETRY = [
-  { label: 'Coffee Converted to Code', val: '1,450+ Litres', icon: <Coffee className="w-4 h-4 text-amber-500" /> },
-  { label: 'Bugs Terminated', val: '2,800+', icon: <Zap className="w-4 h-4 text-cyan-400" /> },
-  { label: 'Production Deployments', val: '45+', icon: <Cpu className="w-4 h-4 text-purple-400" /> },
-  { label: 'Commit Success Rate', val: '99.2%', icon: <Award className="w-4 h-4 text-green-400" /> }
-];
-
-export default function About({ theme }: AboutProps) {
+export default function About() {
   return (
-    <section id="about" className="py-20 bg-slate-100/30 dark:bg-slate-950/20 relative overflow-hidden">
-      {/* Interactive Liquid Ether Background */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <LiquidEther
-          colors={theme === 'dark' ? DARK_COLORS : LIGHT_COLORS}
-          mouseForce={15}
-          cursorSize={80}
-          autoDemo={true}
-          autoSpeed={0.4}
-          autoIntensity={1.8}
-        />
+    <section id="about" className="py-20 md:py-28 px-6 max-w-6xl mx-auto">
+      {/* Section Header */}
+      <div className="flex flex-col items-start mb-12">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
+          01 / ABOUT
+        </div>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-[#12110F]">
+          Developer by craft, <span className="font-serif-italic font-normal">builder by habit.</span>
+        </h2>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* Section Title */}
-        <div className="text-center mb-16 flex flex-col items-center">
-          <ScrollFloat
-            containerClassName="mb-4"
-            textClassName="text-3xl md:text-4xl font-bold font-orbitron text-slate-800 dark:text-white"
+      {/* Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Large Summary Card - 7 cols */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="md:col-span-7 neo-card bg-[#D9CCFF] p-6 sm:p-8 flex flex-col justify-between"
+        >
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-[#12110F] text-xs font-mono font-bold text-[#12110F] mb-4 shadow-[2px_2px_0px_#12110F]">
+              <Terminal className="w-3.5 h-3.5" />
+              <span>WHO I AM</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-[#12110F] mb-4">
+              Building scalable web and mobile software with relentless curiosity.
+            </h3>
+            <p className="text-[#12110F]/85 font-sans leading-relaxed mb-4 text-sm sm:text-base">
+              I am a Full Stack Developer and third-year B.E. Computer Science student at Jaya Engineering College, Chennai. I specialize in building complete digital products — from fluid, pixel-accurate React interfaces to reliable Node.js and PostgreSQL backends.
+            </p>
+            <p className="text-[#12110F]/85 font-sans leading-relaxed text-sm sm:text-base">
+              Having completed two full-stack internships (Kotrelex and Code Alfa) and led a Smart India Hackathon Web3 project (BHAROSA), I believe in writing modular, tested code that solves real business and academic problems.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-6 mt-6 border-t-2 border-[#12110F]/20 font-mono text-xs font-bold text-[#12110F]">
+            <span className="px-3 py-1 bg-white rounded-lg border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F]">
+              ⚡ Fast Learner
+            </span>
+            <span className="px-3 py-1 bg-white rounded-lg border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F]">
+              🎯 Production Focused
+            </span>
+            <span className="px-3 py-1 bg-white rounded-lg border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F]">
+              🤝 Collaborative Leader
+            </span>
+          </div>
+        </motion.div>
+
+        {/* 4 Stats Grid - 5 cols */}
+        <div className="md:col-span-5 grid grid-cols-2 gap-4">
+          {/* Stat 1 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="neo-card bg-[#BDF3D4] p-5 flex flex-col justify-between"
           >
-            &gt; ABOUT_ME
-          </ScrollFloat>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
+            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+              <Code2 className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">2000+</div>
+              <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">GitHub Contribs</div>
+            </div>
+          </motion.div>
+
+          {/* Stat 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="neo-card bg-[#FFD0BC] p-5 flex flex-col justify-between"
+          >
+            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+              <Award className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">20+</div>
+              <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">Hackathons</div>
+            </div>
+          </motion.div>
+
+          {/* Stat 3 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="neo-card bg-[#BBDDFF] p-5 flex flex-col justify-between"
+          >
+            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+              <Briefcase className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">2</div>
+              <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">Internships</div>
+            </div>
+          </motion.div>
+
+          {/* Stat 4 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="neo-card bg-[#FFE585] p-5 flex flex-col justify-between"
+          >
+            <div className="p-2 w-9 h-9 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center text-[#12110F]">
+              <GraduationCap className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-display text-[#12110F] mt-4">8.75</div>
+              <div className="font-mono text-xs font-bold uppercase text-[#12110F]/80">CGPA / 10</div>
+            </div>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left: Bio & Telemetry */}
-          <div className="lg:col-span-6 flex flex-col gap-6">
-            <motion.div
-              className="glass-panel p-6 rounded-2xl text-left"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h3 className="text-xl font-bold font-mono text-cyan-400 mb-4">
-                [SYSTEM PROFILE: ACTIVE]
-              </h3>
-              <p className="text-slate-600 dark:text-gray-300 leading-relaxed mb-4">
-                I am a dedicated and passionate Full Stack Developer focused on building clean, high-performance web and mobile solutions. With a firm grasp of both frontend interactive design and robust backend databases, I build complete systems from scratch.
-              </p>
-              <p className="text-slate-600 dark:text-gray-300 leading-relaxed">
-                My approach focuses on solid engineering, writing testable modular code, and applying a continuous learning mindset. I am always exploring next-generation technologies to improve speed, performance, and responsive interfaces.
-              </p>
-            </motion.div>
-
-            {/* Interactive Telemetry Dashboard */}
-            <motion.div
-              className="glass-panel p-6 rounded-2xl text-left"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h3 className="text-sm font-bold font-mono uppercase tracking-widest text-slate-500 dark:text-gray-400 mb-4 flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-cyan-400" />
-                Developer Telemetry Stats
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {TELEMETRY.map((stat, i) => (
-                  <div
-                    key={i}
-                    className="p-4 rounded-xl border border-slate-200/50 dark:border-cyan-500/10 bg-slate-50/50 dark:bg-slate-900/50 flex items-center gap-3"
-                  >
-                    <div className="p-2 rounded-lg bg-slate-200/55 dark:bg-gray-800 flex items-center justify-center">
-                      {stat.icon}
-                    </div>
-                    <div>
-                      <div className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-gray-500">
-                        {stat.label}
-                      </div>
-                      <div className="text-base font-bold font-mono text-slate-800 dark:text-white">
-                        {stat.val}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+        {/* Row 2: 4 Detail Cards */}
+        {/* Education Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="md:col-span-3 neo-card bg-white p-6 flex flex-col justify-between"
+        >
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#12110F]/60 mb-2">
+            <GraduationCap className="w-4 h-4 text-[#12110F]" />
+            <span>Education</span>
           </div>
-
-          {/* Right: Pillars of Expertise */}
-          <div className="lg:col-span-6 grid grid-cols-1 gap-6">
-            {HIGHLIGHTS.map((item, idx) => (
-              <motion.div
-                key={idx}
-                className="glass-card p-5 flex gap-4 text-left items-start group"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                whileHover={{ x: 6 }}
-              >
-                <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200/30 dark:border-cyan-500/10 text-cyan-400 group-hover:text-purple-400 transition-colors duration-300">
-                  {item.icon}
-                </div>
-                <div>
-                  <h4 className="text-base font-bold font-orbitron tracking-wide text-slate-800 dark:text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs md:text-sm text-slate-500 dark:text-gray-400 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+          <div>
+            <div className="font-display font-bold text-base text-[#12110F]">B.E. Computer Science</div>
+            <div className="text-xs text-[#12110F]/80 font-sans mt-1">Jaya Engineering College, Chennai</div>
+            <div className="font-mono text-[11px] font-bold text-emerald-700 mt-2">Graduating: 2028</div>
           </div>
+        </motion.div>
 
-        </div>
+        {/* Location Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="md:col-span-3 neo-card bg-white p-6 flex flex-col justify-between"
+        >
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#12110F]/60 mb-2">
+            <MapPin className="w-4 h-4 text-[#12110F]" />
+            <span>Location</span>
+          </div>
+          <div>
+            <div className="font-display font-bold text-base text-[#12110F]">Chennai, Tamil Nadu</div>
+            <div className="text-xs text-[#12110F]/80 font-sans mt-1">India (IST)</div>
+            <div className="font-mono text-[11px] font-bold text-emerald-700 mt-2">Remote / Hybrid / On-site</div>
+          </div>
+        </motion.div>
+
+        {/* Core Focus Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="md:col-span-3 neo-card bg-white p-6 flex flex-col justify-between"
+        >
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#12110F]/60 mb-2">
+            <Sparkles className="w-4 h-4 text-[#12110F]" />
+            <span>Core Focus</span>
+          </div>
+          <div>
+            <div className="font-display font-bold text-base text-[#12110F]">Full-Stack Systems</div>
+            <div className="text-xs text-[#12110F]/80 font-sans mt-1">React, Node.js, PostgreSQL</div>
+            <div className="font-mono text-[11px] font-bold text-indigo-700 mt-2">Mobile & Offline-First</div>
+          </div>
+        </motion.div>
+
+        {/* Languages & Soft Skills Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="md:col-span-3 neo-card bg-white p-6 flex flex-col justify-between"
+        >
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#12110F]/60 mb-2">
+            <HeartHandshake className="w-4 h-4 text-[#12110F]" />
+            <span>Languages & Strengths</span>
+          </div>
+          <div>
+            <div className="font-display font-bold text-base text-[#12110F]">English & Tamil</div>
+            <div className="text-xs text-[#12110F]/80 font-sans mt-1">Technical Leadership & Agile</div>
+            <div className="font-mono text-[11px] font-bold text-amber-700 mt-2">SIH Team Lead</div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
