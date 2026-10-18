@@ -61,26 +61,26 @@ const TIMELINE_DATA: TimelineEvent[] = [
 
 export default function Timeline() {
   return (
-    <section id="timeline" className="py-20 md:py-28 px-6 max-w-5xl mx-auto">
+    <section id="timeline" className="py-20 md:py-28 px-4 sm:px-6 max-w-5xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col items-start mb-16">
+      <div className="flex flex-col items-start mb-14 sm:mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
           06 / TIMELINE
         </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-[#12110F]">
           The journey <span className="font-serif-italic font-normal">so far.</span>
         </h2>
-        <p className="text-[#12110F]/70 font-sans mt-3 text-base max-w-xl">
+        <p className="text-[#12110F]/70 font-sans mt-3 text-sm sm:text-base max-w-xl">
           Internships, hackathon leadership, education milestones, and open-source contributions mapped across dates.
         </p>
       </div>
 
       {/* Timeline Layout: Left Date Column + Dashed Line + Right Card */}
-      <div className="relative pl-4 sm:pl-0">
+      <div className="relative pl-2 sm:pl-0">
         {/* Vertical Dashed Line */}
-        <div className="absolute top-4 bottom-4 left-4 sm:left-[180px] w-0.5 border-l-2 border-dashed border-[#12110F]" />
+        <div className="absolute top-4 bottom-4 left-3 sm:left-[180px] w-0.5 border-l-2 border-dashed border-[#12110F]" />
 
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-8 sm:gap-10">
           {TIMELINE_DATA.map((event, idx) => (
             <motion.div
               key={idx}
@@ -98,12 +98,12 @@ export default function Timeline() {
               </div>
 
               {/* Center Dot Node on the Dashed Line */}
-              <div className="absolute left-[15px] sm:left-[171px] top-5 -translate-x-1/2 w-7 h-7 rounded-full bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center z-10">
+              <div className="absolute left-[11px] sm:left-[171px] top-5 -translate-x-1/2 w-7 h-7 rounded-full bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] flex items-center justify-center z-10">
                 {event.icon}
               </div>
 
               {/* Right Content Card */}
-              <div className="w-full pl-8 sm:pl-6">
+              <div className="w-full pl-6 sm:pl-6">
                 {/* Mobile Date Badge */}
                 <div className="sm:hidden mb-2">
                   <span className="font-mono text-[11px] font-extrabold text-[#12110F] bg-white px-2 py-0.5 rounded-md border border-[#12110F]">
@@ -111,7 +111,7 @@ export default function Timeline() {
                   </span>
                 </div>
 
-                <div className={`neo-card ${event.bgColor} p-6 sm:p-7 flex flex-col justify-between`}>
+                <div className={`neo-card ${event.bgColor} p-5 sm:p-7 flex flex-col justify-between`}>
                   <div>
                     <h3 className="text-xl font-display font-extrabold text-[#12110F] mb-1">
                       {event.role}
