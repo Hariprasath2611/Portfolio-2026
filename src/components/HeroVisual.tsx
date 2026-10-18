@@ -9,10 +9,10 @@ export default function HeroVisual() {
 
       {/* 3. Arch Frame with Photo */}
       <div
-        className="relative z-10 w-[210px] h-[280px] xs:w-[250px] xs:h-[330px] sm:w-[270px] sm:h-[360px] md:w-[320px] md:h-[420px] rounded-t-[120px] xs:rounded-t-[140px] sm:rounded-t-[160px] rounded-b-[24px] sm:rounded-b-[28px] border-3 border-[#12110F] bg-[#BBDDFF] overflow-hidden shadow-[6px_6px_0px_#12110F] sm:shadow-[8px_8px_0px_#12110F] flex items-end justify-center cursor-pointer group"
+        className="relative z-10 w-[210px] h-[280px] xs:w-[250px] xs:h-[330px] sm:w-[270px] sm:h-[360px] md:w-[320px] md:h-[420px] rounded-t-[120px] xs:rounded-t-[140px] sm:rounded-t-[160px] rounded-b-[24px] sm:rounded-b-[28px] border-3 border-[#12110F] bg-[#BBDDFF] overflow-hidden shadow-[6px_6px_0px_#12110F] sm:shadow-[8px_8px_0px_#12110F] cursor-pointer group"
         data-cursor="hi"
       >
-        <picture className="w-full h-full">
+        <picture className="block w-full h-full">
           <source type="image/webp" media="(max-width: 640px)" srcSet="/Photo%20one-sm.webp" />
           <source type="image/webp" srcSet="/Photo%20one.webp" />
           <img
@@ -20,7 +20,7 @@ export default function HeroVisual() {
             alt="D Hariprasath"
             width={320}
             height={420}
-            className="w-full h-full object-cover object-[center_12%] scale-105 group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full !h-full object-cover object-[center_15%] scale-105 group-hover:scale-110 transition-transform duration-500"
             loading="eager"
             fetchPriority="high"
           />
