@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { useRouter } from './hooks/useRouter';
 import CustomCursor from './components/CustomCursor';
 import TopScrollProgress from './components/TopScrollProgress';
@@ -11,7 +12,8 @@ import Services from './sections/Services';
 import Timeline from './sections/Timeline';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
-import ResumePage from './pages/ResumePage';
+
+const ResumePage = lazy(() => import('./pages/ResumePage'));
 
 export default function App() {
   const { currentPath, navigate } = useRouter();
@@ -30,7 +32,9 @@ export default function App() {
       {/* 3. Main Views (Landing Page vs Dedicated Resume Page) */}
       <main className="w-full">
         {currentPath === '/resume' ? (
-          <ResumePage navigate={navigate} />
+          <Suspense fallback={<div className="min-h-screen flex items-center justify-center font-mono font-bold text-sm">Loading Resume...</div>}>
+            <ResumePage navigate={navigate} />
+          </Suspense>
         ) : (
           <>
             <Hero navigate={navigate} />
