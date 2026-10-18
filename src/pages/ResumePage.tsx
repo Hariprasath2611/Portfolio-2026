@@ -155,7 +155,9 @@ export default function ResumePage({ navigate }: ResumePageProps) {
           {/* Toolbar */}
           <div className="neo-card bg-white p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
             <div className="font-mono text-xs font-bold text-[#12110F]">
-              D_HARIPRASATH_RESUME.DOCX · 1 PAGE · ATS
+              {activeTab === 'detailed'
+                ? 'D_HARIPRASATH_RESUME_(ATS_FRIENDLY).DOCX · FULL DETAILED'
+                : 'D_HARIPRASATH_RESUME.DOCX · 1 PAGE · ATS'}
             </div>
 
             <div className="flex items-center gap-2">
@@ -188,8 +190,16 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               </button>
 
               <a
-                href="/D Hariprasath - One Page Resume (ATS).docx"
-                download="D Hariprasath - One Page Resume (ATS).docx"
+                href={
+                  activeTab === 'detailed'
+                    ? '/D%20Hariprasath%20-%20Resume%20(ATS-Friendly).docx'
+                    : '/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx'
+                }
+                download={
+                  activeTab === 'detailed'
+                    ? 'D Hariprasath - Resume (ATS-Friendly).docx'
+                    : 'D Hariprasath - One Page Resume (ATS).docx'
+                }
                 className="neo-btn px-3.5 py-1.5 rounded-lg bg-[#12110F] text-white hover:bg-[#FFD84D] hover:text-[#12110F] font-mono text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                 data-cursor="pointer"
               >
@@ -230,13 +240,27 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               </div>
             </div>
 
+            {/* Career Objective (Featured in Full Detailed Resume) */}
+            {activeTab === 'detailed' && (
+              <div className="mb-6">
+                <h3 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#12110F] border-b border-[#12110F] pb-1 mb-2">
+                  CAREER OBJECTIVE
+                </h3>
+                <p className="text-xs sm:text-sm font-sans text-slate-800 leading-normal">
+                  To secure challenging opportunities where I can use my full-stack development skills, contribute to impactful projects, and keep growing as a software engineer while delivering innovative technology solutions.
+                </p>
+              </div>
+            )}
+
             {/* Summary */}
             <div className="mb-6">
               <h3 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#12110F] border-b border-[#12110F] pb-1 mb-2">
-                SUMMARY
+                PROFESSIONAL SUMMARY
               </h3>
               <p className="text-xs sm:text-sm font-sans text-slate-800 leading-normal">
-                Full Stack Developer and third-year B.E. Computer Science student skilled in React, Node.js, MongoDB, PostgreSQL and React Native. Completed two full-stack internships, led a Smart India Hackathon 2026 Web3 project, and made 2000+ GitHub contributions across 20+ national-level hackathons.
+                {activeTab === 'detailed'
+                  ? 'Full Stack Developer and third-year B.E. Computer Science student with hands-on experience building web and mobile applications using React, Node.js, Express.js, MongoDB, PostgreSQL, Firebase and React Native. Completed internships in full-stack development, built multiple end-to-end projects, and participated in 20+ national-level hackathons. Seeking internship, freelance and full-time software development opportunities.'
+                  : 'Full Stack Developer and third-year B.E. Computer Science student skilled in React, Node.js, MongoDB, PostgreSQL and React Native. Completed two full-stack internships, led a Smart India Hackathon 2026 Web3 project, and made 2000+ GitHub contributions across 20+ national-level hackathons.'}
               </p>
             </div>
 
@@ -245,10 +269,12 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               <h3 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#12110F] border-b border-[#12110F] pb-1 mb-2">
                 TECHNICAL SKILLS
               </h3>
-              <div className="space-y-1 text-xs sm:text-sm font-sans text-slate-800">
+              <div className="space-y-1.5 text-xs sm:text-sm font-sans text-slate-800">
                 <div><strong>Languages:</strong> JavaScript (ES6+), TypeScript, HTML5, CSS3, SQL</div>
-                <div><strong>Frameworks:</strong> React.js, React Native, Node.js, Express.js, Vite, Tailwind CSS</div>
+                <div><strong>Frontend:</strong> React.js, Vite, Tailwind CSS</div>
+                <div><strong>Backend:</strong> Node.js, Express.js, REST APIs</div>
                 <div><strong>Databases:</strong> MongoDB, PostgreSQL, Firebase, SQLite</div>
+                <div><strong>Mobile:</strong> React Native, Expo</div>
                 <div><strong>Tools:</strong> Git, GitHub, Vercel, Postman, Docker</div>
               </div>
             </div>
@@ -267,7 +293,8 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                 </div>
                 <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 mt-1 space-y-1">
                   <li>Develop and maintain full-stack features using React, Node.js and MongoDB.</li>
-                  <li>Collaborate on frontend and backend tasks using Git and GitHub.</li>
+                  <li>Collaborate with the team on frontend and backend tasks using Git and GitHub.</li>
+                  <li>Follow industry-standard development workflows in real-world projects.</li>
                 </ul>
               </div>
 
@@ -278,8 +305,9 @@ export default function ResumePage({ navigate }: ResumePageProps) {
                   <span className="font-mono text-xs text-slate-600">May 2026 – June 2026</span>
                 </div>
                 <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 mt-1 space-y-1">
-                  <li>Built frontend and backend components for web applications in a startup environment.</li>
+                  <li>Built frontend and backend components for web applications in a start-up environment.</li>
                   <li>Contributed to team projects using Git-based collaboration.</li>
+                  <li>Gained hands-on experience with the full software development lifecycle.</li>
                 </ul>
               </div>
             </div>
@@ -291,53 +319,92 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               </h3>
 
               {/* BHAROSA */}
-              <div className="mb-4">
+              <div className="mb-5">
                 <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
                   <span>BHAROSA: Decentralized Identity and Asset Platform</span>
                   <a href="https://github.com/Hariprasath2611/SIH26125-LuminaryForge" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
                     github.com/Hariprasath2611/SIH26125-LuminaryForge
                   </a>
                 </div>
-                <div className="font-mono text-[11px] text-slate-600 mb-1">
-                  React, TypeScript, Node.js, PostgreSQL, Solidity, IPFS
+                <div className="text-[11px] font-mono text-slate-600 mb-1">
+                  Smart India Hackathon 2026 (Team LuminaryForge, Lead Developer) | React 18, Vite, TypeScript, Node.js, Express, Prisma, PostgreSQL, Solidity, Hardhat, IPFS, Docker
                 </div>
                 <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
-                  <li>Led development for Smart India Hackathon 2026 (Team LuminaryForge) of a Web3 platform using W3C DIDs, Verifiable Credentials and 6 smart contracts.</li>
-                  <li>Implemented AES-256-GCM encryption with IPFS storage and Groth16 zero-knowledge proofs for privacy-preserving verification.</li>
-                  <li>Wrote 96 automated tests; deployed on Vercel and Render.</li>
+                  <li>Led development of a Web3 platform for decentralized identity and digital asset management using W3C DIDs, Verifiable Credentials and 6 smart contracts.</li>
+                  <li>Implemented client-side AES-256-GCM encryption with IPFS storage, and Groth16 zero-knowledge proofs that verify credential conditions without revealing underlying data.</li>
+                  <li>Built issuer, holder and verifier flows with attribute-based access control and social recovery, aligned with the India DPDP Act 2023.</li>
+                  <li>Wrote 96 automated tests (43 smart contract, 24 backend, 28 frontend); deployed frontend on Vercel and backend on Render.</li>
                 </ul>
               </div>
 
               {/* CCR */}
-              <div className="mb-4">
+              <div className="mb-5">
                 <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
                   <span>Course Coverage Report (CCR) Management System</span>
                   <a href="https://github.com/Hariprasath2611/CCR-App" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
                     github.com/Hariprasath2611/CCR-App
                   </a>
                 </div>
-                <div className="font-mono text-[11px] text-slate-600 mb-1">
-                  React Native, Expo, Node.js, Prisma, MongoDB, SQLite
+                <div className="text-[11px] font-mono text-slate-600 mb-1">
+                  Jaya Engineering College | React Native, Expo, TypeScript, Node.js, Express, Prisma, MongoDB, SQLite, JWT
                 </div>
                 <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
-                  <li>Built an offline-first mobile and web app for Jaya Engineering College that replaces manual and Excel-based course progress tracking.</li>
-                  <li>Implemented SQLite caching with automatic sync to MongoDB, role-based dashboards, JWT authentication and PDF export.</li>
+                  <li>Built an offline-first mobile and web platform that replaces manual progress logging, Excel tracking and paper reports for weekly course coverage.</li>
+                  <li>Implemented SQLite local caching that automatically syncs with MongoDB when connectivity returns.</li>
+                  <li>Developed role-based dashboards for Subject Teachers, Class Coordinators, HODs and Principal, with JWT authentication, institutional-email access control and PDF export.</li>
                 </ul>
               </div>
 
-              {/* EliteStore */}
-              <div>
-                <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
-                  <span>EliteStore</span>
-                  <span className="font-mono text-xs text-slate-600">Full-Stack Application</span>
+              {/* Full Detailed: Campus ERP & Ryde */}
+              {activeTab === 'detailed' ? (
+                <>
+                  {/* Campus ERP */}
+                  <div className="mb-5">
+                    <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
+                      <span>Campus ERP: Faculty Attendance Module</span>
+                      <a href="https://github.com/Hariprasath2611" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
+                        github.com/Hariprasath2611
+                      </a>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-600 mb-1">
+                      Jaya Engineering College | React Native, Expo
+                    </div>
+                    <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
+                      <li>Developing a college ERP with a mobile faculty attendance module built with React Native and Expo.</li>
+                    </ul>
+                  </div>
+
+                  {/* Ryde */}
+                  <div>
+                    <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
+                      <span>Ryde: On-Demand Driver Booking App (in development)</span>
+                      <a href="https://github.com/Hariprasath2611/Ryde" target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-indigo-600 hover:underline">
+                        github.com/Hariprasath2611/Ryde
+                      </a>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-600 mb-1">
+                      React Native, Node.js
+                    </div>
+                    <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
+                      <li>Building an app where customers book a professional driver for their own vehicle.</li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                /* One Page ATS: EliteStore */
+                <div>
+                  <div className="flex flex-col sm:flex-row justify-between font-display font-bold text-xs sm:text-sm text-[#12110F]">
+                    <span>EliteStore</span>
+                    <span className="font-mono text-xs text-slate-600">Full-Stack Application</span>
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-600 mb-1">
+                    React, Node.js, MongoDB
+                  </div>
+                  <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
+                    <li>Developed a full-stack e-commerce application with product browsing, shopping cart and order management.</li>
+                  </ul>
                 </div>
-                <div className="font-mono text-[11px] text-slate-600 mb-1">
-                  React, Node.js, MongoDB
-                </div>
-                <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
-                  <li>Developed a full-stack e-commerce application with product browsing, shopping cart and order management.</li>
-                </ul>
-              </div>
+              )}
             </div>
 
             {/* Education */}
@@ -355,16 +422,45 @@ export default function ResumePage({ navigate }: ResumePageProps) {
               </div>
             </div>
 
-            {/* Achievements */}
-            <div>
+            {/* Achievements and Certifications */}
+            <div className="mb-6">
               <h3 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#12110F] border-b border-[#12110F] pb-1 mb-2">
-                ACHIEVEMENTS
+                {activeTab === 'detailed' ? 'ACHIEVEMENTS AND CERTIFICATIONS' : 'ACHIEVEMENTS'}
               </h3>
               <ul className="list-disc list-inside text-xs sm:text-sm font-sans text-slate-800 space-y-1">
                 <li>2000+ GitHub contributions across open-source and team repositories.</li>
                 <li>Participated in 20+ national-level hackathons.</li>
+                {activeTab === 'detailed' && (
+                  <>
+                    <li>Full Stack Development Internship Certificate.</li>
+                    <li>National-level hackathon participation certificates (20+).</li>
+                  </>
+                )}
               </ul>
             </div>
+
+            {/* Detailed sections: Soft Skills & Languages */}
+            {activeTab === 'detailed' && (
+              <>
+                <div className="mb-6">
+                  <h3 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#12110F] border-b border-[#12110F] pb-1 mb-2">
+                    SOFT SKILLS
+                  </h3>
+                  <p className="text-xs sm:text-sm font-sans text-slate-800">
+                    Problem Solving, Team Collaboration, Communication, Time Management, Adaptability, Critical Thinking, Continuous Learning
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#12110F] border-b border-[#12110F] pb-1 mb-2">
+                    LANGUAGES
+                  </h3>
+                  <p className="text-xs sm:text-sm font-sans text-slate-800">
+                    English, Tamil
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
