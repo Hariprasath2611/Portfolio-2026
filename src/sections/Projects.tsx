@@ -253,22 +253,22 @@ export default function Projects() {
   });
 
   return (
-    <section id="projects" className="py-20 md:py-28 px-6 max-w-6xl mx-auto">
+    <section id="projects" className="py-20 md:py-28 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col items-start mb-16">
+      <div className="flex flex-col items-start mb-14 sm:mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12110F] text-white text-xs font-mono font-bold tracking-wider mb-4 shadow-[2px_2px_0px_#12110F]">
           04 / PROJECTS
         </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-[#12110F]">
           Work that <span className="font-serif-italic font-normal">gets to work.</span>
         </h2>
-        <p className="text-[#12110F]/70 font-sans mt-3 text-base max-w-xl">
+        <p className="text-[#12110F]/70 font-sans mt-3 text-sm sm:text-base max-w-xl">
           Scroll through featured case studies built with full-stack architectures, followed by open-source repositories.
         </p>
       </div>
 
       {/* MUST-HAVE EFFECT 1: STACK SCROLL CARDS */}
-      <div className="relative pb-12">
+      <div className="relative pb-8 sm:pb-12">
         {FEATURED_PROJECTS.map((proj, idx) => (
           <StackingCard
             key={proj.id}
@@ -279,13 +279,13 @@ export default function Projects() {
       </div>
 
       {/* Additional GitHub Repositories Grid */}
-      <div className="mt-20 pt-16 border-t-2 border-[#12110F]/20">
+      <div className="mt-14 sm:mt-20 pt-12 sm:pt-16 border-t-2 border-[#12110F]/20">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h3 className="text-2xl font-display font-extrabold text-[#12110F]">
+            <h3 className="text-xl sm:text-2xl font-display font-extrabold text-[#12110F]">
               More Repositories on GitHub
             </h3>
-            <p className="text-sm text-[#12110F]/70 font-sans">
+            <p className="text-xs sm:text-sm text-[#12110F]/70 font-sans">
               Explore open source libraries, tools, and experimental builds.
             </p>
           </div>
@@ -297,7 +297,7 @@ export default function Projects() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer min-h-[38px] flex items-center justify-center ${
                     activeCategory === cat
                       ? 'bg-[#12110F] text-white'
                       : 'text-[#12110F] hover:bg-[#FFE585]'
@@ -315,7 +315,7 @@ export default function Projects() {
                 placeholder="Search projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] text-xs font-mono font-bold text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-[#FFE585]"
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border-2 border-[#12110F] shadow-[2px_2px_0px_#12110F] text-base sm:text-xs font-mono font-bold text-[#12110F] placeholder-[#12110F]/40 focus:outline-none focus:bg-[#FFE585] min-h-[44px]"
                 data-cursor="text"
               />
             </div>
@@ -323,14 +323,14 @@ export default function Projects() {
         </div>
 
         {/* Repos Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {filteredRepos.slice(0, 6).map((repo) => (
             <motion.div
               key={repo.id}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="neo-card bg-white p-6 flex flex-col justify-between"
+              className="neo-card bg-white p-5 sm:p-6 flex flex-col justify-between"
               data-cursor="view"
             >
               <div>
@@ -353,7 +353,7 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <h4 className="font-display font-extrabold text-lg text-[#12110F] mb-2 truncate">
+                <h4 className="font-display font-extrabold text-base sm:text-lg text-[#12110F] mb-2 truncate">
                   {repo.name}
                 </h4>
                 <p className="font-sans text-xs text-[#12110F]/75 line-clamp-3 mb-4 leading-relaxed">
@@ -369,7 +369,7 @@ export default function Projects() {
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-mono text-xs font-bold text-[#12110F] hover:text-[#FF8A5B] transition-colors"
+                  className="inline-flex items-center gap-1 font-mono text-xs font-bold text-[#12110F] hover:text-[#FF8A5B] transition-colors min-h-[38px] px-2 py-1 rounded-md"
                   data-cursor="pointer"
                 >
                   <span>Repo</span>
