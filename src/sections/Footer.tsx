@@ -72,7 +72,7 @@ export default function Footer() {
               <GithubIcon className="w-4.5 h-4.5" />
             </a>
             <a
-              href="https://linkedin.com/in/hariprasath2611"
+              href="https://linkedin.com/in/hariprasath-d-b19068379"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-cyan-400 transition-colors"

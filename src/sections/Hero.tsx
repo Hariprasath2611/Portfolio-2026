@@ -143,8 +143,8 @@ export default function Hero({ theme }: HeroProps) {
             </button>
 
             <a
-              href="/D_Hari_Prasath_Resume.pdf"
-              download="D_Hari_Prasath_Resume.pdf"
+              href="/D%20Hariprasath%20-%20One%20Page%20Resume%20(ATS).docx"
+              download="D Hariprasath - One Page Resume (ATS).docx"
               className="px-6 py-3 rounded-lg border border-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 dark:text-cyan-300 font-medium flex items-center gap-2 cursor-pointer transition-all duration-300 shadow-[0_0_10px_rgba(6,182,212,0.15)] hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]"
             >
               <span>Download CV</span>
@@ -165,7 +165,7 @@ export default function Hero({ theme }: HeroProps) {
             </a>
 
             <a
-              href="https://linkedin.com/in/hariprasath2611"
+              href="https://linkedin.com/in/hariprasath-d-b19068379"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border border-slate-200 dark:border-cyan-500/20 bg-slate-100/50 dark:bg-slate-950/40 hover:border-cyan-400 dark:hover:border-cyan-400 text-slate-600 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 transition-all duration-300"

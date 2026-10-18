@@ -29,7 +29,7 @@ export default function Contact() {
     email: 'hariprasathd26112006@gmail.com',
     phone: '+91 9790851329',
     whatsapp: 'https://wa.me/919790851329?text=Hi%20Hari,%20I%27d%20love%20to%20discuss%20a%20project!',
-    linkedin: 'https://linkedin.com/in/hariprasath2611',
+    linkedin: 'https://linkedin.com/in/hariprasath-d-b19068379',
     github: 'https://github.com/Hariprasath2611',
     instagram: 'https://www.instagram.com/_.dazzling_._master._/?hl=en',
   };

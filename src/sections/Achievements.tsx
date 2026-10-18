@@ -41,7 +41,7 @@ function Counter({ target, duration = 1.5 }: CounterProps) {
 const STATS = [
   {
     icon: <Zap className="w-8 h-8 text-cyan-400" />,
-    target: 1840,
+    target: 2000,
     label: 'GitHub Contributions',
     suffix: '+',
     desc: 'Commits, pull requests, and review merges in past years.'
