@@ -533,3 +533,172 @@ export async function fetchGitHubActivity(username: string): Promise<GitHubActiv
     return MOCK_EVENTS;
   }
 }
+
+export function processContributionDays(rawDays: ContributionDay[], totalCount?: number): GitHubContributionsData {
+  const sorted = [...rawDays].sort((a, b) => a.date.localeCompare(b.date));
+  const total = totalCount ?? sorted.reduce((sum, d) => sum + (d.count || 0), 0);
+
+  const weeks: ContributionWeek[] = [];
+  let currentWeek: (ContributionDay | null)[] = [];
+
+  if (sorted.length > 0) {
+    const firstDay = new Date(sorted[0].date + 'T12:00:00Z');
+    const firstDayOfWeek = firstDay.getUTCDay();
+
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      currentWeek.push(null);
+    }
+
+    for (const day of sorted) {
+      currentWeek.push(day);
+      if (currentWeek.length === 7) {
+        weeks.push({ days: currentWeek });
+        currentWeek = [];
+      }
+    }
+
+    if (currentWeek.length > 0) {
+      while (currentWeek.length < 7) {
+        currentWeek.push(null);
+      }
+      weeks.push({ days: currentWeek });
+    }
+  }
+
+  // Month labels: record weekIdx for each unique month appearance
+  const monthLabels: MonthLabel[] = [];
+  let lastMonth = -1;
+
+  weeks.forEach((week, weekIdx) => {
+    const firstValidDay = week.days.find((d): d is ContributionDay => d !== null);
+    if (firstValidDay) {
+      const parts = firstValidDay.date.split('-');
+      const monthNum = Number(parts[1]);
+      if (monthNum !== lastMonth) {
+        lastMonth = monthNum;
+        const d = new Date(firstValidDay.date + 'T12:00:00Z');
+        const monthName = d.toLocaleString('en-US', { month: 'short' });
+        monthLabels.push({ weekIdx, monthName });
+      }
+    }
+  });
+
+  return {
+    total,
+    totalLastYear: total,
+    contributions: sorted,
+    weeks,
+    monthLabels,
+    updatedAt: Date.now(),
+  };
+}
+
+function generateFallbackContributions(): GitHubContributionsData {
+  const days: ContributionDay[] = [];
+  const now = new Date();
+
+  for (let i = 364; i >= 0; i--) {
+    const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+    const dateStr = d.toISOString().split('T')[0];
+    const dayOfWeek = d.getDay();
+
+    const rand = (i * 19 + dayOfWeek * 37) % 100;
+    let count = 0;
+    let level: 0 | 1 | 2 | 3 | 4 = 0;
+
+    if (rand > 88) {
+      count = 25 + (rand % 40);
+      level = 4;
+    } else if (rand > 70) {
+      count = 12 + (rand % 12);
+      level = 3;
+    } else if (rand > 45) {
+      count = 4 + (rand % 8);
+      level = 2;
+    } else if (rand > 25) {
+      count = 1 + (rand % 3);
+      level = 1;
+    } else {
+      count = 0;
+      level = 0;
+    }
+
+    days.push({ date: dateStr, count, level });
+  }
+
+  return processContributionDays(days, 2966);
+}
+
+export async function fetchGitHubContributions(
+  username: string,
+  forceRefresh = false
+): Promise<GitHubContributionsData> {
+  const cacheKey = `gh_contributions_${username}`;
+
+  if (!forceRefresh) {
+    const cached = getCached<GitHubContributionsData>(cacheKey, CONTRIBUTIONS_CACHE_DURATION);
+    if (cached && cached.weeks && cached.weeks.length > 0) {
+      return cached;
+    }
+  }
+
+  // 1. Primary API: jogruber
+  try {
+    const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.contributions) && data.contributions.length > 0) {
+        const total = data.total?.lastYear ?? data.contributions.reduce((s: number, c: any) => s + (c.count || 0), 0);
+        const processed = processContributionDays(data.contributions, total);
+        setCached(cacheKey, processed);
+        return processed;
+      }
+    }
+  } catch (err) {
+    console.warn('Primary contributions API failed, attempting secondary API...', err);
+  }
+
+  // 2. Secondary API: vercel
+  try {
+    const res = await fetch(`https://github-contributions.vercel.app/api/v1/${username}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.contributions) && data.contributions.length > 0) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const valid = data.contributions
+          .filter((c: any) => c.date <= todayStr)
+          .sort((a: any, b: any) => a.date.localeCompare(b.date));
+
+        const last365: ContributionDay[] = valid.slice(-365).map((c: any) => ({
+          date: c.date,
+          count: Number(c.count) || 0,
+          level: (Math.min(4, Math.max(0, Number(c.intensity) || (c.count > 0 ? 1 : 0)))) as 0 | 1 | 2 | 3 | 4,
+        }));
+
+        const total = last365.reduce((s, c) => s + c.count, 0);
+        const processed = processContributionDays(last365, total);
+        setCached(cacheKey, processed);
+        return processed;
+      }
+    }
+  } catch (err) {
+    console.warn('Secondary contributions API failed:', err);
+  }
+
+  // 3. Stale cache fallback
+  try {
+    const raw = localStorage.getItem(cacheKey);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.data?.weeks?.length) {
+        return parsed.data;
+      }
+    }
+  } catch (e) {
+    // Ignore
+  }
+
+  // 4. Fallback generated data
+  return generateFallbackContributions();
+}
+

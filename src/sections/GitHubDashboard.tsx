@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Flame, Code } from 'lucide-react';
+import { ArrowUpRight, Code } from 'lucide-react';
 import { fetchGitHubProfile, fetchGitHubRepos } from '../utils/github';
 import type { GitHubProfile, GitHubRepo } from '../utils/github';
 import { GithubIcon } from '../components/BrandIcons';
+import GitHubContributionGraph from '../components/GitHubContributionGraph';
 
 export default function GitHubDashboard() {
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [totalContributions, setTotalContributions] = useState<number | null>(null);
 
   useEffect(() => {
     async function loadGitHubData() {
@@ -122,7 +124,7 @@ export default function GitHubDashboard() {
               </div>
               <div>
                 <div className="text-2xl font-bold font-display text-[#FFD84D]">
-                  2000+
+                  {totalContributions ? `${totalContributions.toLocaleString()}+` : '2000+'}
                 </div>
                 <div className="text-[10px] uppercase text-slate-400">Contributions</div>
               </div>
@@ -196,51 +198,11 @@ export default function GitHubDashboard() {
               </div>
             </div>
 
-            {/* Contribution Heatmap Card */}
-            <div className="rounded-3xl border-2 border-white/20 bg-white/5 p-6 md:p-8 backdrop-blur-sm shadow-[6px_6px_0px_#000000]">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="font-display font-extrabold text-lg text-white flex items-center gap-2">
-                  <Flame className="w-5 h-5 text-[#FF8A5B]" />
-                  <span>Contribution Activity</span>
-                </h4>
-                <span className="font-mono text-xs font-bold text-emerald-400">● 2000+ Total Commits</span>
-              </div>
-
-              {/* Realistic Contribution Grid (7 rows x 36 cols) */}
-              <div className="overflow-x-auto pb-2 scrollbar-none">
-                <div className="grid grid-rows-7 grid-flow-col gap-1 w-max">
-                  {Array.from({ length: 7 * 34 }).map((_, i) => {
-                    // Weighted random green shades to reflect high activity
-                    const rand = (i * 17 + (i % 7) * 31) % 100;
-                    let cellColor = 'bg-white/10';
-                    if (rand > 80) cellColor = 'bg-emerald-400';
-                    else if (rand > 55) cellColor = 'bg-emerald-500';
-                    else if (rand > 30) cellColor = 'bg-emerald-700';
-                    else if (rand > 15) cellColor = 'bg-emerald-900';
-
-                    return (
-                      <div
-                        key={i}
-                        className={`w-3 h-3 rounded-[2px] ${cellColor} transition-transform hover:scale-125`}
-                        title={`Day ${i + 1} Activity`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs font-mono text-slate-400 mt-4 pt-4 border-t border-white/10">
-                <span>Less</span>
-                <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-[2px] bg-white/10" />
-                  <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-900" />
-                  <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-700" />
-                  <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-500" />
-                  <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-400" />
-                </div>
-                <span>More</span>
-              </div>
-            </div>
+            {/* Live Synchronized Contribution Heatmap Card */}
+            <GitHubContributionGraph
+              username="Hariprasath2611"
+              onTotalChange={setTotalContributions}
+            />
           </motion.div>
         </div>
       </div>

@@ -1,0 +1,260 @@
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { Flame, RefreshCw } from 'lucide-react';
+import { fetchGitHubContributions } from '../utils/github';
+import type { GitHubContributionsData, ContributionDay } from '../utils/github';
+
+interface GitHubContributionGraphProps {
+  username?: string;
+  onTotalChange?: (total: number) => void;
+}
+
+export default function GitHubContributionGraph({
+  username = 'Hariprasath2611',
+  onTotalChange,
+}: GitHubContributionGraphProps) {
+  const [data, setData] = useState<GitHubContributionsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [hoveredCell, setHoveredCell] = useState<{
+    day: ContributionDay;
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const lastFetchTimeRef = useRef<number>(0);
+
+  const loadContributions = useCallback(
+    async (forceRefresh = false) => {
+      try {
+        if (forceRefresh) setIsRefreshing(true);
+        const result = await fetchGitHubContributions(username, forceRefresh);
+        setData(result);
+        lastFetchTimeRef.current = Date.now();
+        if (onTotalChange && result.total) {
+          onTotalChange(result.total);
+        }
+      } catch (err) {
+        console.error('Failed to load contributions', err);
+      } finally {
+        setLoading(false);
+        setIsRefreshing(false);
+      }
+    },
+    [username, onTotalChange]
+  );
+
+  useEffect(() => {
+    loadContributions(false);
+  }, [loadContributions]);
+
+  // Auto-scroll to latest contributions (rightmost edge) on initial load
+  useEffect(() => {
+    if (data && scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+    }
+  }, [data]);
+
+  // Window focus listener: silently re-validate if user returns after pushing commits
+  useEffect(() => {
+    const handleFocus = () => {
+      const now = Date.now();
+      // If returning after at least 60 seconds, check for new commits
+      if (now - lastFetchTimeRef.current > 60 * 1000) {
+        loadContributions(true);
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [loadContributions]);
+
+  // Color mapping matching user design
+  const getCellColor = (level: number) => {
+    switch (level) {
+      case 1:
+        return 'bg-[#0e4429] border border-[#006d32]/30';
+      case 2:
+        return 'bg-[#006d32] border border-[#26a641]/30';
+      case 3:
+        return 'bg-[#26a641] border border-[#39d353]/30 shadow-[0_0_8px_rgba(38,166,65,0.4)]';
+      case 4:
+        return 'bg-[#00f5a0] border border-[#39d353] shadow-[0_0_10px_rgba(0,245,160,0.6)]';
+      case 0:
+      default:
+        return 'bg-white/[0.08] border border-white/5';
+    }
+  };
+
+  const formatDate = (dateStr: string) => {
+    try {
+      const d = new Date(dateStr + 'T12:00:00Z');
+      return d.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  const totalCommitsDisplay = data?.total ? `${data.total.toLocaleString()}+` : '2000+';
+
+  return (
+    <div
+      ref={containerRef}
+      className="rounded-3xl border-2 border-white/20 bg-white/5 p-6 md:p-8 backdrop-blur-sm shadow-[6px_6px_0px_#000000] relative"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h4 className="font-display font-extrabold text-lg text-white flex items-center gap-2">
+          <Flame className="w-5 h-5 text-[#FF8A5B]" />
+          <span>Contribution Activity</span>
+        </h4>
+
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-emerald-400">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span>● {totalCommitsDisplay} Total Commits</span>
+          </div>
+
+          <button
+            onClick={() => loadContributions(true)}
+            disabled={isRefreshing}
+            title="Sync with GitHub (Live)"
+            aria-label="Sync with GitHub"
+            className="p-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/10 transition-colors disabled:opacity-50"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#FFD84D]' : ''}`} />
+          </button>
+        </div>
+      </div>
+
+      {/* Heatmap Grid Area */}
+      <div
+        ref={scrollRef}
+        className="overflow-x-auto pb-3 pt-1 scrollbar-none relative"
+        onMouseLeave={() => setHoveredCell(null)}
+      >
+        {loading && !data ? (
+          /* Loading Skeleton */
+          <div className="animate-pulse">
+            <div className="h-4 w-64 bg-white/10 rounded mb-2" />
+            <div className="grid grid-rows-7 grid-flow-col gap-1 w-max">
+              {Array.from({ length: 7 * 36 }).map((_, i) => (
+                <div key={i} className="w-3 h-3 rounded-[2.5px] bg-white/10" />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="w-max select-none">
+            {/* Month Labels Header */}
+            <div className="flex h-5 relative mb-1.5 text-[10px] font-mono text-slate-400 pl-6">
+              {data?.monthLabels.map((m, idx) => (
+                <span
+                  key={idx}
+                  className="absolute"
+                  style={{ left: `${m.weekIdx * 15 + 24}px` }}
+                >
+                  {m.monthName}
+                </span>
+              ))}
+            </div>
+
+            {/* Grid with Day of Week Labels */}
+            <div className="flex items-start gap-2">
+              {/* Day Labels (Mon, Wed, Fri) */}
+              <div className="grid grid-rows-7 text-[9px] font-mono text-slate-500 h-[108px] py-[2px] select-none leading-none items-center">
+                <span className="h-3 leading-3" />
+                <span className="h-3 leading-3">Mon</span>
+                <span className="h-3 leading-3" />
+                <span className="h-3 leading-3">Wed</span>
+                <span className="h-3 leading-3" />
+                <span className="h-3 leading-3">Fri</span>
+                <span className="h-3 leading-3" />
+              </div>
+
+              {/* Heatmap Columns (7 rows x N weeks) */}
+              <div
+                className="grid grid-rows-7 grid-flow-col gap-[3px]"
+                style={{ gridTemplateRows: 'repeat(7, 12px)' }}
+              >
+                {data?.weeks.map((week, weekIdx) =>
+                  week.days.map((day, dayIdx) => {
+                    if (!day) {
+                      return (
+                        <div
+                          key={`empty-${weekIdx}-${dayIdx}`}
+                          className="w-3 h-3 rounded-[2.5px] opacity-0 pointer-events-none"
+                        />
+                      );
+                    }
+
+                    const colorClass = getCellColor(day.level);
+
+                    return (
+                      <div
+                        key={day.date}
+                        className={`w-3 h-3 rounded-[2.5px] cursor-pointer transition-all duration-150 hover:scale-135 hover:z-30 hover:ring-2 hover:ring-emerald-400 ${colorClass}`}
+                        onMouseEnter={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const containerRect = containerRef.current?.getBoundingClientRect();
+                          if (containerRect) {
+                            setHoveredCell({
+                              day,
+                              x: rect.left - containerRect.left + rect.width / 2,
+                              y: rect.top - containerRect.top,
+                            });
+                          }
+                        }}
+                      />
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Floating Interactive Tooltip */}
+      {hoveredCell && (
+        <div
+          className="absolute z-50 pointer-events-none -translate-x-1/2 -translate-y-full mb-2 px-3 py-1.5 rounded-lg bg-[#12110F] border border-white/20 text-white font-mono text-xs shadow-2xl backdrop-blur-md"
+          style={{
+            left: `${hoveredCell.x}px`,
+            top: `${hoveredCell.y - 8}px`,
+          }}
+        >
+          <div className="font-bold text-emerald-400">
+            {hoveredCell.day.count === 0
+              ? 'No contributions'
+              : `${hoveredCell.day.count} contribution${hoveredCell.day.count > 1 ? 's' : ''}`}
+          </div>
+          <div className="text-[11px] text-slate-400">
+            {formatDate(hoveredCell.day.date)}
+          </div>
+        </div>
+      )}
+
+      {/* Footer Legend */}
+      <div className="flex items-center justify-between text-xs font-mono text-slate-400 mt-4 pt-4 border-t border-white/10">
+        <span>Less</span>
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-white/[0.08] border border-white/5" title="0 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#0e4429] border border-[#006d32]/30" title="1-3 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#006d32] border border-[#26a641]/30" title="4-9 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#26a641] border border-[#39d353]/30" title="10-19 contributions" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-[#00f5a0] border border-[#39d353]" title="20+ contributions" />
+        </div>
+        <span>More</span>
+      </div>
+    </div>
+  );
+}
