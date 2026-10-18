@@ -15,9 +15,9 @@ export default function HeroVisual() {
         data-cursor="hi"
       >
         <img
-          src="/Profle.png"
+          src="/Photo%20one.png"
           alt="D Hariprasath"
-          className="w-full h-full object-cover object-top scale-105 group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover object-[center_12%] scale-105 group-hover:scale-110 transition-transform duration-500"
           loading="eager"
         />
 
