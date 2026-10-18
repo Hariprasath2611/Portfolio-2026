@@ -1,77 +1,48 @@
-import { useState, useEffect } from 'react';
-import LoadingScreen from './components/LoadingScreen';
-import TargetCursor from './components/TargetCursor';
-import SplashCursor from './components/SplashCursor';
-import ScrollProgress from './components/ScrollProgress';
+import { useRouter } from './hooks/useRouter';
+import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
-import BackToTop from './components/BackToTop';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import TechStack from './sections/TechStack';
 import GitHubDashboard from './sections/GitHubDashboard';
 import Projects from './sections/Projects';
 import Services from './sections/Services';
-import Achievements from './sections/Achievements';
 import Timeline from './sections/Timeline';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
-import { useTheme } from './hooks/useTheme';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import ResumePage from './pages/ResumePage';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    if (!isLoading) {
-      const timer = setTimeout(() => {
-        ScrollTrigger.refresh();
-        console.log("App: ScrollTrigger.refresh() executed after layout load.");
-      }, 600);
-      return () => clearTimeout(timer);
-    }
-  }, [isLoading]);
+  const { currentPath, navigate } = useRouter();
 
   return (
-    <>
-      <LoadingScreen onComplete={() => setIsLoading(false)} />
-      
-      {!isLoading && (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#030712] text-slate-800 dark:text-gray-100 transition-colors duration-300">
-          {/* Global UI Components */}
-          <ScrollProgress />
-          <SplashCursor />
-          <TargetCursor 
-            targetSelector="a, button, [role='button'], .cursor-pointer, .cursor-target"
-            spinDuration={2}
-            hideDefaultCursor={true}
-            parallaxOn={true}
-            cursorColor="#06b6d4"
-            cursorColorOnTarget="#d946ef"
-          />
-          <Navbar />
-          
-          {/* Main Sections */}
-          <main className="w-full">
-            <Hero theme={theme} />
-            <About theme={theme} />
+    <div className="min-h-screen bg-[#F4F1EA] text-[#12110F] font-sans selection:bg-[#FFD84D] selection:text-[#12110F] relative">
+      {/* 1. Global Custom Neo-Brutalist Cursor */}
+      <CustomCursor />
+
+      {/* 2. Floating Pill Navbar */}
+      <Navbar currentPath={currentPath} navigate={navigate} />
+
+      {/* 3. Main Views (Landing Page vs Dedicated Resume Page) */}
+      <main className="w-full">
+        {currentPath === '/resume' ? (
+          <ResumePage navigate={navigate} />
+        ) : (
+          <>
+            <Hero navigate={navigate} />
+            <About />
             <TechStack />
             <GitHubDashboard />
             <Projects />
             <Services />
-            <Achievements />
             <Timeline />
             <Contact />
-          </main>
+          </>
+        )}
+      </main>
 
-          {/* Footer & Back to top button */}
-          <Footer />
-          <BackToTop />
-        </div>
-      )}
-    </>
+      {/* 4. Footer */}
+      <Footer />
+    </div>
   );
 }
